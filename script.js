@@ -182,24 +182,6 @@ gsap.to('#hero-logo-wrap', {
 });
 
 
-/* ============================
-   CUSTOM CURSOR — 심볼 이미지
-   ============================ */
-(function initCursor() {
-    const cursor = qs('#c-cursor');
-    let mx = 0, my = 0, cx = 0, cy = 0;
-
-    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-
-    function animCursor() {
-        cx = lerp(cx, mx, 0.18);
-        cy = lerp(cy, my, 0.18);
-        cursor.style.left = cx + 'px';
-        cursor.style.top  = cy + 'px';
-        requestAnimationFrame(animCursor);
-    }
-    requestAnimationFrame(animCursor);
-})();
 
 
 /* ============================
