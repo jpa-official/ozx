@@ -107,7 +107,7 @@ function exitLoader() {
 }
 
 const loadTick = setInterval(() => {
-    loadVal += Math.random() * 4 + 1;
+    loadVal += Math.random() * 1.5 + 0.5;
     if (loadVal >= 100) {
         loadVal = 100;
         clearInterval(loadTick);
@@ -117,7 +117,7 @@ const loadTick = setInterval(() => {
         return;
     }
     digitFlash(String(Math.floor(loadVal)).padStart(2, '0'));
-}, 140);
+}, 100);
 
 window.addEventListener('load', () => {
     pageLoaded = true;
