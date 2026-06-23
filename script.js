@@ -97,10 +97,10 @@ function digitFlash(finalStr) {
 }
 
 const loadTick = setInterval(() => {
-    loadVal += Math.random() * 14 + 4;
+    loadVal += Math.random() * 7 + 2;
     if (loadVal >= 100) { loadVal = 100; clearInterval(loadTick); }
     digitFlash(String(Math.floor(loadVal)).padStart(2, '0'));
-}, 80);
+}, 110);
 
 window.addEventListener('load', () => {
     loadVal = 100;
