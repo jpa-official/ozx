@@ -178,7 +178,7 @@ em { font-style: normal; }
 
 @keyframes wmFade {
     0%, 100% { filter: brightness(0) invert(1); }
-    50%      { filter: brightness(0) invert(0.45); }
+    50%      { filter: brightness(0) invert(0.25); }
 }
 
 @keyframes wmFadeBurg {
