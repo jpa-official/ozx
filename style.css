@@ -70,9 +70,10 @@ em { font-style: normal; }
    ============================ */
 #progress-bar {
     position: fixed; top: 0; left: 0;
-    height: 2px; width: 0%;
-    background: linear-gradient(to right, rgba(100,0,25,0.4), #640019);
+    height: 3px; width: 0%;
+    background: #fff;
     z-index: 9999; pointer-events: none;
+    transition: width 0.1s linear;
 }
 
 /* ============================
