@@ -325,6 +325,15 @@ body.burgundy .id-sub-burg    { display: none; }
     transition: background-color 0.75s ease;
 }
 
+.id-cover {
+    position: absolute;
+    inset: 0;
+    z-index: 8;
+    background: #000;
+    pointer-events: none;
+}
+
+body.burgundy .id-cover { background: #640019; }
 
 .id-inner {
     position: relative; z-index: 2;
