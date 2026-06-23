@@ -433,7 +433,6 @@ body.burgundy .id-sub-burg    { display: block; }
 
 .mvvs-tab:hover { color: rgba(255,255,255,0.65); }
 .mvvs-tab.is-active { color: #640019; }
-.mvvs-tab .oz-char { font-family: var(--f-narrow); }
 
 .tab-num {
     font-size: 0.4em;
@@ -506,7 +505,6 @@ body.burgundy .id-sub-burg    { display: block; }
     justify-content: center;
 }
 
-.mvvs-col-en .oz-char { font-family: var(--f-narrow); }
 
 /* Burgundy overrides */
 body.burgundy #mvvs                { background: #640019; }
