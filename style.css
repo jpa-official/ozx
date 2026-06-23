@@ -388,8 +388,15 @@ body.burgundy .id-sub-burg    { display: block; }
    MISSION · VISION · STRATEGY · VALUE
    ============================ */
 #mvvs {
-    background: #000;
+    position: relative;
     min-height: 100vh;
+    overflow: hidden;
+}
+
+.mvvs-bg {
+    position: absolute;
+    inset: 0;
+    background: #000 url('background.jpg') center / cover no-repeat;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -509,7 +516,7 @@ body.burgundy .id-sub-burg    { display: block; }
 
 
 /* Burgundy overrides */
-body.burgundy #mvvs                { background: #640019; }
+body.burgundy .mvvs-bg             { background: #640019; }
 body.burgundy .mvvs-tab            { color: rgba(0,0,0,0.3); }
 body.burgundy .mvvs-tab:hover      { color: rgba(0,0,0,0.6); }
 body.burgundy .mvvs-tab.is-active  { color: #000; }

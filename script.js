@@ -459,40 +459,29 @@ ScrollTrigger.create({
 
 
 /* ============================
-   MVVS — MISSION / VISION / STRATEGY / VALUE (스크롤 전환)
+   MVVS — 배경 rise + 패널 전환
    ============================ */
 (function initMVVS() {
     const tabs   = qsa('.mvvs-tab');
     const panels = qsa('.mvvs-panel');
     if (!tabs.length) return;
 
-    // 초기 상태
-    gsap.set(tabs,             { opacity: 0, y: 20 });
-    gsap.set(panels,           { opacity: 0 });
-    gsap.set('#panel-mission', { opacity: 1 });
+    // 초기 상태: 배경 아래에 숨김, 콘텐츠 투명
+    gsap.set('.mvvs-bg', { yPercent: 100 });
+    gsap.set(tabs,       { opacity: 0 });
+    gsap.set(panels,     { opacity: 0, y: 16 });
     tabs[0].classList.add('is-active');
     panels[0].classList.add('is-active');
 
-    // 탭 스크롤 진입 시 reveal
-    ScrollTrigger.create({
-        trigger: '#mvvs', start: 'top 78%', once: true,
-        onEnter: () => {
-            gsap.to(tabs, {
-                opacity: 1, y: 0, duration: 0.7, stagger: 0.12, ease: 'power3.out',
-            });
-        }
-    });
-
-    // 핀 + 스크롤 패널 전환
-    // 총 타임라인 4.0 기준 탭 전환 임계값:
-    // MISSION→VISION: 1.1/4.0 = 0.275
-    // VISION→STRATEGY: 2.1/4.0 = 0.525
-    // STRATEGY→VALUE: 3.1/4.0 = 0.775
+    // 타임라인 총 ~4.95 기준 탭 전환 임계값:
+    // MISSION→VISION  at 2.175/4.95 = 0.440
+    // VISION→STRATEGY at 3.175/4.95 = 0.641
+    // STRATEGY→VALUE  at 4.175/4.95 = 0.843
     const tl = gsap.timeline({
         scrollTrigger: {
             trigger: '#mvvs',
             start: 'top top',
-            end: '+=' + (window.innerHeight * 3.2),
+            end: '+=' + (window.innerHeight * 4.5),
             scrub: 0.8,
             pin: true,
             pinSpacing: true,
@@ -500,23 +489,29 @@ ScrollTrigger.create({
             onUpdate: (self) => {
                 const p = self.progress;
                 let idx = 0;
-                if      (p >= 0.775) idx = 3;
-                else if (p >= 0.525) idx = 2;
-                else if (p >= 0.275) idx = 1;
-                tabs.forEach((t, i) => t.classList.toggle('is-active', i === idx));
-                panels.forEach((p, i) => p.classList.toggle('is-active', i === idx));
+                if      (p >= 0.843) idx = 3;
+                else if (p >= 0.641) idx = 2;
+                else if (p >= 0.440) idx = 1;
+                tabs.forEach((t, i)   => t.classList.toggle('is-active', i === idx));
+                panels.forEach((pn, i) => pn.classList.toggle('is-active', i === idx));
             },
         }
     });
 
     tl
-        .to('#panel-mission',  { opacity: 0, y: -14, duration: 0.4 }, 0.8)
-        .to('#panel-vision',   { opacity: 1, y: 0,   duration: 0.4 }, 1.0)
-        .to('#panel-vision',   { opacity: 0, y: -14, duration: 0.4 }, 1.8)
-        .to('#panel-strategy', { opacity: 1, y: 0,   duration: 0.4 }, 2.0)
-        .to('#panel-strategy', { opacity: 0, y: -14, duration: 0.4 }, 2.8)
-        .to('#panel-value',    { opacity: 1, y: 0,   duration: 0.4 }, 3.0)
-        .to({}, { duration: 0.6 });
+        // Phase 1: 배경 패널 아래서 위로 상승
+        .to('.mvvs-bg',        { yPercent: 0,  duration: 1.0, ease: 'power3.out' }, 0)
+        // Phase 2: 탭 + 첫 패널 등장
+        .to(tabs,              { opacity: 1, stagger: 0.08, duration: 0.35 }, 0.75)
+        .to('#panel-mission',  { opacity: 1, y: 0, duration: 0.35 }, 1.0)
+        // Phase 3: 패널 전환 MISSION → VISION → STRATEGY → VALUE
+        .to('#panel-mission',  { opacity: 0, y: -14, duration: 0.35 }, 1.8)
+        .to('#panel-vision',   { opacity: 1, y: 0,   duration: 0.35 }, 2.0)
+        .to('#panel-vision',   { opacity: 0, y: -14, duration: 0.35 }, 2.8)
+        .to('#panel-strategy', { opacity: 1, y: 0,   duration: 0.35 }, 3.0)
+        .to('#panel-strategy', { opacity: 0, y: -14, duration: 0.35 }, 3.8)
+        .to('#panel-value',    { opacity: 1, y: 0,   duration: 0.35 }, 4.0)
+        .to({}, { duration: 0.6 }); // VALUE에서 잠시 유지
 })();
 
 /* ============================
