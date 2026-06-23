@@ -390,7 +390,6 @@ body.burgundy .id-sub-burg    { display: block; }
 #mvvs {
     position: relative;
     min-height: 100vh;
-    overflow: hidden;
 }
 
 .mvvs-bg {

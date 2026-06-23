@@ -466,8 +466,8 @@ ScrollTrigger.create({
     const panels = qsa('.mvvs-panel');
     if (!tabs.length) return;
 
-    // 초기 상태: 배경 아래에 숨김, 콘텐츠 투명
-    gsap.set('.mvvs-bg', { yPercent: 100 });
+    // 초기 상태: 배경 clip으로 숨김, 콘텐츠 투명
+    gsap.set('.mvvs-bg', { clipPath: 'inset(100% 0 0% 0)' });
     gsap.set(tabs,       { opacity: 0 });
     gsap.set(panels,     { opacity: 0, y: 16 });
     tabs[0].classList.add('is-active');
@@ -499,8 +499,8 @@ ScrollTrigger.create({
     });
 
     tl
-        // Phase 1: 배경 패널 아래서 위로 상승
-        .to('.mvvs-bg',        { yPercent: 0,  duration: 1.0, ease: 'power3.out' }, 0)
+        // Phase 1: 배경 패널 아래서 위로 wipe 공개
+        .to('.mvvs-bg', { clipPath: 'inset(0% 0 0% 0)', duration: 1.0, ease: 'power3.out' }, 0)
         // Phase 2: 탭 + 첫 패널 등장
         .to(tabs,              { opacity: 1, stagger: 0.08, duration: 0.35 }, 0.75)
         .to('#panel-mission',  { opacity: 1, y: 0, duration: 0.35 }, 1.0)
