@@ -157,7 +157,7 @@ function revealChars(el, delay = 0, stagger = 0.03) {
    ============================ */
 function startHero() {
     const wrap = qs('#hero-logo-wrap');
-    const sub  = qs('.hero-sub');
+    const sub  = qs('.hero-sub-img');
     const cue  = qs('.scroll-cue');
 
     gsap.set(wrap, { opacity: 0, scale: 0.92 });
@@ -165,14 +165,12 @@ function startHero() {
     const tl = gsap.timeline();
     tl.to(wrap, { opacity: 1, scale: 1, duration: 1.3, ease: 'power3.out' });
 
-    /* Hero subtitle — char split */
+    /* Hero subtitle — image fade up */
     if (sub) {
-        const chars = charSplit(sub);
-        gsap.set(chars, { yPercent: 110 });
-        tl.to(chars, {
+        gsap.set(sub, { yPercent: 110 });
+        tl.to(sub, {
             yPercent: 0,
             duration: 0.65,
-            stagger: 0.018,
             ease: 'power3.out',
         }, '-=0.55');
     }

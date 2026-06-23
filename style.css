@@ -232,12 +232,11 @@ em { font-style: normal; }
 
 .hero-sub-wrap { overflow: hidden; }
 
-.hero-sub {
-    font-family: var(--f-narrow); font-weight: 500;
-    font-size: clamp(8px, 0.9vw, 11px);
-    letter-spacing: 0.22em;
-    color: rgba(255,255,255,0.55);
-    transform: translateY(110%); display: block;
+.hero-sub-img {
+    display: block;
+    width: clamp(160px, 20vw, 320px);
+    opacity: 0.85;
+    transform: translateY(110%);
 }
 
 .scroll-cue {
