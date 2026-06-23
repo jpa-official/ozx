@@ -10,7 +10,7 @@
     --f-display: 'owners-xwide', sans-serif;
     --f-narrow:  'owners-narrow', sans-serif;
     --f-body:    'Pretendard', sans-serif;
-    --pad-x: 48px;
+    --pad-x: 28px;
 }
 
 html { scroll-behavior: smooth; overflow-x: hidden; }
