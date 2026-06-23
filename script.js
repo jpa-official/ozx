@@ -219,6 +219,16 @@ const idObs = new IntersectionObserver(entries => {
 const idSection = qs('#identity');
 if (idSection) idObs.observe(idSection);
 
+/* Identity 섹션 — 스크롤 핀 (한 화면에 머물렀다가 계속) */
+ScrollTrigger.create({
+    trigger: '#identity',
+    start: 'top top',
+    end: '+=700',
+    pin: true,
+    pinSpacing: true,
+    anticipatePin: 1,
+});
+
 /* ============================
    TEXT SCRAMBLE CLASS
    ============================ */
