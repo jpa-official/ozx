@@ -35,7 +35,7 @@ function wrapOZText(node) {
 
 qsa([
     '.header-brand', '.nav-a', '.id-tagline', '.sr-title',
-    '.marquee-inner span:not(.sep)', '.scroll-cue span',
+    '.scroll-cue span',
     '.f-logo', '.f-tagline', '.f-nav a',
     '.pill-label', '.news-text',
 ].join(', ')).forEach(wrapOZText);
