@@ -251,10 +251,10 @@ em { font-style: normal; }
     height: auto;
 }
 
-.id-sub-default { display: none; }
+.id-sub-burg { display: none; }
 
-body.burgundy .id-sub-default { display: block; }
-body.burgundy .id-sub-burg    { display: none; }
+body.burgundy .id-sub-default { display: none; }
+body.burgundy .id-sub-burg    { display: block; }
 
 .scroll-cue {
     position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
@@ -320,20 +320,9 @@ body.burgundy .id-sub-burg    { display: none; }
 #identity {
     position: relative;
     min-height: 100vh;
-    background: #fff;
-    overflow: hidden;
-    transition: background-color 0.75s ease;
-}
-
-.id-cover {
-    position: absolute;
-    inset: 0;
-    z-index: 8;
     background: #000;
-    pointer-events: none;
+    overflow: hidden;
 }
-
-body.burgundy .id-cover { background: #640019; }
 
 .id-inner {
     position: relative; z-index: 2;
@@ -387,7 +376,7 @@ body.burgundy .id-cover { background: #640019; }
     font-family: var(--f-body);
     font-size: clamp(15px, 1.3vw, 17px);
     font-weight: 300; line-height: 1.85;
-    color: #000;
+    color: #fff;
     text-align: center;
     opacity: 0; transform: translateY(18px);
     transition: opacity .9s ease .5s, transform .9s ease .5s;
@@ -715,7 +704,7 @@ body.burgundy {
 
 /* 명시적 배경색 재정의 */
 body.burgundy #hero          { background: #640019; }
-body.burgundy #identity      { background: #000; }
+body.burgundy #identity      { background: #640019; }
 body.burgundy .marquee-wrap  { background: #640019; border-color: rgba(0,0,0,0.1); }
 body.burgundy .news-placeholder { background: #640019; }
 body.burgundy footer         { background: #640019; border-top-color: rgba(0,0,0,0.1); }
@@ -746,6 +735,7 @@ body.burgundy .marquee-inner span  { color: rgba(0,0,0,0.25); }
 body.burgundy .marquee-inner .sep  { color: rgba(0,0,0,0.1); }
 
 /* 명시적 흰색 텍스트 재정의 */
+body.burgundy .id-desc,
 body.burgundy .id-placeholder,
 body.burgundy .sec-lead,
 body.burgundy .sr-ko,
@@ -754,9 +744,6 @@ body.burgundy .sr-body,
 body.burgundy .strength-lead p,
 body.burgundy .pill-ko,
 body.burgundy .pill-body           { color: #000; }
-
-/* identity 섹션은 검정 배경이므로 버건디 텍스트 */
-body.burgundy .id-desc             { color: #640019; }
 
 /* 폰트 두께 보정 — 검정 텍스트가 얇아 보이는 현상 보정 */
 body.burgundy .id-desc,

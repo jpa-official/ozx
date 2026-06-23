@@ -219,7 +219,7 @@ const idObs = new IntersectionObserver(entries => {
 const idSection = qs('#identity');
 if (idSection) idObs.observe(idSection);
 
-/* Identity 섹션 — 스크롤 핀 */
+/* Identity 섹션 — 스크롤 핀 (한 화면에 머물렀다가 계속) */
 ScrollTrigger.create({
     trigger: '#identity',
     start: 'top top',
@@ -227,18 +227,6 @@ ScrollTrigger.create({
     pin: true,
     pinSpacing: true,
     anticipatePin: 1,
-});
-
-/* Identity 커버 — 핀 초반 350px 동안 페이드아웃 (배경 전환 효과) */
-gsap.to('.id-cover', {
-    opacity: 0,
-    ease: 'power2.inOut',
-    scrollTrigger: {
-        trigger: '#identity',
-        start: 'top top',
-        end: '+=350',
-        scrub: 0.6,
-    }
 });
 
 /* ============================
