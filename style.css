@@ -236,7 +236,6 @@ em { font-style: normal; }
     display: block;
     width: clamp(160px, 20vw, 320px);
     opacity: 0.85;
-    transform: translateY(110%);
 }
 
 .scroll-cue {
