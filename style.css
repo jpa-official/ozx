@@ -741,6 +741,20 @@ body.burgundy .strength-lead p,
 body.burgundy .pill-ko,
 body.burgundy .pill-body           { color: #000; }
 
+/* 폰트 두께 보정 — 검정 텍스트가 얇아 보이는 현상 보정 */
+body.burgundy .id-desc,
+body.burgundy .sec-lead,
+body.burgundy .sr-body,
+body.burgundy .strength-lead p,
+body.burgundy .pill-body           { font-weight: 400; }
+
+body.burgundy .sr-ko               { font-weight: 500; }
+body.burgundy .pill-ko             { font-weight: 600; }
+
+body.burgundy .sr-title,
+body.burgundy .nav-a,
+body.burgundy .sec-h2              { font-weight: 600; }
+
 body.burgundy .news-text           { color: rgba(0,0,0,0.06); }
 
 /* 섹션 헤딩 */
