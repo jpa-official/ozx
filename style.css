@@ -148,7 +148,12 @@ em { font-style: normal; }
 #nav-menu .nav-a {
     font-size: 13px;
     font-weight: 700;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.06em;
+}
+
+#nav-menu .oz-char {
+    font-family: var(--f-narrow);
+    font-weight: 700;
 }
 
 .header-center {
