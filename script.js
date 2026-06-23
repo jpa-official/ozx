@@ -345,6 +345,7 @@ qsa('.fade-up').forEach((el, i) => {
             scrub: 0.9,
             pin: true,
             anticipatePin: 1,
+            invalidateOnRefresh: true,
         }
     });
 
@@ -521,3 +522,6 @@ qs('.header-brand').addEventListener('click', e => {
     e.preventDefault();
     document.body.classList.toggle('burgundy');
 });
+
+/* 모든 핀 초기화 후 ScrollTrigger 위치 재계산 */
+setTimeout(() => ScrollTrigger.refresh(), 50);
