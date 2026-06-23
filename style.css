@@ -433,6 +433,8 @@ body.burgundy .id-sub-burg    { display: block; }
 
 .mvvs-tab:hover { color: rgba(255,255,255,0.65); }
 .mvvs-tab.is-active { color: #640019; }
+.mvvs-tab .oz-char,
+.mvvs-col-en .oz-char { font-weight: 700; }
 
 .tab-num {
     font-size: 0.4em;
