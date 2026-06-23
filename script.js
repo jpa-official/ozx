@@ -57,6 +57,10 @@ lenis.on('scroll', ScrollTrigger.update);
 /* ============================
    SCROLL PROGRESS BAR
    ============================ */
+const progressTrack = document.createElement('div');
+progressTrack.id = 'progress-track';
+document.body.prepend(progressTrack);
+
 const progressBar = document.createElement('div');
 progressBar.id = 'progress-bar';
 document.body.prepend(progressBar);
