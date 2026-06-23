@@ -172,14 +172,14 @@ em { font-style: normal; }
 .hwm-white {
     height: 20px; width: auto; display: block;
     filter: brightness(0) invert(0.55);
-    animation: wmWhite 2.5s ease-in-out infinite;
+    animation: wmWhite 6s ease-in-out infinite;
 }
 
 .hwm-burg {
     position: absolute; top: 0; left: 0;
     height: 20px; width: auto; display: block;
     filter: brightness(0) invert(0.3);
-    animation: wmBurg 2.5s ease-in-out infinite;
+    animation: wmBurg 6s ease-in-out infinite;
     opacity: 0;
 }
 
