@@ -171,34 +171,19 @@ em { font-style: normal; }
 
 .hwm-white {
     height: 20px; width: auto; display: block;
-    filter: brightness(0) invert(0.55);
-    animation: wmWhite 6s ease-in-out infinite;
+    animation: wmFade 6s ease-in-out infinite;
 }
 
-.hwm-burg {
-    position: absolute; top: 0; left: 0;
-    height: 20px; width: auto; display: block;
-    filter: brightness(0) invert(0.3);
-    animation: wmBurg 6s ease-in-out infinite;
-    opacity: 0;
+.hwm-burg { display: none; }
+
+@keyframes wmFade {
+    0%, 100% { filter: brightness(0) invert(1); }
+    50%      { filter: brightness(0) invert(0.45); }
 }
 
-@keyframes wmWhite {
-    0%, 35%  { opacity: 1; }
-    50%, 85% { opacity: 0; }
-    100%     { opacity: 1; }
-}
-
-@keyframes wmBurg {
-    0%, 35%  { opacity: 0; }
-    50%, 85% { opacity: 1; }
-    100%     { opacity: 0; }
-}
-
-@keyframes wmBlackWhite {
-    0%, 35%  { filter: brightness(0) invert(1); }
-    50%, 85% { filter: brightness(0); }
-    100%     { filter: brightness(0) invert(1); }
+@keyframes wmFadeBurg {
+    0%, 100% { filter: brightness(0) invert(1); }
+    50%      { filter: brightness(0); }
 }
 
 .main-nav { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
@@ -480,7 +465,7 @@ em { font-style: normal; }
 .sec-lead {
     font-family: var(--f-body);
     font-size: clamp(14px, 1.2vw, 16px);
-    font-weight: 300; line-height: 1.8;
+    font-weight: 300; line-height: 2;
     color: #fff;
     max-width: 620px;
 }
@@ -552,7 +537,7 @@ em { font-style: normal; }
 .strength-lead p {
     font-family: var(--f-body);
     font-size: clamp(14px, 1.2vw, 16px);
-    font-weight: 300; line-height: 1.8;
+    font-weight: 300; line-height: 2;
     color: #fff;
     margin-bottom: 12px;
 }
@@ -776,14 +761,9 @@ body.burgundy .f-bot p             { color: rgba(0,0,0,0.3); }
 
 /* 커서 */
 
-/* 워드마크 — 버건디 테마에서는 검은색 ↔ 흰색 */
+/* 워드마크 — 버건디 테마 */
 body.burgundy .hwm-white {
-    animation: wmBlackWhite 2.5s ease-in-out infinite !important;
-    opacity: 1 !important;
-}
-body.burgundy .hwm-burg {
-    animation: none !important;
-    opacity: 0 !important;
+    animation: wmFadeBurg 6s ease-in-out infinite !important;
 }
 
 body.burgundy {
