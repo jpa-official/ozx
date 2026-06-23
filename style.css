@@ -178,7 +178,7 @@ em { font-style: normal; }
 .hwm-burg {
     position: absolute; top: 0; left: 0;
     height: 20px; width: auto; display: block;
-    filter: url(#wm-burgundy);
+    filter: brightness(0) invert(0.3);
     animation: wmBurg 2.5s ease-in-out infinite;
     opacity: 0;
 }
@@ -519,7 +519,7 @@ em { font-style: normal; }
 .sr-ko {
     font-family: var(--f-body);
     font-size: 15px; font-weight: 400;
-    color: #fff;
+    line-height: 1.8; color: #fff;
     max-width: 220px;
 }
 
@@ -552,7 +552,7 @@ em { font-style: normal; }
 .strength-lead p {
     font-family: var(--f-body);
     font-size: clamp(14px, 1.2vw, 16px);
-    font-weight: 300; line-height: 1.85;
+    font-weight: 300; line-height: 1.8;
     color: #fff;
     margin-bottom: 12px;
 }
