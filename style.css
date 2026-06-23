@@ -69,13 +69,11 @@ em { font-style: normal; }
    PROGRESS BAR
    ============================ */
 #progress-bar {
-    position: fixed; top: 0; left: 0;
-    height: 3px; width: 0%;
-    background: repeating-linear-gradient(
-        to right,
-        #fff 0px, #fff 6px,
-        transparent 6px, transparent 12px
-    );
+    position: fixed; top: 10px; left: 0;
+    height: 4px; width: 0%;
+    background-image: radial-gradient(circle, #fff 2px, transparent 2px);
+    background-size: 12px 4px;
+    background-repeat: repeat-x;
     z-index: 9999; pointer-events: none;
     transition: width 0.1s linear;
 }
