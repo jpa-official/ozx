@@ -219,7 +219,7 @@ const idObs = new IntersectionObserver(entries => {
 const idSection = qs('#identity');
 if (idSection) idObs.observe(idSection);
 
-/* Identity 섹션 — 스크롤 핀 (한 화면에 머물렀다가 계속) */
+/* Identity 섹션 — 스크롤 핀 + 배경 플립 전환 */
 ScrollTrigger.create({
     trigger: '#identity',
     start: 'top top',
@@ -227,6 +227,15 @@ ScrollTrigger.create({
     pin: true,
     pinSpacing: true,
     anticipatePin: 1,
+    onEnter: () => {
+        const isBurg = document.body.classList.contains('burgundy');
+        gsap.from('#identity', {
+            backgroundColor: isBurg ? '#640019' : '#000',
+            duration: 0.75,
+            ease: 'power2.inOut',
+            overwrite: true,
+        });
+    },
 });
 
 /* ============================
