@@ -174,98 +174,11 @@ function startHero() {
 }
 
 /* ============================
-   PARTICLE SYSTEM — HERO
-   ============================ */
-(function initParticles() {
-    const canvas = qs('#hero-canvas');
-    const ctx    = canvas.getContext('2d');
-    let W, H, particles = [];
-    const MOUSE = { x: null, y: null };
-
-    function resize() {
-        W = canvas.width  = window.innerWidth;
-        H = canvas.height = window.innerHeight;
-    }
-
-    function makePt() {
-        return {
-            x: Math.random() * W, y: Math.random() * H,
-            bvx: (Math.random() - 0.5) * 0.35,
-            bvy: (Math.random() - 0.5) * 0.35,
-            vx: 0, vy: 0,
-            r: Math.random() * 2.2 + 0.9,
-            a: Math.random() * 0.45 + 0.1,
-        };
-    }
-
-    function init() {
-        const N = clamp(Math.floor(W * H / 11000), 60, 140);
-        particles = Array.from({ length: N }, makePt);
-        particles.forEach(p => { p.vx = p.bvx; p.vy = p.bvy; });
-    }
-
-    function tick() {
-        ctx.clearRect(0, 0, W, H);
-        const fg = document.body.classList.contains('burgundy') ? '0,0,0' : '255,255,255';
-
-        particles.forEach(p => {
-            if (MOUSE.x !== null) {
-                const dx = p.x - MOUSE.x, dy = p.y - MOUSE.y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-                if (dist < 160 && dist > 0) {
-                    const f = (160 - dist) / 160 * 0.9;
-                    p.vx += dx / dist * f; p.vy += dy / dist * f;
-                }
-            }
-            p.vx = lerp(p.vx, p.bvx, 0.04);
-            p.vy = lerp(p.vy, p.bvy, 0.04);
-            const sp = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
-            if (sp > 4) { p.vx = p.vx / sp * 4; p.vy = p.vy / sp * 4; }
-            p.x += p.vx; p.y += p.vy;
-            if (p.x < -20) p.x = W + 20; if (p.x > W + 20) p.x = -20;
-            if (p.y < -20) p.y = H + 20; if (p.y > H + 20) p.y = -20;
-        });
-
-        for (let i = 0; i < particles.length; i++) {
-            for (let j = i + 1; j < particles.length; j++) {
-                const dx = particles[i].x - particles[j].x;
-                const dy = particles[i].y - particles[j].y;
-                const d2 = dx * dx + dy * dy;
-                if (d2 < 10000) {
-                    ctx.beginPath();
-                    ctx.moveTo(particles[i].x, particles[i].y);
-                    ctx.lineTo(particles[j].x, particles[j].y);
-                    ctx.strokeStyle = `rgba(${fg},${(1 - Math.sqrt(d2)/100) * 0.12})`;
-                    ctx.lineWidth = 0.4; ctx.stroke();
-                }
-            }
-        }
-
-        particles.forEach(p => {
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(${fg},${p.a})`;
-            ctx.fill();
-        });
-
-        requestAnimationFrame(tick);
-    }
-
-    resize(); init(); tick();
-    window.addEventListener('resize', () => { resize(); init(); });
-    window.addEventListener('mousemove', e => { MOUSE.x = e.clientX; MOUSE.y = e.clientY; });
-})();
-
-/* ============================
    HERO — PARALLAX
    ============================ */
 gsap.to('#hero-logo-wrap', {
     yPercent: -18, ease: 'none',
     scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true }
-});
-gsap.to('.hero-sub-wrap', {
-    yPercent: -10, opacity: 0, ease: 'none',
-    scrollTrigger: { trigger: '#hero', start: 'top top', end: '60% top', scrub: true }
 });
 
 
@@ -485,14 +398,6 @@ ScrollTrigger.create({
     }
 });
 
-/* ============================
-   HERO CANVAS — FADE ON SCROLL
-   ============================ */
-ScrollTrigger.create({
-    trigger: '#hero', start: 'bottom top',
-    onEnter:     () => { const c = qs('#hero-canvas'); c.style.transition = 'opacity .6s'; c.style.opacity = '0'; },
-    onLeaveBack: () => { qs('#hero-canvas').style.opacity = '1'; }
-});
 
 /* ============================
    THEME TOGGLE — 워드마크 클릭
