@@ -72,14 +72,9 @@ const loader  = qs('#loader');
 const lcNum   = qs('.lc-num');
 const DIGITS  = '0123456789';
 
-let loadVal   = 0;
-let loadDone  = false;
-
-/* Fast digit scramble while counting */
-function setCounter(n) {
-    const target = Math.floor(n);
-    lcNum.textContent = String(target).padStart(2, '0');
-}
+let loadVal    = 0;
+let loadDone   = false;
+let pageLoaded = false;
 
 /* Brief random digit flash */
 function digitFlash(finalStr) {
@@ -96,29 +91,37 @@ function digitFlash(finalStr) {
     }, flashes * 28 + 10);
 }
 
+function exitLoader() {
+    digitFlash('100');
+    setTimeout(() => {
+        gsap.to(loader, {
+            yPercent: -100,
+            duration: 1.1,
+            ease: 'power3.inOut',
+            onComplete: () => {
+                loader.style.display = 'none';
+                startHero();
+            }
+        });
+    }, 350);
+}
+
 const loadTick = setInterval(() => {
-    loadVal += Math.random() * 7 + 2;
-    if (loadVal >= 100) { loadVal = 100; clearInterval(loadTick); }
+    loadVal += Math.random() * 4 + 1;
+    if (loadVal >= 100) {
+        loadVal = 100;
+        clearInterval(loadTick);
+        digitFlash('100');
+        if (pageLoaded) setTimeout(exitLoader, 180);
+        loadDone = true;
+        return;
+    }
     digitFlash(String(Math.floor(loadVal)).padStart(2, '0'));
-}, 110);
+}, 140);
 
 window.addEventListener('load', () => {
-    loadVal = 100;
-    clearInterval(loadTick);
-    setTimeout(() => {
-        digitFlash('100');
-        setTimeout(() => {
-            gsap.to(loader, {
-                yPercent: -100,
-                duration: 1.1,
-                ease: 'power3.inOut',
-                onComplete: () => {
-                    loader.style.display = 'none';
-                    startHero();
-                }
-            });
-        }, 350);
-    }, 120);
+    pageLoaded = true;
+    if (loadDone) setTimeout(exitLoader, 180);
 });
 
 /* ============================
