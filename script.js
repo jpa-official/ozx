@@ -383,6 +383,57 @@ qsa('.nav-a, .f-nav a').forEach(link => {
 });
 
 /* ============================
+   SCROLL TEXT REVEAL
+   ============================ */
+
+/* Service row 01 — 데스크탑 첫 진입 */
+ScrollTrigger.create({
+    trigger: '.sr-01', start: 'top 85%', once: true,
+    onEnter: () => {
+        gsap.fromTo('.sr-01 .sr-title, .sr-01 .sr-num, .sr-01 .sr-ko, .sr-01 .sr-body',
+            { opacity: 0, y: 20 },
+            { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out', stagger: 0.1 }
+        );
+    }
+});
+
+/* Strength lead — 문단별 스태거 */
+qsa('.strength-lead p').forEach((p, i) => {
+    gsap.fromTo(p,
+        { opacity: 0, y: 18 },
+        {
+            opacity: 1, y: 0,
+            duration: 0.7, ease: 'power2.out',
+            delay: i * 0.13,
+            scrollTrigger: { trigger: p, start: 'top 88%', once: true }
+        }
+    );
+});
+
+/* Pill 카드 내부 콘텐츠 스태거 */
+qsa('.pill-card').forEach(card => {
+    gsap.fromTo(qsa('.pill-label, .pill-ko, .pill-body', card),
+        { opacity: 0, y: 14 },
+        {
+            opacity: 1, y: 0,
+            duration: 0.65, ease: 'power2.out',
+            stagger: 0.1, delay: 0.25,
+            scrollTrigger: { trigger: card, start: 'top 88%', once: true }
+        }
+    );
+});
+
+/* News 텍스트 */
+gsap.fromTo('.news-text',
+    { opacity: 0, y: 16 },
+    {
+        opacity: 1, y: 0,
+        duration: 0.7, ease: 'power2.out',
+        scrollTrigger: { trigger: '.news-text', start: 'top 88%', once: true }
+    }
+);
+
+/* ============================
    FOOTER REVEAL
    ============================ */
 ScrollTrigger.create({
