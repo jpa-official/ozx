@@ -481,7 +481,7 @@ ScrollTrigger.create({
         scrollTrigger: {
             trigger: '#mvvs',
             start: 'top top',
-            end: '+=' + (window.innerHeight * 4.5),
+            end: '+=' + (window.innerHeight * 3.5),
             scrub: 0.8,
             pin: true,
             pinSpacing: true,
@@ -489,9 +489,9 @@ ScrollTrigger.create({
             onUpdate: (self) => {
                 const p = self.progress;
                 let idx = 0;
-                if      (p >= 0.843) idx = 3;
-                else if (p >= 0.641) idx = 2;
-                else if (p >= 0.440) idx = 1;
+                if      (p >= 0.917) idx = 3;
+                else if (p >= 0.698) idx = 2;
+                else if (p >= 0.478) idx = 1;
                 tabs.forEach((t, i)   => t.classList.toggle('is-active', i === idx));
                 panels.forEach((pn, i) => pn.classList.toggle('is-active', i === idx));
             },
@@ -511,7 +511,7 @@ ScrollTrigger.create({
         .to('#panel-strategy', { opacity: 1, y: 0,   duration: 0.35 }, 3.0)
         .to('#panel-strategy', { opacity: 0, y: -14, duration: 0.35 }, 3.8)
         .to('#panel-value',    { opacity: 1, y: 0,   duration: 0.35 }, 4.0)
-        .to({}, { duration: 0.6 }); // VALUE에서 잠시 유지
+        .to({}, { duration: 0.2 }); // VALUE에서 잠시 유지
 })();
 
 /* ============================
