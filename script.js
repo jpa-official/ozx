@@ -103,25 +103,24 @@ function exitLoader() {
                 startHero();
             }
         });
-    }, 350);
+    }, 80);
 }
 
 const loadTick = setInterval(() => {
-    loadVal += Math.random() * 1.5 + 0.5;
+    loadVal += Math.random() * 5 + 2;
     if (loadVal >= 100) {
         loadVal = 100;
         clearInterval(loadTick);
-        digitFlash('100');
-        if (pageLoaded) setTimeout(exitLoader, 180);
+        if (pageLoaded) exitLoader();
         loadDone = true;
         return;
     }
     digitFlash(String(Math.floor(loadVal)).padStart(2, '0'));
-}, 100);
+}, 80);
 
 window.addEventListener('load', () => {
     pageLoaded = true;
-    if (loadDone) setTimeout(exitLoader, 180);
+    if (loadDone) exitLoader();
 });
 
 /* ============================
