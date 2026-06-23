@@ -232,10 +232,10 @@ em { font-style: normal; }
 
 .hero-sub-wrap { overflow: hidden; }
 
-.hero-sub-img {
+.id-sub-img {
     display: block;
-    width: clamp(160px, 20vw, 320px);
-    opacity: 0.85;
+    width: min(628px, 100%);
+    height: auto;
 }
 
 .scroll-cue {
@@ -652,7 +652,7 @@ footer {
    RESPONSIVE
    ============================ */
 @media (max-width: 900px) {
-    :root { --pad-x: 36px; }
+    :root { --pad-x: 28px; }
 
     .service-row {
         grid-area: unset;
@@ -667,7 +667,7 @@ footer {
 }
 
 @media (max-width: 640px) {
-    :root { --pad-x: 20px; }
+    :root { --pad-x: 28px; }
     .header-center { display: none; }
     .bg-img { background-attachment: scroll; }
     .id-logo-img { width: clamp(220px, 80vw, 400px); }
