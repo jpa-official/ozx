@@ -459,77 +459,64 @@ ScrollTrigger.create({
 
 
 /* ============================
-   MVVS — 스크롤 핀
-   ============================ */
-ScrollTrigger.create({
-    trigger: '#mvvs',
-    start: 'top top',
-    end: '+=700',
-    pin: true,
-    pinSpacing: true,
-    anticipatePin: 1,
-});
-
-/* ============================
-   MVVS — MISSION / VISION / STRATEGY / VALUE
+   MVVS — MISSION / VISION / STRATEGY / VALUE (스크롤 전환)
    ============================ */
 (function initMVVS() {
-    const tabs  = qsa('.mvvs-tab');
-    const mvvsSection = qs('#mvvs');
-    if (!tabs.length || !mvvsSection) return;
+    const tabs   = qsa('.mvvs-tab');
+    const panels = qsa('.mvvs-panel');
+    if (!tabs.length) return;
 
-    // Initial state: tabs hidden, mission panel ready
-    gsap.set(tabs, { opacity: 0, y: 20 });
-    const initPanel = qs('#panel-mission');
-    initPanel.classList.add('is-active');
-    let current = initPanel;
+    // 초기 상태
+    gsap.set(tabs,             { opacity: 0, y: 20 });
+    gsap.set(panels,           { opacity: 0 });
+    gsap.set('#panel-mission', { opacity: 1 });
+    tabs[0].classList.add('is-active');
+    panels[0].classList.add('is-active');
 
-    // Scroll reveal
+    // 탭 스크롤 진입 시 reveal
     ScrollTrigger.create({
         trigger: '#mvvs', start: 'top 78%', once: true,
         onEnter: () => {
             gsap.to(tabs, {
-                opacity: 1, y: 0,
-                duration: 0.7, stagger: 0.12, ease: 'power3.out',
+                opacity: 1, y: 0, duration: 0.7, stagger: 0.12, ease: 'power3.out',
             });
-            gsap.fromTo(current,
-                { opacity: 0, y: 18 },
-                { opacity: 1, y: 0, duration: 0.6, delay: 0.55, ease: 'power2.out' }
-            );
         }
     });
 
-    // Tab click
-    tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            const target = tab.dataset.tab;
-            const next   = qs(`#panel-${target}`);
-            if (next === current) return;
-
-            // Highlight tab
-            qsa('.mvvs-tab.is-active').forEach(t => t.classList.remove('is-active'));
-            tab.classList.add('is-active');
-
-            const prev = current;
-            current = next;
-
-            // Fade out previous panel
-            gsap.to(prev, {
-                opacity: 0, y: -14, duration: 0.22, ease: 'power2.in',
-                onComplete: () => {
-                    prev.classList.remove('is-active');
-                    gsap.set(prev, { y: 0 });
-                }
-            });
-
-            // Fade in next panel
-            next.classList.add('is-active');
-            gsap.fromTo(next,
-                { opacity: 0, y: 18 },
-                { opacity: 1, y: 0, duration: 0.38, ease: 'power2.out', delay: 0.1 }
-            );
-        });
+    // 핀 + 스크롤 패널 전환
+    // 총 타임라인 4.0 기준 탭 전환 임계값:
+    // MISSION→VISION: 1.1/4.0 = 0.275
+    // VISION→STRATEGY: 2.1/4.0 = 0.525
+    // STRATEGY→VALUE: 3.1/4.0 = 0.775
+    const tl = gsap.timeline({
+        scrollTrigger: {
+            trigger: '#mvvs',
+            start: 'top top',
+            end: '+=' + (window.innerHeight * 3.2),
+            scrub: 0.8,
+            pin: true,
+            pinSpacing: true,
+            anticipatePin: 1,
+            onUpdate: (self) => {
+                const p = self.progress;
+                let idx = 0;
+                if      (p >= 0.775) idx = 3;
+                else if (p >= 0.525) idx = 2;
+                else if (p >= 0.275) idx = 1;
+                tabs.forEach((t, i) => t.classList.toggle('is-active', i === idx));
+                panels.forEach((p, i) => p.classList.toggle('is-active', i === idx));
+            },
+        }
     });
+
+    tl
+        .to('#panel-mission',  { opacity: 0, y: -14, duration: 0.4 }, 0.8)
+        .to('#panel-vision',   { opacity: 1, y: 0,   duration: 0.4 }, 1.0)
+        .to('#panel-vision',   { opacity: 0, y: -14, duration: 0.4 }, 1.8)
+        .to('#panel-strategy', { opacity: 1, y: 0,   duration: 0.4 }, 2.0)
+        .to('#panel-strategy', { opacity: 0, y: -14, duration: 0.4 }, 2.8)
+        .to('#panel-value',    { opacity: 1, y: 0,   duration: 0.4 }, 3.0)
+        .to({}, { duration: 0.6 });
 })();
 
 /* ============================
