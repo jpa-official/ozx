@@ -459,6 +459,18 @@ ScrollTrigger.create({
 
 
 /* ============================
+   MVVS — 스크롤 핀
+   ============================ */
+ScrollTrigger.create({
+    trigger: '#mvvs',
+    start: 'top top',
+    end: '+=700',
+    pin: true,
+    pinSpacing: true,
+    anticipatePin: 1,
+});
+
+/* ============================
    MVVS — MISSION / VISION / STRATEGY / VALUE
    ============================ */
 (function initMVVS() {
