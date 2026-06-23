@@ -168,10 +168,25 @@ function startHero() {
 
     tl.to(cue, { opacity: 1, duration: 0.6, ease: 'power2.out' }, '-=0.3');
 
-    gsap.fromTo('.logo-mark',  { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.8, ease: 'power2.out', delay: 0.25 });
+    gsap.fromTo('.menu-toggle', { opacity: 0, x: 20 }, { opacity: 1, x: 0, duration: 0.8, ease: 'power2.out', delay: 0.25 });
     gsap.fromTo('.header-brand', { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', delay: 0.45 });
-    gsap.from('.nav-a',        { opacity: 0, x:  16, stagger: 0.08, duration: 0.65, ease: 'power2.out', delay: 0.3 });
 }
+
+/* ============================
+   MENU TOGGLE
+   ============================ */
+const menuToggle = qs('#menu-toggle');
+const navMenu    = qs('#nav-menu');
+
+menuToggle.addEventListener('click', () => {
+    navMenu.classList.toggle('open');
+});
+
+qsa('#nav-menu .nav-a').forEach(a => {
+    a.addEventListener('click', () => {
+        navMenu.classList.remove('open');
+    });
+});
 
 /* ============================
    HERO — PARALLAX
