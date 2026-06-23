@@ -38,6 +38,7 @@ qsa([
     '.scroll-cue span',
     '.f-logo', '.f-tagline', '.f-nav a',
     '.pill-label', '.news-text',
+    '.mvvs-tab', '.mvvs-col-en',
 ].join(', ')).forEach(wrapOZText);
 
 /* ============================
@@ -456,6 +457,68 @@ ScrollTrigger.create({
     }
 });
 
+
+/* ============================
+   MVVS — MISSION / VISION / STRATEGY / VALUE
+   ============================ */
+(function initMVVS() {
+    const tabs  = qsa('.mvvs-tab');
+    const mvvsSection = qs('#mvvs');
+    if (!tabs.length || !mvvsSection) return;
+
+    // Initial state: tabs hidden, mission panel ready
+    gsap.set(tabs, { opacity: 0, y: 20 });
+    const initPanel = qs('#panel-mission');
+    initPanel.classList.add('is-active');
+    let current = initPanel;
+
+    // Scroll reveal
+    ScrollTrigger.create({
+        trigger: '#mvvs', start: 'top 78%', once: true,
+        onEnter: () => {
+            gsap.to(tabs, {
+                opacity: 1, y: 0,
+                duration: 0.7, stagger: 0.12, ease: 'power3.out',
+            });
+            gsap.fromTo(current,
+                { opacity: 0, y: 18 },
+                { opacity: 1, y: 0, duration: 0.6, delay: 0.55, ease: 'power2.out' }
+            );
+        }
+    });
+
+    // Tab click
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const target = tab.dataset.tab;
+            const next   = qs(`#panel-${target}`);
+            if (next === current) return;
+
+            // Highlight tab
+            qsa('.mvvs-tab.is-active').forEach(t => t.classList.remove('is-active'));
+            tab.classList.add('is-active');
+
+            const prev = current;
+            current = next;
+
+            // Fade out previous panel
+            gsap.to(prev, {
+                opacity: 0, y: -14, duration: 0.22, ease: 'power2.in',
+                onComplete: () => {
+                    prev.classList.remove('is-active');
+                    gsap.set(prev, { y: 0 });
+                }
+            });
+
+            // Fade in next panel
+            next.classList.add('is-active');
+            gsap.fromTo(next,
+                { opacity: 0, y: 18 },
+                { opacity: 1, y: 0, duration: 0.38, ease: 'power2.out', delay: 0.1 }
+            );
+        });
+    });
+})();
 
 /* ============================
    THEME TOGGLE — 워드마크 클릭

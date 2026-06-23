@@ -385,6 +385,139 @@ body.burgundy .id-sub-burg    { display: block; }
 .id-desc.in { opacity: 1; transform: translateY(0); }
 
 /* ============================
+   MISSION · VISION · STRATEGY · VALUE
+   ============================ */
+#mvvs {
+    background: #000;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px var(--pad-x);
+}
+
+.mvvs-inner {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 80px;
+}
+
+.mvvs-tabs {
+    display: flex;
+    align-items: baseline;
+    gap: clamp(18px, 4vw, 60px);
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.mvvs-tab {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    color: rgba(255,255,255,0.3);
+    font-family: var(--f-display);
+    font-size: clamp(20px, 3.2vw, 50px);
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    transition: color 0.35s ease;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 4px;
+    line-height: 1;
+}
+
+.mvvs-tab:hover { color: rgba(255,255,255,0.65); }
+.mvvs-tab.is-active { color: #640019; }
+.mvvs-tab .oz-char { font-family: var(--f-narrow); }
+
+.tab-num {
+    font-size: 0.4em;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    vertical-align: 0.55em;
+}
+
+/* Content area */
+.mvvs-content {
+    width: 100%;
+    min-height: 220px;
+    position: relative;
+}
+
+.mvvs-panel {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.mvvs-panel.is-active { pointer-events: auto; }
+
+.mvvs-single {
+    font-family: var(--f-body);
+    font-size: clamp(14px, 1.3vw, 17px);
+    font-weight: 300;
+    line-height: 1.85;
+    color: #fff;
+    text-align: center;
+}
+
+.mvvs-cols {
+    display: flex;
+    gap: clamp(24px, 6vw, 96px);
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.mvvs-col {
+    flex: 1;
+    min-width: 160px;
+    max-width: 280px;
+    text-align: center;
+}
+
+.mvvs-col p {
+    font-family: var(--f-body);
+    font-size: clamp(13px, 1.1vw, 16px);
+    font-weight: 300;
+    line-height: 1.9;
+    color: #fff;
+}
+
+.mvvs-col-en {
+    font-family: var(--f-display);
+    font-size: clamp(12px, 1.1vw, 16px);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: #fff;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mvvs-col-en .oz-char { font-family: var(--f-narrow); }
+
+/* Burgundy overrides */
+body.burgundy #mvvs                { background: #640019; }
+body.burgundy .mvvs-tab            { color: rgba(0,0,0,0.3); }
+body.burgundy .mvvs-tab:hover      { color: rgba(0,0,0,0.6); }
+body.burgundy .mvvs-tab.is-active  { color: #000; }
+body.burgundy .mvvs-single,
+body.burgundy .mvvs-col p          { color: #000; font-weight: 500; }
+body.burgundy .mvvs-col-en         { color: #000; }
+
+/* ============================
    SHARED BACKGROUND — WHAT WE DO + OPERATING STRENGTH
    background-attachment: fixed makes both sections show the
    same viewport-fixed image, appearing as one continuous bg
