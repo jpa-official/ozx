@@ -246,6 +246,11 @@ em { font-style: normal; }
     height: auto;
 }
 
+.id-sub-burg { display: none; }
+
+body.burgundy .id-sub-default { display: none; }
+body.burgundy .id-sub-burg    { display: block; }
+
 .scroll-cue {
     position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
     z-index: 2; display: flex; flex-direction: column; align-items: center;
