@@ -846,7 +846,7 @@ body.burgundy .mvvs-col-en         { color: #000; }
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    padding: clamp(36px, 5vw, 72px) clamp(28px, 5vw, 72px);
+    padding: clamp(20px, 2.5vw, 36px) clamp(28px, 5vw, 72px);
     border-bottom: 1px solid rgba(255,255,255,0.12);
     gap: clamp(24px, 6vw, 80px);
 }
@@ -855,24 +855,24 @@ body.burgundy .mvvs-col-en         { color: #000; }
 
 .gp-feat-heading {
     font-family: var(--f-narrow);
-    font-size: clamp(32px, 5.5vw, 82px);
+    font-size: clamp(18px, 2.8vw, 42px);
     font-weight: 500;
     color: #fff;
     letter-spacing: -0.01em;
     line-height: 1;
-    margin-bottom: clamp(8px, 1.2vw, 16px);
+    margin-bottom: clamp(4px, 0.6vw, 8px);
 }
 
 .gp-feat-num {
     font-size: 0.55em;
-    font-weight: 700;
+    font-weight: 500;
     vertical-align: 0.1em;
     opacity: 0.7;
 }
 
 .gp-feat-sub {
     font-family: var(--f-body);
-    font-size: clamp(14px, 1.1vw, 17px);
+    font-size: clamp(11px, 0.85vw, 13px);
     font-weight: 300;
     color: rgba(255,255,255,0.60);
     line-height: 1.5;
@@ -880,13 +880,13 @@ body.burgundy .mvvs-col-en         { color: #000; }
 
 .gp-feat-desc {
     font-family: var(--f-body);
-    font-size: clamp(12px, 0.95vw, 14px);
+    font-size: clamp(11px, 0.8vw, 12px);
     font-weight: 300;
     color: rgba(255,255,255,0.55);
     line-height: 1.85;
     text-align: right;
     flex-shrink: 0;
-    padding-top: 6px;
+    padding-top: 4px;
 }
 
 /* ============================
