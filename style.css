@@ -542,7 +542,7 @@ body.burgundy .id-sub-burg    { display: block; }
 .strength-lead p {
     font-family: var(--f-body);
     font-size: clamp(14px, 1.2vw, 16px);
-    font-weight: 300; line-height: 2;
+    font-weight: 300; line-height: 1.6;
     color: #fff;
     margin-bottom: 12px;
 }
