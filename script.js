@@ -334,27 +334,30 @@ qsa('.fade-up').forEach((el, i) => {
         return;
     }
 
-    gsap.set(sr2, { opacity: 0, y: 52 });
-    gsap.set(sr3, { opacity: 0, y: 52 });
+    /* MVVS pin-spacer가 먼저 DOM에 삽입된 뒤 #space 위치를 계산해야
+       scrub 타임라인의 start/end가 정확해짐 — setTimeout(0)으로 defer */
+    setTimeout(() => {
+        gsap.set(sr2, { opacity: 0, y: 52 });
+        gsap.set(sr3, { opacity: 0, y: 52 });
 
-    const tl = gsap.timeline({
-        scrollTrigger: {
-            trigger: '#space',
-            start: 'top top',
-            end: '+=' + (window.innerHeight * 2.6),
-            scrub: 0.9,
-            pin: true,
-            anticipatePin: 1,
-            invalidateOnRefresh: true,
-        }
-    });
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: '#space',
+                start: 'top top',
+                end: '+=' + (window.innerHeight * 2.6),
+                scrub: 0.9,
+                pin: true,
+                anticipatePin: 1,
+            }
+        });
 
-    tl
-        .to(sr1, { opacity: 0, y: -52, duration: 0.7, ease: 'power2.inOut' }, 0.7)
-        .to(sr2, { opacity: 1, y: 0,   duration: 0.7, ease: 'power2.inOut' }, 1.0)
-        .to(sr2, { opacity: 0, y: -52, duration: 0.7, ease: 'power2.inOut' }, 2.4)
-        .to(sr3, { opacity: 1, y: 0,   duration: 0.7, ease: 'power2.inOut' }, 2.7)
-        .to({}, { duration: 0.4 });
+        tl
+            .to(sr1, { opacity: 0, y: -52, duration: 0.7, ease: 'power2.inOut' }, 0.7)
+            .to(sr2, { opacity: 1, y: 0,   duration: 0.7, ease: 'power2.inOut' }, 1.0)
+            .to(sr2, { opacity: 0, y: -52, duration: 0.7, ease: 'power2.inOut' }, 2.4)
+            .to(sr3, { opacity: 1, y: 0,   duration: 0.7, ease: 'power2.inOut' }, 2.7)
+            .to({}, { duration: 0.4 });
+    }, 0);
 })();
 
 /* ============================
