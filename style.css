@@ -750,10 +750,10 @@ body.burgundy .id-desc,
 body.burgundy .sec-lead,
 body.burgundy .sr-body,
 body.burgundy .strength-lead p,
-body.burgundy .pill-body           { font-weight: 400; }
+body.burgundy .pill-body           { font-weight: 500; }
 
-body.burgundy .sr-ko               { font-weight: 500; }
-body.burgundy .pill-ko             { font-weight: 600; }
+body.burgundy .sr-ko               { font-weight: 600; }
+body.burgundy .pill-ko             { font-weight: 700; }
 
 
 body.burgundy .news-text           { color: rgba(0,0,0,0.06); }
