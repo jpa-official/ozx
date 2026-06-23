@@ -767,9 +767,11 @@ body.burgundy .mvvs-col-en         { color: #000; }
     aspect-ratio: 16 / 9;
     overflow: hidden;
     min-height: 480px;
+    background: url('gwanghwa169.jpg') center / cover no-repeat;
 }
 
 .gp-video {
+    display: block;
     position: absolute;
     inset: 0;
     width: 100%;
@@ -801,7 +803,7 @@ body.burgundy .mvvs-col-en         { color: #000; }
 .gp-title {
     font-family: var(--f-narrow);
     font-size: clamp(52px, 9vw, 128px);
-    font-weight: 700;
+    font-weight: 500;
     color: #fff;
     letter-spacing: -0.02em;
     line-height: 0.95;
@@ -854,7 +856,7 @@ body.burgundy .mvvs-col-en         { color: #000; }
 .gp-feat-heading {
     font-family: var(--f-narrow);
     font-size: clamp(32px, 5.5vw, 82px);
-    font-weight: 700;
+    font-weight: 500;
     color: #fff;
     letter-spacing: -0.01em;
     line-height: 1;
