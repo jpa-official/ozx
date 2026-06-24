@@ -538,7 +538,7 @@ qs('.header-brand').addEventListener('click', e => {
         const ss  = String(now.getSeconds()).padStart(2, '0');
 
         if (dateEl) dateEl.textContent = `${day} ${dd} ${mon} ${yr}`;
-        if (timeEl) timeEl.textContent = `${hh}:${mm}:${ss}`;
+        if (timeEl) timeEl.textContent = `${hh}:${mm}:${ss} KST`;
     }
 
     function fetchTemp() {
