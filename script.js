@@ -544,17 +544,34 @@ qs('.header-brand').addEventListener('click', e => {
 
     function updateClock() {
         const now = new Date();
-        const dd  = String(now.getDate()).padStart(2, '0');
-        const mon = MONTHS[now.getMonth()];
-        const yr  = now.getFullYear();
-        const day = DAYS[now.getDay()];
         const hh  = String(now.getHours()).padStart(2, '0');
         const mm  = String(now.getMinutes()).padStart(2, '0');
         const ss  = String(now.getSeconds()).padStart(2, '0');
 
-        if (dateEl) dateEl.textContent = `${day} ${dd} ${mon} ${yr}`;
+        if (window.innerWidth < 768) {
+            const yr = now.getFullYear();
+            const mo = now.getMonth() + 1;
+            const dd = now.getDate();
+            if (dateEl) dateEl.textContent = `${yr}.${mo}.${dd}`;
+        } else {
+            const dd  = String(now.getDate()).padStart(2, '0');
+            const mon = MONTHS[now.getMonth()];
+            const yr  = now.getFullYear();
+            const day = DAYS[now.getDay()];
+            if (dateEl) dateEl.textContent = `${day} ${dd} ${mon} ${yr}`;
+        }
+
         if (timeEl) timeEl.textContent = `${hh}:${mm}:${ss} KST`;
     }
+
+    function updateHdrScroll() {
+        if (window.innerWidth < 768) {
+            const hdrInfo = qs('.hdr-info');
+            if (hdrInfo) hdrInfo.style.opacity = window.scrollY > 30 ? '0' : '1';
+        }
+    }
+
+    window.addEventListener('scroll', updateHdrScroll, { passive: true });
 
     function fetchTemp() {
         fetch('https://api.open-meteo.com/v1/forecast?latitude=37.5665&longitude=126.9780&current=temperature_2m&timezone=Asia%2FSeoul')

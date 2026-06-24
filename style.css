@@ -1159,6 +1159,7 @@ em { font-style: normal; }
     display: flex;
     flex-direction: column;
     gap: 2px;
+    transition: opacity 0.3s ease;
 }
 
 .hdr-date,
