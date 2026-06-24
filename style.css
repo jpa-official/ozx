@@ -613,6 +613,7 @@ em { font-style: normal; }
     font-family: var(--f-body);
     font-size: 15px; font-weight: 300;
     line-height: 1.8; color: #fff;
+    word-break: keep-all;
 }
 
 /* ============================
