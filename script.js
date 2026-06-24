@@ -605,7 +605,7 @@ window.addEventListener('wheel', e => {
         upWheelAccum += Math.abs(e.deltaY);
         clearTimeout(upWheelTimer);
         upWheelTimer = setTimeout(() => { upWheelAccum = 0; }, 600);
-        if (upWheelAccum >= 300) {
+        if (upWheelAccum >= 600) {
             upWheelAccum = 0;
             loopTo('#contact');
         }
