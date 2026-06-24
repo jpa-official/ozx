@@ -522,22 +522,18 @@ qs('.header-brand').addEventListener('click', e => {
    ============================ */
 let loopLocked = false;
 let currentScroll = 0;
-lenis.on('scroll', ({ scroll }) => { currentScroll = scroll; });
 
 function loopTo(target) {
     if (loopLocked) return;
     loopLocked = true;
-
     lenis.scrollTo(target, { immediate: true, force: true });
-
-    // 점프 후 ScrollTrigger 상태 동기화
     requestAnimationFrame(() => {
         ScrollTrigger.update();
         setTimeout(() => { loopLocked = false; }, 900);
     });
 }
 
-// 아래 스크롤 → contact 지나면 → hero 상단
+// Contact 핀
 setTimeout(() => {
     ScrollTrigger.create({
         trigger: '#contact',
@@ -546,10 +542,15 @@ setTimeout(() => {
         pin: true,
         pinSpacing: true,
         anticipatePin: 1,
-        onLeave: () => loopTo(0),
-        onLeaveBack: () => {},
     });
 }, 0);
+
+// 스크롤이 페이지 끝에 도달하면 → hero 상단으로 루프
+// (onLeave 대신 scroll 이벤트로 감지 — 더 안정적)
+lenis.on('scroll', ({ scroll, limit }) => {
+    currentScroll = scroll;
+    if (scroll >= limit - 10 && !loopLocked) loopTo(0);
+});
 
 // 위 스크롤 → hero 상단에서 위로 올리면 → contact
 window.addEventListener('wheel', e => {
