@@ -922,6 +922,30 @@ body.burgundy .mvvs-col-en         { color: #000; }
     resize: none;
 }
 
+.cf-submit {
+    width: 100%;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.25);
+    color: #fff;
+    font-family: var(--f-narrow);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    padding: 20px 22px;
+    cursor: inherit;
+    transition: background .3s, border-color .3s, color .3s;
+    margin-top: 6px;
+}
+
+.cf-submit:hover {
+    background: #fff;
+    color: #000;
+    border-color: #fff;
+}
+
+body.burgundy .cf-submit            { border-color: rgba(0,0,0,0.25); color: #000; }
+body.burgundy .cf-submit:hover      { background: #000; color: #fff; border-color: #000; }
+
 .contact-copy {
     margin-top: 60px;
     font-family: var(--f-body);
