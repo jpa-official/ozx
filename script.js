@@ -73,31 +73,33 @@ lenis.on('scroll', ({ scroll, limit }) => {
 /* ============================
    LOADER — DIGIT COUNTER
    ============================ */
-const loader  = qs('#loader');
-const lcNum   = qs('.lc-num');
-const DIGITS  = '0123456789';
+const loader     = qs('#loader');
+const loaderFill = qs('#loader-fill');
+const lcNum      = qs('.lc-num');
 
 let loadVal    = 0;
 let loadDone   = false;
 let pageLoaded = false;
 
-/* Brief random digit flash */
-function digitFlash(finalStr) {
+function setFill(pct) {
+    if (loaderFill) loaderFill.style.clipPath = `inset(0 ${100 - pct}% 0 0)`;
+}
+
+function digitFlash(finalStr, pct) {
     const flashes = 3;
     for (let i = 0; i < flashes; i++) {
         setTimeout(() => {
-            lcNum.textContent = String(
-                Math.floor(Math.random() * 100)
-            ).padStart(2, '0');
+            lcNum.textContent = String(Math.floor(Math.random() * 100)).padStart(2, '0');
         }, i * 28);
     }
     setTimeout(() => {
         lcNum.textContent = finalStr;
+        if (pct != null) setFill(pct);
     }, flashes * 28 + 10);
 }
 
 function exitLoader() {
-    digitFlash('100');
+    digitFlash('100', 100);
     setTimeout(() => {
         gsap.to(loader, {
             yPercent: -100,
@@ -108,7 +110,7 @@ function exitLoader() {
                 startHero();
             }
         });
-    }, 80);
+    }, 300);
 }
 
 const loadTick = setInterval(() => {
@@ -120,7 +122,9 @@ const loadTick = setInterval(() => {
         loadDone = true;
         return;
     }
-    digitFlash(String(Math.floor(loadVal)).padStart(2, '0'));
+    const pct = Math.floor(loadVal);
+    setFill(pct);
+    digitFlash(String(pct).padStart(2, '0'));
 }, 80);
 
 window.addEventListener('load', () => {
