@@ -867,6 +867,8 @@ body.burgundy .mvvs-col-en         { color: #000; }
     justify-content: center;
     padding: clamp(24px, 4vh, 60px) var(--pad-x) clamp(20px, 3vh, 44px);
     overflow: hidden;
+    position: relative;
+    z-index: 20;
 }
 
 .contact-inner {
