@@ -860,25 +860,26 @@ body.burgundy .mvvs-col-en         { color: #000; }
    ============================ */
 #contact {
     background: #000;
-    min-height: 100vh;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 80px var(--pad-x) 48px;
+    padding: clamp(24px, 4vh, 60px) var(--pad-x) clamp(20px, 3vh, 44px);
+    overflow: hidden;
 }
 
 .contact-inner {
     width: 100%;
-    max-width: 640px;
+    max-width: clamp(300px, 50vw, 640px);
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 52px;
+    gap: clamp(20px, 3.5vh, 48px);
 }
 
 .contact-img {
-    width: clamp(280px, 42vw, 500px);
+    width: clamp(180px, 30vw, 440px);
     height: auto;
     display: block;
 }
@@ -887,7 +888,7 @@ body.burgundy .mvvs-col-en         { color: #000; }
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: clamp(6px, 1vh, 14px);
 }
 
 .cf-field { width: 100%; }
@@ -898,10 +899,10 @@ body.burgundy .mvvs-col-en         { color: #000; }
     border: 1px solid rgba(255,255,255,0.25);
     color: #fff;
     font-family: var(--f-body);
-    font-size: 13px;
+    font-size: clamp(11px, 1vw, 13px);
     font-weight: 300;
     letter-spacing: 0.04em;
-    padding: 20px 22px;
+    padding: clamp(10px, 1.6vh, 20px) clamp(14px, 1.5vw, 22px);
     outline: none;
     transition: border-color .3s;
     display: block;
@@ -910,7 +911,7 @@ body.burgundy .mvvs-col-en         { color: #000; }
 .cf-input::placeholder {
     color: rgba(255,255,255,0.35);
     font-family: var(--f-body);
-    font-size: 13px;
+    font-size: clamp(11px, 1vw, 13px);
     font-weight: 300;
     letter-spacing: 0.04em;
 }
@@ -918,7 +919,7 @@ body.burgundy .mvvs-col-en         { color: #000; }
 .cf-input:focus { border-color: rgba(255,255,255,0.6); }
 
 .cf-textarea {
-    height: 110px;
+    height: clamp(56px, 8vh, 110px);
     resize: none;
 }
 
@@ -928,13 +929,13 @@ body.burgundy .mvvs-col-en         { color: #000; }
     border: 1px solid rgba(255,255,255,0.25);
     color: #fff;
     font-family: var(--f-narrow);
-    font-size: 13px;
+    font-size: clamp(11px, 1vw, 13px);
     font-weight: 500;
     letter-spacing: 0.14em;
-    padding: 20px 22px;
+    padding: clamp(10px, 1.6vh, 20px) clamp(14px, 1.5vw, 22px);
     cursor: inherit;
     transition: background .3s, border-color .3s, color .3s;
-    margin-top: 6px;
+    margin-top: clamp(2px, 0.4vh, 6px);
 }
 
 .cf-submit:hover {
@@ -947,7 +948,7 @@ body.burgundy .cf-submit            { border-color: rgba(0,0,0,0.25); color: #00
 body.burgundy .cf-submit:hover      { background: #000; color: #fff; border-color: #000; }
 
 .contact-copy {
-    margin-top: 60px;
+    margin-top: clamp(12px, 2vh, 40px);
     font-family: var(--f-body);
     font-size: 10px;
     font-weight: 300;
