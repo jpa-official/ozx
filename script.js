@@ -357,6 +357,17 @@ qsa('.fade-up').forEach((el, i) => {
             .to(sr2, { opacity: 0, y: -52, duration: 0.7, ease: 'power2.inOut' }, 2.4)
             .to(sr3, { opacity: 1, y: 0,   duration: 0.7, ease: 'power2.inOut' }, 2.7)
             .to({}, { duration: 0.4 });
+
+        /* #space pin-spacer가 DOM에 들어간 뒤 #partners 핀을 생성해야
+           #gplanet 위치가 정확히 계산됨 */
+        ScrollTrigger.create({
+            trigger: '#partners',
+            start: 'top top',
+            end: '+=600',
+            pin: true,
+            pinSpacing: true,
+            anticipatePin: 1,
+        });
     }, 0);
 })();
 
@@ -506,18 +517,6 @@ qs('.header-brand').addEventListener('click', e => {
 });
 
 /* ============================
-   OUR OPERATING STRENGTH — PIN
-   ============================ */
-ScrollTrigger.create({
-    trigger: '#partners',
-    start: 'top top',
-    end: '+=600',
-    pin: true,
-    pinSpacing: true,
-    anticipatePin: 1,
-});
-
-/* ============================
    CONTACT — PIN + BIDIRECTIONAL INFINITE LOOP
    ============================ */
 let loopLocked = false;
@@ -530,15 +529,18 @@ function loopTo(target) {
 }
 
 // 아래 스크롤 → contact 지나면 → hero 상단
-ScrollTrigger.create({
-    trigger: '#contact',
-    start: 'top top',
-    end: '+=700',
-    pin: true,
-    pinSpacing: true,
-    anticipatePin: 1,
-    onLeave: () => loopTo(0),
-});
+// #space + #partners pin-spacer가 DOM에 추가된 뒤 위치 계산
+setTimeout(() => {
+    ScrollTrigger.create({
+        trigger: '#contact',
+        start: 'top top',
+        end: '+=700',
+        pin: true,
+        pinSpacing: true,
+        anticipatePin: 1,
+        onLeave: () => loopTo(0),
+    });
+}, 0);
 
 // 위 스크롤 → hero 상단에서 위로 올리면 → contact
 window.addEventListener('wheel', e => {

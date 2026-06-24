@@ -519,6 +519,7 @@ body.burgundy .mvvs-col-en         { color: #000; }
     position: relative;
     overflow: hidden;
     padding: 110px var(--pad-x) 90px;
+    background: #000;
 }
 
 .sec-wrap {
@@ -642,6 +643,7 @@ body.burgundy .mvvs-col-en         { color: #000; }
     position: relative;
     overflow: hidden;
     padding: 110px var(--pad-x) 90px;
+    background: #000;
 }
 
 .strength-lead { max-width: 660px; }
