@@ -517,33 +517,47 @@ qs('.header-brand').addEventListener('click', e => {
 });
 
 /* ============================
-   GWANGHWAMUN — 실시간 인구
+   HEADER — DATE / TIME / SEOUL TEMP
    ============================ */
-(function initGwCrowd() {
-    const countEl = qs('#gw-count');
-    if (!countEl) return;
+(function initHdrInfo() {
+    const dateEl = qs('#hdr-date');
+    const timeEl = qs('#hdr-time');
+    const tempEl = qs('#hdr-temp');
 
-    const API_KEY = '7a4f5862616a756e3731624c786b78';
-    const AREA    = encodeURIComponent('광화문·덕수궁');
-    const URL     = `https://openapi.seoul.go.kr:8088/${API_KEY}/json/citydata/1/5/${AREA}`;
+    const DAYS   = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
+    const MONTHS = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
 
-    function fetchCount() {
-        fetch(URL)
-            .then(r => r.json())
-            .then(data => {
-                const area = data?.SeoulRtd?.row?.[0];
-                const pop  = area?.AREA_PPLTN_MIN;
-                if (pop != null) {
-                    countEl.textContent = Number(pop).toLocaleString('ko-KR');
-                }
-            })
-            .catch(() => {
-                // CORS 차단 시 대시 유지
-            });
+    function updateClock() {
+        const now = new Date();
+        const dd  = String(now.getDate()).padStart(2, '0');
+        const mon = MONTHS[now.getMonth()];
+        const yr  = now.getFullYear();
+        const day = DAYS[now.getDay()];
+        const hh  = String(now.getHours()).padStart(2, '0');
+        const mm  = String(now.getMinutes()).padStart(2, '0');
+        const ss  = String(now.getSeconds()).padStart(2, '0');
+
+        if (dateEl) dateEl.textContent = `${day} ${dd} ${mon} ${yr}`;
+        if (timeEl) timeEl.textContent = `${hh}:${mm}:${ss}`;
     }
 
-    fetchCount();
-    setInterval(fetchCount, 60000);
+    function fetchTemp() {
+        fetch('https://api.open-meteo.com/v1/forecast?latitude=37.5665&longitude=126.9780&current=temperature_2m&timezone=Asia%2FSeoul')
+            .then(r => r.json())
+            .then(data => {
+                const t = data?.current?.temperature_2m;
+                if (t != null && tempEl) {
+                    tempEl.textContent = `SEOUL ${Math.round(t)}°C`;
+                }
+            })
+            .catch(() => {});
+    }
+
+    updateClock();
+    setInterval(updateClock, 1000);
+
+    fetchTemp();
+    setInterval(fetchTemp, 600000);
 })();
 
 /* ============================

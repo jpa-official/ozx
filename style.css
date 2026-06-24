@@ -973,40 +973,38 @@ em { font-style: normal; }
 }
 
 /* ============================
-   GWANGHWAMUN CROWD
+   HEADER INFO (DATE / TIME / TEMP)
    ============================ */
-.gw-crowd {
+.hdr-info {
     display: flex;
     flex-direction: column;
-    gap: 3px;
+    gap: 2px;
 }
 
-.gw-label {
+.hdr-date {
     font-family: var(--f-narrow);
     font-size: 7px;
     font-weight: 700;
     letter-spacing: 0.14em;
     color: rgba(255,255,255,0.35);
+    text-transform: uppercase;
 }
 
-.gw-bottom {
-    display: flex;
-    align-items: baseline;
-    gap: 4px;
-}
-
-.gw-count {
+.hdr-time {
     font-family: var(--f-narrow);
     font-size: 15px;
     font-weight: 500;
-    letter-spacing: 0.02em;
-    color: rgba(255,255,255,0.75);
+    letter-spacing: 0.04em;
+    color: rgba(255,255,255,0.80);
+    font-variant-numeric: tabular-nums;
 }
 
-.gw-unit {
-    font-family: var(--f-body);
-    font-size: 9px;
-    font-weight: 300;
+.hdr-temp {
+    font-family: var(--f-narrow);
+    font-size: 7px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
     color: rgba(255,255,255,0.35);
+    text-transform: uppercase;
 }
 
