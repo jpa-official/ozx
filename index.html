@@ -231,7 +231,7 @@
         <!-- 히어로: 비디오 (파일 없으면 poster 이미지로 표시) -->
         <div class="gp-hero">
             <video class="gp-video" autoplay muted loop playsinline poster="gwanghwa169.jpg">
-                <source src="gwanghwa169.mp4" type="video/mp4">
+                <source src="0 G-PLANET.mp4" type="video/mp4">
             </video>
             <div class="gp-overlay"></div>
             <div class="gp-hero-inner">
@@ -254,27 +254,32 @@
 
         <!-- 피처 항목 -->
         <div class="gp-features">
-            <div class="gp-feature">
+            <div class="gp-feature" data-feat-video="">
                 <div class="gp-feat-left">
                     <p class="gp-feat-heading"><span class="gp-feat-num">(1)</span> MEDIA FACADE</p>
                     <p class="gp-feat-sub">건물 자체가 광고 매체</p>
                 </div>
                 <p class="gp-feat-desc">미디어 파사드 + 외부 디스플레이<br>브랜드가 건물과 함께 노출되는 구조</p>
             </div>
-            <div class="gp-feature">
+            <div class="gp-feature" data-feat-video="">
                 <div class="gp-feat-left">
                     <p class="gp-feat-heading"><span class="gp-feat-num">(2)</span> BRAND EXPERIENCE</p>
                     <p class="gp-feat-sub">공간 자체가 브랜드 경험</p>
                 </div>
                 <p class="gp-feat-desc">층별로 다른 경험과 분위기를 설계하여<br>브랜드를 더 특별하게 소비</p>
             </div>
-            <div class="gp-feature">
+            <div class="gp-feature" data-feat-video="3 VARIOUS CONTENTS.mp4">
                 <div class="gp-feat-left">
                     <p class="gp-feat-heading"><span class="gp-feat-num">(3)</span> VARIOUS CONTENTS</p>
                     <p class="gp-feat-sub">지속적인 콘텐츠로 재방문을 만듭니다</p>
                 </div>
                 <p class="gp-feat-desc">전시, 이벤트, 팝업 등<br>지속적인 콘텐츠 운영을 통한 재방문</p>
             </div>
+        </div>
+
+        <!-- 피처 hover 영상 오버레이 -->
+        <div class="gp-feat-video-wrap" id="gp-feat-video-wrap">
+            <video class="gp-feat-video" id="gp-feat-video" muted loop playsinline></video>
         </div>
 
         <!-- FLOOR PLAN SLIDER -->

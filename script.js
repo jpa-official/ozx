@@ -567,6 +567,35 @@ qs('.header-brand').addEventListener('click', e => {
 })();
 
 /* ============================
+   GP FEATURE — HOVER VIDEO
+   ============================ */
+(function initFeatVideo() {
+    const wrap    = qs('#gp-feat-video-wrap');
+    const videoEl = qs('#gp-feat-video');
+    const features = qsa('.gp-feature[data-feat-video]');
+    if (!wrap || !videoEl) return;
+
+    features.forEach(feat => {
+        const src = feat.getAttribute('data-feat-video');
+
+        feat.addEventListener('mouseenter', () => {
+            if (!src) return;
+            if (videoEl.getAttribute('src') !== src) {
+                videoEl.src = src;
+                videoEl.load();
+            }
+            videoEl.play().catch(() => {});
+            wrap.classList.add('is-active');
+        });
+
+        feat.addEventListener('mouseleave', () => {
+            wrap.classList.remove('is-active');
+            videoEl.pause();
+        });
+    });
+})();
+
+/* ============================
    FLOOR PLAN SLIDER — 무한 루프
    ============================ */
 (function initFloorSlider() {
