@@ -505,5 +505,20 @@ qs('.header-brand').addEventListener('click', e => {
     document.body.classList.toggle('burgundy');
 });
 
+/* ============================
+   CONTACT — PIN + INFINITE LOOP
+   ============================ */
+ScrollTrigger.create({
+    trigger: '#contact',
+    start: 'top top',
+    end: '+=700',
+    pin: true,
+    pinSpacing: true,
+    anticipatePin: 1,
+    onLeave: () => {
+        lenis.scrollTo(0, { immediate: true });
+    }
+});
+
 /* 모든 핀 초기화 후 ScrollTrigger 위치 재계산 */
 setTimeout(() => ScrollTrigger.refresh(), 50);
