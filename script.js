@@ -523,17 +523,22 @@ qs('.header-brand').addEventListener('click', e => {
 let loopLocked = false;
 let currentScroll = 0;
 
+// 네이티브 scroll로 현재 위치 추적 (Lenis 의존 제거)
+window.addEventListener('scroll', () => {
+    currentScroll = window.scrollY;
+}, { passive: true });
+
 function loopTo(target) {
     if (loopLocked) return;
     loopLocked = true;
     lenis.scrollTo(target, { immediate: true, force: true });
     requestAnimationFrame(() => {
         ScrollTrigger.update();
-        setTimeout(() => { loopLocked = false; }, 900);
+        setTimeout(() => { loopLocked = false; }, 1000);
     });
 }
 
-// Contact 핀
+// Contact 핀 — onUpdate progress로 루프 감지 (가장 안정적)
 setTimeout(() => {
     ScrollTrigger.create({
         trigger: '#contact',
@@ -542,15 +547,11 @@ setTimeout(() => {
         pin: true,
         pinSpacing: true,
         anticipatePin: 1,
+        onUpdate: self => {
+            if (self.progress >= 0.99 && !loopLocked) loopTo(0);
+        },
     });
 }, 0);
-
-// 스크롤이 페이지 끝에 도달하면 → hero 상단으로 루프
-// (onLeave 대신 scroll 이벤트로 감지 — 더 안정적)
-lenis.on('scroll', ({ scroll, limit }) => {
-    currentScroll = scroll;
-    if (scroll >= limit - 10 && !loopLocked) loopTo(0);
-});
 
 // 위 스크롤 → hero 상단에서 위로 올리면 → contact
 window.addEventListener('wheel', e => {
