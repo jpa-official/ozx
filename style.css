@@ -634,13 +634,14 @@ em { font-style: normal; }
     font-weight: 300; line-height: 1.6;
     color: #fff;
     margin-bottom: 12px;
+    word-break: keep-all;
 }
 .strength-lead p:last-child { margin-bottom: 0; }
 
 /* --- Pill Cards --- */
 .pill-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
     margin-top: 64px;
 }
@@ -684,6 +685,7 @@ em { font-style: normal; }
     line-height: 1.8; color: #fff;
     text-align: center;
     max-width: 360px;
+    word-break: keep-all;
 }
 
 /* ============================
