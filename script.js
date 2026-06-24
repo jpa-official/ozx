@@ -379,14 +379,6 @@ qsa('.pc-reveal').forEach((card, i) => {
 });
 
 /* ============================
-   MARQUEE — HOVER PAUSE
-   ============================ */
-const marqueeWrap  = qs('.marquee-wrap');
-const marqueeTrack = qs('.marquee-track');
-marqueeWrap.addEventListener('mouseenter', () => { marqueeTrack.style.animationPlayState = 'paused'; });
-marqueeWrap.addEventListener('mouseleave', () => { marqueeTrack.style.animationPlayState = 'running'; });
-
-/* ============================
    MAGNETIC NAV
    ============================ */
 qsa('.nav-a, .f-nav a').forEach(link => {
