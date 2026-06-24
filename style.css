@@ -925,7 +925,7 @@ em { font-style: normal; }
 .fp-label {
     font-family: var(--f-narrow);
     font-size: clamp(13px, 1.4vw, 18px);
-    font-weight: 700;
+    font-weight: 500;
     letter-spacing: 0.12em;
     color: #fff;
 }
