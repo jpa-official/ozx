@@ -565,6 +565,53 @@ qs('.header-brand').addEventListener('click', e => {
 })();
 
 /* ============================
+   FLOOR PLAN SLIDER
+   ============================ */
+(function initFloorSlider() {
+    const track   = qs('#fp-track');
+    const prev    = qs('#fp-prev');
+    const next    = qs('#fp-next');
+    const dotsEl  = qs('#fp-dots');
+    if (!track) return;
+
+    const slides = qsa('.fp-slide', track);
+    const total  = slides.length;
+    let current  = 0;
+
+    // dots 생성
+    slides.forEach((_, i) => {
+        const d = document.createElement('button');
+        d.className = 'fp-dot' + (i === 0 ? ' is-active' : '');
+        d.setAttribute('aria-label', `Slide ${i + 1}`);
+        d.addEventListener('click', () => goTo(i));
+        dotsEl.appendChild(d);
+    });
+
+    function goTo(idx) {
+        current = (idx + total) % total;
+        track.style.transform = `translateX(-${current * 100}%)`;
+        qsa('.fp-dot', dotsEl).forEach((d, i) => d.classList.toggle('is-active', i === current));
+    }
+
+    prev.addEventListener('click', () => goTo(current - 1));
+    next.addEventListener('click', () => goTo(current + 1));
+
+    // 키보드 방향키
+    document.addEventListener('keydown', e => {
+        if (e.key === 'ArrowLeft')  goTo(current - 1);
+        if (e.key === 'ArrowRight') goTo(current + 1);
+    });
+
+    // 터치 스와이프
+    let tsX = 0;
+    track.addEventListener('touchstart', e => { tsX = e.touches[0].clientX; }, { passive: true });
+    track.addEventListener('touchend',   e => {
+        const dx = e.changedTouches[0].clientX - tsX;
+        if (Math.abs(dx) > 50) goTo(current + (dx < 0 ? 1 : -1));
+    }, { passive: true });
+})();
+
+/* ============================
    CONTACT — PIN + BIDIRECTIONAL INFINITE LOOP
    ============================ */
 let loopLocked = false;

@@ -860,6 +860,126 @@ em { font-style: normal; }
 }
 
 /* ============================
+   FLOOR PLAN SLIDER
+   ============================ */
+.fp-slider {
+    position: relative;
+    background: #000;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.fp-track {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.55s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.fp-slide {
+    flex: 0 0 100%;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(40px, 8vw, 120px);
+    padding: 0 clamp(60px, 8vw, 140px);
+}
+
+.fp-plan {
+    flex: 0 0 auto;
+    width: clamp(240px, 35vw, 520px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fp-plan img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+
+.fp-info {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.fp-floor {
+    font-family: var(--f-narrow);
+    font-size: clamp(48px, 7vw, 96px);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1;
+    letter-spacing: -0.02em;
+}
+
+.fp-label {
+    font-family: var(--f-narrow);
+    font-size: clamp(13px, 1.4vw, 18px);
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: #fff;
+}
+
+.fp-desc {
+    font-family: var(--f-body);
+    font-size: clamp(13px, 1vw, 15px);
+    font-weight: 300;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.9;
+    word-break: keep-all;
+}
+
+/* 화살표 */
+.fp-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.45);
+    font-family: var(--f-narrow);
+    font-size: clamp(20px, 2.5vw, 32px);
+    cursor: pointer;
+    padding: 20px 24px;
+    transition: color 0.2s;
+    z-index: 10;
+    line-height: 1;
+}
+
+.fp-arrow:hover { color: #fff; }
+.fp-prev { left: clamp(16px, 3vw, 48px); }
+.fp-next { right: clamp(16px, 3vw, 48px); }
+
+/* 인디케이터 dots */
+.fp-dots {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+}
+
+.fp-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.25);
+    transition: background 0.3s;
+    cursor: pointer;
+}
+
+.fp-dot.is-active { background: #fff; }
+
+/* ============================
    CONTACT
    ============================ */
 #contact {
