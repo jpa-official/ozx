@@ -374,6 +374,15 @@ qsa('.fade-up').forEach((el, i) => {
             pinSpacing: true,
             anticipatePin: 1,
         });
+
+        ScrollTrigger.create({
+            trigger: '#gplanet',
+            start: 'top top',
+            end: '+=700',
+            pin: true,
+            pinSpacing: true,
+            anticipatePin: 1,
+        });
     }, 0);
 })();
 
