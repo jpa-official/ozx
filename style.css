@@ -1112,9 +1112,9 @@ body.burgundy #gplanet       { background: #640019; }
 body.burgundy .gp-overlay    {
     background: linear-gradient(
         to top,
-        rgba(100,0,25,0.90) 0%,
-        rgba(100,0,25,0.45) 45%,
-        rgba(100,0,25,0.10) 100%
+        rgba(0,0,0,0.90) 0%,
+        rgba(0,0,0,0.45) 45%,
+        rgba(0,0,0,0.10) 100%
     );
 }
 body.burgundy .gp-title      { color: #000; }
