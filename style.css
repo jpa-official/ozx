@@ -772,7 +772,13 @@ em { font-style: normal; }
     flex-direction: column;
     justify-content: flex-end;
     padding: clamp(32px, 5vw, 64px) clamp(28px, 5vw, 72px);
-    gap: clamp(16px, 2.5vw, 32px);
+}
+
+.gp-info {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(16px, 2vw, 24px);
+    padding: clamp(28px, 4vw, 48px) clamp(28px, 5vw, 72px);
 }
 
 .gp-title {
@@ -797,7 +803,8 @@ em { font-style: normal; }
     font-weight: 300;
     line-height: 1.85;
     color: rgba(255,255,255,0.80);
-    max-width: 660px;
+    max-width: 720px;
+    word-break: keep-all;
 }
 
 .gp-address {
@@ -806,10 +813,7 @@ em { font-style: normal; }
     font-weight: 300;
     line-height: 1.8;
     color: rgba(255,255,255,0.55);
-    text-align: right;
     font-style: normal;
-    white-space: nowrap;
-    flex-shrink: 0;
 }
 
 /* 피처 항목 */
@@ -919,7 +923,7 @@ em { font-style: normal; }
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: clamp(6px, 1.2vw, 14px);
+    gap: clamp(8px, 1.4vw, 16px);
     padding: clamp(40px, 6vw, 80px) clamp(60px, 8vw, 140px);
 }
 
@@ -929,7 +933,7 @@ em { font-style: normal; }
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: clamp(4px, 1vw, 12px) 0;
+    margin: clamp(16px, 2.5vw, 32px) 0;
 }
 
 .fp-plan img {
@@ -961,8 +965,9 @@ em { font-style: normal; }
     font-size: clamp(14px, 1.1vw, 16px);
     font-weight: 700;
     color: #fff;
-    line-height: 1.4;
+    line-height: 1.6;
     word-break: keep-all;
+    text-align: center;
 }
 
 .fp-desc {
@@ -970,8 +975,10 @@ em { font-style: normal; }
     font-size: clamp(13px, 1vw, 15px);
     font-weight: 300;
     color: rgba(255,255,255,0.55);
-    line-height: 1.4;
+    line-height: 1.6;
     word-break: keep-all;
+    text-align: center;
+    max-width: clamp(260px, 40vw, 500px);
 }
 
 /* 화살표 */
