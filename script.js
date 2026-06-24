@@ -625,10 +625,37 @@ window.addEventListener('scroll', () => {
 function loopTo(target) {
     if (loopLocked) return;
     loopLocked = true;
-    lenis.scrollTo(target, { immediate: true, force: true });
-    requestAnimationFrame(() => {
-        ScrollTrigger.update();
-        setTimeout(() => { loopLocked = false; }, 1000);
+
+    // 오버레이 생성 (없으면)
+    let overlay = qs('#loop-overlay');
+    if (!overlay) {
+        overlay = document.createElement('div');
+        overlay.id = 'loop-overlay';
+        overlay.style.cssText = 'position:fixed;inset:0;background:#000;z-index:499;pointer-events:none;display:none;';
+        document.body.appendChild(overlay);
+    }
+
+    // 오버레이를 화면 아래에서 올라오며 덮음
+    gsap.set(overlay, { display: 'block', yPercent: 100 });
+    gsap.to(overlay, {
+        yPercent: 0,
+        duration: 0.5,
+        ease: 'power2.inOut',
+        onComplete: () => {
+            // 히어로로 즉시 이동 (오버레이 뒤에서)
+            lenis.scrollTo(target === '#contact' ? '#contact' : 0, { immediate: true, force: true });
+            ScrollTrigger.update();
+            // 오버레이 위로 슬라이드해서 히어로 노출
+            gsap.to(overlay, {
+                yPercent: -100,
+                duration: 0.55,
+                ease: 'power2.inOut',
+                onComplete: () => {
+                    gsap.set(overlay, { display: 'none' });
+                    loopLocked = false;
+                }
+            });
+        }
     });
 }
 
