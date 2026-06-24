@@ -514,22 +514,30 @@ gsap.fromTo('.news-text',
 qs('.header-brand').addEventListener('click', e => {
     e.preventDefault();
     document.body.classList.toggle('burgundy');
+    setTimeout(() => ScrollTrigger.refresh(), 50);
 });
 
 /* ============================
    CONTACT — PIN + BIDIRECTIONAL INFINITE LOOP
    ============================ */
 let loopLocked = false;
+let currentScroll = 0;
+lenis.on('scroll', ({ scroll }) => { currentScroll = scroll; });
 
 function loopTo(target) {
     if (loopLocked) return;
     loopLocked = true;
-    lenis.scrollTo(target, { immediate: true });
-    setTimeout(() => { loopLocked = false; }, 800);
+
+    lenis.scrollTo(target, { immediate: true, force: true });
+
+    // 점프 후 ScrollTrigger 상태 동기화
+    requestAnimationFrame(() => {
+        ScrollTrigger.update();
+        setTimeout(() => { loopLocked = false; }, 900);
+    });
 }
 
 // 아래 스크롤 → contact 지나면 → hero 상단
-// #space + #partners pin-spacer가 DOM에 추가된 뒤 위치 계산
 setTimeout(() => {
     ScrollTrigger.create({
         trigger: '#contact',
@@ -539,12 +547,13 @@ setTimeout(() => {
         pinSpacing: true,
         anticipatePin: 1,
         onLeave: () => loopTo(0),
+        onLeaveBack: () => {},
     });
 }, 0);
 
 // 위 스크롤 → hero 상단에서 위로 올리면 → contact
 window.addEventListener('wheel', e => {
-    if ((lenis.scroll || window.scrollY) <= 10 && e.deltaY < 0) loopTo('#contact');
+    if (currentScroll <= 10 && e.deltaY < 0) loopTo('#contact');
 }, { passive: true });
 
 // 터치 지원
@@ -554,8 +563,8 @@ window.addEventListener('touchstart', e => {
 }, { passive: true });
 window.addEventListener('touchend', e => {
     const swipeDown = e.changedTouches[0].clientY - touchStartY > 40;
-    if ((lenis.scroll || window.scrollY) <= 10 && swipeDown) loopTo('#contact');
+    if (currentScroll <= 10 && swipeDown) loopTo('#contact');
 }, { passive: true });
 
 /* 모든 핀 초기화 후 ScrollTrigger 위치 재계산 */
-setTimeout(() => ScrollTrigger.refresh(), 50);
+setTimeout(() => ScrollTrigger.refresh(), 100);
