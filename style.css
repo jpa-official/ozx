@@ -811,6 +811,8 @@ em { font-style: normal; }
 /* 피처 항목 */
 .gp-features {
     border-top: 1px solid rgba(255,255,255,0.12);
+    position: relative;
+    z-index: 3;
 }
 
 .gp-feature {
@@ -868,13 +870,20 @@ em { font-style: normal; }
     opacity: 0;
     transition: opacity 0.4s ease;
     z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
 }
 
 .gp-feat-video-wrap.is-active { opacity: 1; }
 
 .gp-feat-video {
-    width: 100%; height: 100%;
-    object-fit: cover;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
 }
 
 .gp-feature[data-feat-video] { cursor: pointer; }
