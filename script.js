@@ -509,13 +509,42 @@ gsap.fromTo('.news-text',
 })();
 
 /* ============================
-   THEME TOGGLE — 워드마크 클릭
+   HEADER BRAND — 클릭 시 히어로 이동
    ============================ */
 qs('.header-brand').addEventListener('click', e => {
     e.preventDefault();
-    document.body.classList.toggle('burgundy');
-    setTimeout(() => ScrollTrigger.refresh(), 50);
+    lenis.scrollTo('#hero', { offset: 0, duration: 1.2 });
 });
+
+/* ============================
+   GWANGHWAMUN — 실시간 인구
+   ============================ */
+(function initGwCrowd() {
+    const countEl = qs('#gw-count');
+    if (!countEl) return;
+
+    const API_KEY = '7a4f5862616a756e3731624c786b78';
+    const AREA    = encodeURIComponent('광화문·덕수궁');
+    const URL     = `https://openapi.seoul.go.kr:8088/${API_KEY}/json/citydata/1/5/${AREA}`;
+
+    function fetchCount() {
+        fetch(URL)
+            .then(r => r.json())
+            .then(data => {
+                const area = data?.SeoulRtd?.row?.[0];
+                const pop  = area?.AREA_PPLTN_MIN;
+                if (pop != null) {
+                    countEl.textContent = Number(pop).toLocaleString('ko-KR');
+                }
+            })
+            .catch(() => {
+                // CORS 차단 시 대시 유지
+            });
+    }
+
+    fetchCount();
+    setInterval(fetchCount, 60000);
+})();
 
 /* ============================
    CONTACT — PIN + BIDIRECTIONAL INFINITE LOOP

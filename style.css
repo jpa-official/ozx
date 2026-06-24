@@ -20,7 +20,7 @@ body {
     color: var(--white);
     font-family: var(--f-body);
     overflow-x: hidden;
-    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='40'%3E%3Cpath d='M0 0 L0 28 L7 21 L12 34 L16 32 L11 19 L20 19 Z' fill='%23640019'/%3E%3C/svg%3E") 0 0, auto;
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='40'%3E%3Cpath d='M0 0 L0 28 L7 21 L12 34 L16 32 L11 19 L20 19 Z' fill='%23ffffff'/%3E%3C/svg%3E") 0 0, auto;
 }
 
 a { color: inherit; text-decoration: none; }
@@ -179,16 +179,9 @@ em { font-style: normal; }
     animation: wmFade 6s ease-in-out infinite;
 }
 
-.hwm-burg { display: none; }
-
 @keyframes wmFade {
     0%, 100% { filter: brightness(0) invert(1); }
     50%      { filter: brightness(0) invert(0.25); }
-}
-
-@keyframes wmFadeBurg {
-    0%, 100% { filter: brightness(0) invert(1); }
-    50%      { filter: brightness(0); }
 }
 
 .main-nav { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
@@ -250,11 +243,6 @@ em { font-style: normal; }
     width: min(628px, 100%);
     height: auto;
 }
-
-.id-sub-burg { display: none; }
-
-body.burgundy .id-sub-default { display: none; }
-body.burgundy .id-sub-burg    { display: block; }
 
 .scroll-cue {
     position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
@@ -477,15 +465,6 @@ body.burgundy .id-sub-burg    { display: block; }
     justify-content: center;
 }
 
-
-/* Burgundy overrides */
-body.burgundy .mvvs-bg             { background: #640019; }
-body.burgundy .mvvs-tab            { color: rgba(0,0,0,0.3); }
-body.burgundy .mvvs-tab:hover      { color: rgba(0,0,0,0.6); }
-body.burgundy .mvvs-tab.is-active  { color: #000; }
-body.burgundy .mvvs-single,
-body.burgundy .mvvs-col p          { color: #000; font-weight: 500; }
-body.burgundy .mvvs-col-en         { color: #000; }
 
 /* ============================
    SHARED BACKGROUND — WHAT WE DO + OPERATING STRENGTH
@@ -951,9 +930,6 @@ body.burgundy .mvvs-col-en         { color: #000; }
     border-color: #fff;
 }
 
-body.burgundy .cf-submit            { border-color: rgba(0,0,0,0.25); color: #000; }
-body.burgundy .cf-submit:hover      { background: #000; color: #fff; border-color: #000; }
-
 .contact-copy {
     margin-top: clamp(12px, 2vh, 40px);
     font-family: var(--f-body);
@@ -997,132 +973,40 @@ body.burgundy .cf-submit:hover      { background: #000; color: #fff; border-colo
 }
 
 /* ============================
-   THEME TOGGLE — BURGUNDY
+   GWANGHWAMUN CROWD
    ============================ */
-body {
-    transition: background 0.5s ease, color 0.5s ease;
+.gw-crowd {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
 }
 
-body.burgundy {
-    background: #640019;
-    color: #000;
+.gw-label {
+    font-family: var(--f-narrow);
+    font-size: 7px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: rgba(255,255,255,0.35);
 }
 
-/* 명시적 배경색 재정의 */
-body.burgundy #hero          { background: #640019; }
-body.burgundy #identity      { background: #640019; }
-body.burgundy .news-placeholder { background: #640019; }
-body.burgundy #contact       { background: #640019; }
-
-/* 로고 필터 — 흰색 로고를 검은색으로 */
-body.burgundy .logo-mark-img,
-body.burgundy .header-wordmark-img { filter: brightness(0); transition: filter 0.5s; }
-
-body.burgundy .hero-logo-img,
-body.burgundy .loader-logo {
-    filter: brightness(0) !important;
-    mix-blend-mode: normal !important;
-    animation: none !important;
+.gw-bottom {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
 }
 
-/* 네비 */
-body.burgundy .nav-a               { color: rgba(0,0,0,0.5); }
-body.burgundy .nav-a:hover         { color: #000; }
-body.burgundy .nav-a::after        { background: #000; }
-
-/* 히어로 */
-body.burgundy .hero-sub            { color: rgba(0,0,0,0.55); }
-body.burgundy .scroll-cue span     { color: rgba(0,0,0,0.28); }
-body.burgundy .scroll-line         { background: linear-gradient(to bottom, rgba(0,0,0,0.45), transparent); }
-
-/* 마키 */
-
-/* 명시적 흰색 텍스트 재정의 */
-body.burgundy .id-desc,
-body.burgundy .id-placeholder,
-body.burgundy .sec-lead,
-body.burgundy .sr-ko,
-body.burgundy .sr-num,
-body.burgundy .sr-body,
-body.burgundy .strength-lead p,
-body.burgundy .pill-ko,
-body.burgundy .pill-body           { color: #000; }
-
-/* 폰트 두께 보정 — 검정 텍스트가 얇아 보이는 현상 보정 */
-body.burgundy .id-desc,
-body.burgundy .sec-lead,
-body.burgundy .sr-body,
-body.burgundy .strength-lead p,
-body.burgundy .pill-body           { font-weight: 500; }
-
-body.burgundy .sr-ko               { font-weight: 600; }
-body.burgundy .pill-ko             { font-weight: 700; }
-
-
-body.burgundy .news-text           { color: rgba(0,0,0,0.06); }
-
-/* 섹션 헤딩 */
-body.burgundy .sec-h2::after       { background: rgba(0,0,0,0.2); }
-
-/* 서비스 스택 */
-body.burgundy .service-stack       { border-color: rgba(0,0,0,0.12); }
-body.burgundy .service-stack .border-bottom { border-color: rgba(0,0,0,0.07); }
-
-/* 필 카드 */
-body.burgundy .pill-label          { border-color: rgba(0,0,0,0.4); }
-body.burgundy .pill-card:hover .pill-label {
-    border-color: rgba(0,0,0,0.6);
-    background: rgba(0,0,0,0.04);
+.gw-count {
+    font-family: var(--f-narrow);
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: rgba(255,255,255,0.75);
 }
 
-/* 컨택 */
-body.burgundy .contact-copy        { color: rgba(0,0,0,0.3); }
-body.burgundy .cf-input            { border-color: rgba(0,0,0,0.25); color: #000; }
-body.burgundy .cf-input::placeholder { color: rgba(0,0,0,0.35); }
-body.burgundy .cf-input:focus      { border-color: rgba(0,0,0,0.6); }
-
-/* 커서 */
-
-/* 워드마크 — 버건디 테마 */
-body.burgundy .hwm-white {
-    animation: wmFadeBurg 6s ease-in-out infinite !important;
+.gw-unit {
+    font-family: var(--f-body);
+    font-size: 9px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.35);
 }
 
-body.burgundy {
-    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='40'%3E%3Cpath d='M0 0 L0 28 L7 21 L12 34 L16 32 L11 19 L20 19 Z' fill='%23000000'/%3E%3C/svg%3E") 0 0, auto;
-}
-
-/* 로고 */
-body.burgundy .logo-mark-img { filter: brightness(0); }
-
-/* 프로그레스 바 */
-body.burgundy #progress-bar {
-    background: linear-gradient(to right, rgba(0,0,0,0.3), #000);
-}
-
-/* 로더 */
-body.burgundy #loader        { background: #640019; }
-
-/* WHAT WE DO + OUR OPERATING STRENGTH */
-body.burgundy #space         { background: #640019; }
-body.burgundy #partners      { background: #640019; }
-
-/* G-PLANET */
-body.burgundy #gplanet       { background: #640019; }
-body.burgundy .gp-overlay    {
-    background: linear-gradient(
-        to top,
-        rgba(0,0,0,0.90) 0%,
-        rgba(0,0,0,0.45) 45%,
-        rgba(0,0,0,0.10) 100%
-    );
-}
-body.burgundy .gp-title      { color: #fff; }
-body.burgundy .gp-desc       { color: rgba(255,255,255,0.80); }
-body.burgundy .gp-address    { color: rgba(255,255,255,0.55); }
-body.burgundy .gp-features   { border-top-color: rgba(255,255,255,0.12); }
-body.burgundy .gp-feature    { border-bottom-color: rgba(255,255,255,0.12); }
-body.burgundy .gp-feat-heading { color: #fff; }
-body.burgundy .gp-feat-num   { color: #fff; }
-body.burgundy .gp-feat-sub   { color: rgba(255,255,255,0.60); }
-body.burgundy .gp-feat-desc  { color: rgba(255,255,255,0.55); }

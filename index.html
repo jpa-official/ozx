@@ -26,28 +26,21 @@
         </div>
     </div>
 
-    <!-- SVG 필터 정의 — 워드마크 버건디 컬러 (#640019) -->
-    <svg width="0" height="0" style="position:absolute">
-        <defs>
-            <filter id="wm-burgundy">
-                <feColorMatrix type="matrix"
-                    values="0 0 0 0 0.392
-                            0 0 0 0 0
-                            0 0 0 0 0.098
-                            0 0 0 1 0"/>
-            </filter>
-        </defs>
-    </svg>
-
-
     <!-- Header -->
     <header id="header">
-        <div class="header-left"></div>
+        <div class="header-left">
+            <div class="gw-crowd" id="gw-crowd">
+                <span class="gw-label">GWANGHWAMUN NOW</span>
+                <div class="gw-bottom">
+                    <span class="gw-count" id="gw-count">—</span>
+                    <span class="gw-unit">명</span>
+                </div>
+            </div>
+        </div>
         <div class="header-center">
             <a href="#hero" class="header-brand">
                 <div class="header-wordmark-wrap">
                     <img src="logo-wordmark.png" alt="OZX" class="hwm-white">
-                    <img src="logo-wordmark.png" alt="" class="hwm-burg">
                 </div>
             </a>
         </div>
@@ -74,7 +67,6 @@
         </div>
         <div class="scroll-cue">
             <div class="scroll-line"></div>
-            <span>SCROLL</span>
         </div>
     </section>
 
@@ -82,8 +74,7 @@
     <section id="identity">
         <div class="id-inner">
             <div class="id-title-block" id="id-title-block">
-                <img src="hero-sub.png"   alt="SPACE CONTENT OPERATOR" class="id-sub-img id-sub-default">
-                <img src="hero-sub-2.png" alt="SPACE CONTENT OPERATOR" class="id-sub-img id-sub-burg">
+                <img src="hero-sub.png" alt="SPACE CONTENT OPERATOR" class="id-sub-img">
             </div>
             <p class="id-desc" id="id-desc">
                 오즈엑스는 공간과 콘텐츠를 연결해<br>
