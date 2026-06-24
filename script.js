@@ -566,49 +566,94 @@ qs('.header-brand').addEventListener('click', e => {
 })();
 
 /* ============================
-   FLOOR PLAN SLIDER
+   FLOOR PLAN SLIDER — 무한 루프
    ============================ */
 (function initFloorSlider() {
-    const track   = qs('#fp-track');
-    const prev    = qs('#fp-prev');
-    const next    = qs('#fp-next');
-    const dotsEl  = qs('#fp-dots');
+    const track  = qs('#fp-track');
+    const prev   = qs('#fp-prev');
+    const next   = qs('#fp-next');
+    const dotsEl = qs('#fp-dots');
     if (!track) return;
 
-    const slides = qsa('.fp-slide', track);
-    const total  = slides.length;
-    let current  = 0;
+    const slides  = qsa('.fp-slide', track);
+    const total   = slides.length;
+    let current   = 0;   // 실제 슬라이드 인덱스 (0~total-1)
+    let pos       = 1;   // 트랙 내 위치 (클론 포함)
+    let animating = false;
+
+    // 앞에 마지막 슬라이드 클론, 뒤에 첫 슬라이드 클론 추가
+    // 구조: [clone-7F | B1F | 1F | … | 7F | clone-B1F]
+    track.insertBefore(slides[total - 1].cloneNode(true), slides[0]);
+    track.appendChild(slides[0].cloneNode(true));
+
+    // 클론 추가 후 초기 위치 (pos=1 = 첫 번째 실제 슬라이드)
+    track.style.transition = 'none';
+    track.style.transform  = `translateX(-${pos * 100}%)`;
 
     // dots 생성
     slides.forEach((_, i) => {
         const d = document.createElement('button');
         d.className = 'fp-dot' + (i === 0 ? ' is-active' : '');
         d.setAttribute('aria-label', `Slide ${i + 1}`);
-        d.addEventListener('click', () => goTo(i));
+        d.addEventListener('click', () => jumpTo(i));
         dotsEl.appendChild(d);
     });
 
-    function goTo(idx) {
-        current = (idx + total) % total;
-        track.style.transform = `translateX(-${current * 100}%)`;
+    function updateDots() {
         qsa('.fp-dot', dotsEl).forEach((d, i) => d.classList.toggle('is-active', i === current));
     }
 
-    prev.addEventListener('click', () => goTo(current - 1));
-    next.addEventListener('click', () => goTo(current + 1));
+    function move(dir) {
+        if (animating) return;
+        animating = true;
+        pos     += dir;
+        current  = ((current + dir) % total + total) % total;
+        track.style.transition = '';
+        track.style.transform  = `translateX(-${pos * 100}%)`;
+        updateDots();
+    }
 
-    // 키보드 방향키
-    document.addEventListener('keydown', e => {
-        if (e.key === 'ArrowLeft')  goTo(current - 1);
-        if (e.key === 'ArrowRight') goTo(current + 1);
+    function jumpTo(idx) {
+        if (animating) return;
+        const diff = idx - current;
+        if (diff === 0) return;
+        animating = true;
+        pos     += diff;
+        current  = idx;
+        track.style.transition = '';
+        track.style.transform  = `translateX(-${pos * 100}%)`;
+        updateDots();
+    }
+
+    // 전환 끝 → 클론에서 실제 슬라이드로 순간 이동
+    track.addEventListener('transitionend', () => {
+        if (pos <= 0) {
+            // 7F 클론(pos=0) → 실제 7F(pos=total)로 스냅
+            track.style.transition = 'none';
+            pos = total;
+            track.style.transform = `translateX(-${pos * 100}%)`;
+        } else if (pos >= total + 1) {
+            // B1F 클론(pos=total+1) → 실제 B1F(pos=1)로 스냅
+            track.style.transition = 'none';
+            pos = 1;
+            track.style.transform = `translateX(-${pos * 100}%)`;
+        }
+        requestAnimationFrame(() => { animating = false; });
     });
 
-    // 터치 스와이프
+    prev.addEventListener('click', () => move(-1));
+    next.addEventListener('click', () => move(+1));
+
+    document.addEventListener('keydown', e => {
+        if (e.key === 'ArrowLeft')  move(-1);
+        if (e.key === 'ArrowRight') move(+1);
+    });
+
     let tsX = 0;
     track.addEventListener('touchstart', e => { tsX = e.touches[0].clientX; }, { passive: true });
     track.addEventListener('touchend',   e => {
         const dx = e.changedTouches[0].clientX - tsX;
-        if (Math.abs(dx) > 50) goTo(current + (dx < 0 ? 1 : -1));
+        if (Math.abs(dx) > 50) move(dx < 0 ? 1 : -1);
     }, { passive: true });
 })();
 
