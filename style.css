@@ -856,45 +856,79 @@ body.burgundy .mvvs-col-en         { color: #000; }
 }
 
 /* ============================
-   FOOTER
+   CONTACT
    ============================ */
-footer {
+#contact {
     background: #000;
-    border-top: 1px solid rgba(255,255,255,0.07);
-    padding: 60px var(--pad-x) 44px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px var(--pad-x) 48px;
 }
 
-.footer-inner { max-width: 1280px; margin: 0 auto; }
-
-.f-top { display: flex; align-items: baseline; gap: 20px; margin-bottom: 36px; }
-
-.f-logo {
-    font-family: var(--f-narrow); font-weight: 500;
-    font-size: clamp(18px, 2.5vw, 32px); letter-spacing: 0.05em;
+.contact-inner {
+    width: 100%;
+    max-width: 640px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 52px;
 }
 
-.f-tagline {
-    font-family: var(--f-narrow); font-weight: 500; font-size: 9.5px;
-    letter-spacing: 0.12em; color: rgba(255,255,255,0.22);
+.contact-img {
+    width: clamp(280px, 42vw, 500px);
+    height: auto;
+    display: block;
 }
 
-.f-mid { margin-bottom: 44px; }
-
-.f-nav { display: flex; gap: 30px; flex-wrap: wrap; }
-
-.f-nav a {
-    font-family: var(--f-narrow); font-weight: 500; font-size: 10px;
-    letter-spacing: 0.08em; color: rgba(255,255,255,0.28);
-    transition: color .3s;
+.contact-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
 }
 
-.f-nav a:hover { color: #fff; }
+.cf-field { width: 100%; }
 
-.f-bot { border-top: 1px solid rgba(255,255,255,0.06); padding-top: 18px; }
+.cf-input {
+    width: 100%;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.25);
+    color: #fff;
+    font-family: var(--f-body);
+    font-size: 13px;
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    padding: 20px 22px;
+    outline: none;
+    transition: border-color .3s;
+    display: block;
+}
 
-.f-bot p {
-    font-family: var(--f-body); font-size: 10px;
-    font-weight: 300; color: rgba(255,255,255,0.14);
+.cf-input::placeholder {
+    color: rgba(255,255,255,0.35);
+    font-family: var(--f-body);
+    font-size: 13px;
+    font-weight: 300;
+    letter-spacing: 0.04em;
+}
+
+.cf-input:focus { border-color: rgba(255,255,255,0.6); }
+
+.cf-textarea {
+    height: 110px;
+    resize: none;
+}
+
+.contact-copy {
+    margin-top: 60px;
+    font-family: var(--f-body);
+    font-size: 10px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.14);
+    letter-spacing: 0.04em;
 }
 
 /* ============================
@@ -946,7 +980,7 @@ body.burgundy {
 body.burgundy #hero          { background: #640019; }
 body.burgundy #identity      { background: #640019; }
 body.burgundy .news-placeholder { background: #640019; }
-body.burgundy footer         { background: #640019; border-top-color: rgba(0,0,0,0.1); }
+body.burgundy #contact       { background: #640019; }
 
 /* 로고 필터 — 흰색 로고를 검은색으로 */
 body.burgundy .logo-mark-img,
@@ -1009,12 +1043,11 @@ body.burgundy .pill-card:hover .pill-label {
     background: rgba(0,0,0,0.04);
 }
 
-/* 푸터 */
-body.burgundy .f-tagline           { color: rgba(0,0,0,0.4); }
-body.burgundy .f-nav a             { color: rgba(0,0,0,0.4); }
-body.burgundy .f-nav a:hover       { color: #000; }
-body.burgundy .f-bot               { border-top-color: rgba(0,0,0,0.1); }
-body.burgundy .f-bot p             { color: rgba(0,0,0,0.3); }
+/* 컨택 */
+body.burgundy .contact-copy        { color: rgba(0,0,0,0.3); }
+body.burgundy .cf-input            { border-color: rgba(0,0,0,0.25); color: #000; }
+body.burgundy .cf-input::placeholder { color: rgba(0,0,0,0.35); }
+body.burgundy .cf-input:focus      { border-color: rgba(0,0,0,0.6); }
 
 /* 커서 */
 

@@ -440,19 +440,6 @@ gsap.fromTo('.news-text',
     }
 );
 
-/* ============================
-   FOOTER REVEAL
-   ============================ */
-ScrollTrigger.create({
-    trigger: 'footer', start: 'top 85%', once: true,
-    onEnter: () => {
-        gsap.from('.f-logo',  { opacity: 0, y: 28, duration: 0.9, ease: 'power3.out' });
-        gsap.from('.f-tagline, .f-nav a, .f-bot', {
-            opacity: 0, y: 14, stagger: 0.09, duration: 0.7, ease: 'power2.out', delay: 0.15
-        });
-    }
-});
-
 
 /* ============================
    MVVS — 배경 rise + 패널 전환
