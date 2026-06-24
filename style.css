@@ -916,10 +916,10 @@ em { font-style: normal; }
 .fp-floor {
     font-family: var(--f-narrow);
     font-size: clamp(48px, 7vw, 96px);
-    font-weight: 700;
+    font-weight: 500;
     color: #fff;
     line-height: 1;
-    letter-spacing: -0.02em;
+    letter-spacing: 0.03em;
 }
 
 .fp-label {
