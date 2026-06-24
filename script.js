@@ -40,6 +40,7 @@ qsa([
     '.pill-label', '.news-text',
     '.mvvs-tab', '.mvvs-col-en',
     '.fp-floor', '.fp-label', '.fp-heading',
+    '.hdr-temp', '.hdr-date',
 ].join(', ')).forEach(wrapOZText);
 
 /* ============================
@@ -552,7 +553,7 @@ qs('.header-brand').addEventListener('click', e => {
             .then(data => {
                 const t = data?.current?.temperature_2m;
                 if (t != null && tempEl) {
-                    tempEl.textContent = `SEOUL ${Math.round(t)}°C`;
+                    tempEl.innerHTML = `SE<span class="oz-char">O</span>UL ${Math.round(t)}°C`;
                 }
             })
             .catch(() => {});
