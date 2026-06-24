@@ -39,6 +39,7 @@ qsa([
     '.f-logo', '.f-tagline', '.f-nav a',
     '.pill-label', '.news-text',
     '.mvvs-tab', '.mvvs-col-en',
+    '.fp-floor', '.fp-label', '.fp-heading',
 ].join(', ')).forEach(wrapOZText);
 
 /* ============================
