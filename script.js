@@ -506,8 +506,18 @@ qs('.header-brand').addEventListener('click', e => {
 });
 
 /* ============================
-   CONTACT — PIN + INFINITE LOOP
+   CONTACT — PIN + BIDIRECTIONAL INFINITE LOOP
    ============================ */
+let loopLocked = false;
+
+function loopTo(target) {
+    if (loopLocked) return;
+    loopLocked = true;
+    lenis.scrollTo(target, { immediate: true });
+    setTimeout(() => { loopLocked = false; }, 800);
+}
+
+// 아래 스크롤 → contact 지나면 → hero 상단
 ScrollTrigger.create({
     trigger: '#contact',
     start: 'top top',
@@ -515,10 +525,23 @@ ScrollTrigger.create({
     pin: true,
     pinSpacing: true,
     anticipatePin: 1,
-    onLeave: () => {
-        lenis.scrollTo(0, { immediate: true });
-    }
+    onLeave: () => loopTo(0),
 });
+
+// 위 스크롤 → hero 상단에서 위로 올리면 → contact
+window.addEventListener('wheel', e => {
+    if ((lenis.scroll || window.scrollY) <= 10 && e.deltaY < 0) loopTo('#contact');
+}, { passive: true });
+
+// 터치 지원
+let touchStartY = 0;
+window.addEventListener('touchstart', e => {
+    touchStartY = e.touches[0].clientY;
+}, { passive: true });
+window.addEventListener('touchend', e => {
+    const swipeDown = e.changedTouches[0].clientY - touchStartY > 40;
+    if ((lenis.scroll || window.scrollY) <= 10 && swipeDown) loopTo('#contact');
+}, { passive: true });
 
 /* 모든 핀 초기화 후 ScrollTrigger 위치 재계산 */
 setTimeout(() => ScrollTrigger.refresh(), 50);
