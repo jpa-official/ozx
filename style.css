@@ -1117,12 +1117,12 @@ body.burgundy .gp-overlay    {
         rgba(0,0,0,0.10) 100%
     );
 }
-body.burgundy .gp-title      { color: #000; }
-body.burgundy .gp-desc       { color: rgba(0,0,0,0.75); }
-body.burgundy .gp-address    { color: rgba(0,0,0,0.5); }
-body.burgundy .gp-features   { border-top-color: rgba(0,0,0,0.12); }
-body.burgundy .gp-feature    { border-bottom-color: rgba(0,0,0,0.12); }
-body.burgundy .gp-feat-heading { color: #000; }
-body.burgundy .gp-feat-num   { color: #000; }
-body.burgundy .gp-feat-sub   { color: rgba(0,0,0,0.55); }
-body.burgundy .gp-feat-desc  { color: rgba(0,0,0,0.5); }
+body.burgundy .gp-title      { color: #fff; }
+body.burgundy .gp-desc       { color: rgba(255,255,255,0.80); }
+body.burgundy .gp-address    { color: rgba(255,255,255,0.55); }
+body.burgundy .gp-features   { border-top-color: rgba(255,255,255,0.12); }
+body.burgundy .gp-feature    { border-bottom-color: rgba(255,255,255,0.12); }
+body.burgundy .gp-feat-heading { color: #fff; }
+body.burgundy .gp-feat-num   { color: #fff; }
+body.burgundy .gp-feat-sub   { color: rgba(255,255,255,0.60); }
+body.burgundy .gp-feat-desc  { color: rgba(255,255,255,0.55); }
