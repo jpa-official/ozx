@@ -586,7 +586,7 @@ setTimeout(() => {
     ScrollTrigger.create({
         trigger: '#contact',
         start: 'top top',
-        end: '+=700',
+        end: '+=350',
         pin: true,
         pinSpacing: true,
         anticipatePin: 1,
@@ -596,9 +596,20 @@ setTimeout(() => {
     });
 }, 0);
 
-// 위 스크롤 → hero 상단에서 위로 올리면 → contact
+// 위 스크롤 → hero 상단에서 의도적으로 많이 올려야 contact로 이동
+let upWheelAccum = 0;
+let upWheelTimer = null;
 window.addEventListener('wheel', e => {
-    if (currentScroll <= 10 && e.deltaY < 0) loopTo('#contact');
+    if (currentScroll > 10) { upWheelAccum = 0; return; }
+    if (e.deltaY < 0) {
+        upWheelAccum += Math.abs(e.deltaY);
+        clearTimeout(upWheelTimer);
+        upWheelTimer = setTimeout(() => { upWheelAccum = 0; }, 600);
+        if (upWheelAccum >= 300) {
+            upWheelAccum = 0;
+            loopTo('#contact');
+        }
+    }
 }, { passive: true });
 
 // 터치 지원
@@ -607,7 +618,7 @@ window.addEventListener('touchstart', e => {
     touchStartY = e.touches[0].clientY;
 }, { passive: true });
 window.addEventListener('touchend', e => {
-    const swipeDown = e.changedTouches[0].clientY - touchStartY > 40;
+    const swipeDown = e.changedTouches[0].clientY - touchStartY > 80;
     if (currentScroll <= 10 && swipeDown) loopTo('#contact');
 }, { passive: true });
 
