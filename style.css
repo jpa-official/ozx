@@ -1209,5 +1209,6 @@ em { font-style: normal; }
     color: #fff;
     text-transform: uppercase;
     font-variant-numeric: tabular-nums;
+    white-space: nowrap;
 }
 
