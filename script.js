@@ -506,6 +506,18 @@ qs('.header-brand').addEventListener('click', e => {
 });
 
 /* ============================
+   OUR OPERATING STRENGTH — PIN
+   ============================ */
+ScrollTrigger.create({
+    trigger: '#partners',
+    start: 'top top',
+    end: '+=600',
+    pin: true,
+    pinSpacing: true,
+    anticipatePin: 1,
+});
+
+/* ============================
    CONTACT — PIN + BIDIRECTIONAL INFINITE LOOP
    ============================ */
 let loopLocked = false;
