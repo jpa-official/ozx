@@ -817,6 +817,7 @@ em { font-style: normal; }
     line-height: 1.8;
     color: #fff;
     font-style: normal;
+    margin-top: clamp(24px, 4vw, 56px);
 }
 
 /* 피처 항목 */
