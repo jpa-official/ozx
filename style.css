@@ -901,6 +901,10 @@ em { font-style: normal; }
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center;
+}
+
+.gp-feature[data-feat-video="1 MEDIA FACADE.mp4"] .gp-feat-video {
     object-position: top;
 }
 
