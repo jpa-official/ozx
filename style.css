@@ -932,11 +932,11 @@ em { font-style: normal; }
     padding: clamp(40px, 6vw, 80px) clamp(60px, 8vw, 140px);
 }
 
-.fp-floor   { grid-column: 1; grid-row: 1; }
-.fp-label   { grid-column: 1; grid-row: 2; }
-.fp-heading { grid-column: 1; grid-row: 3; }
-.fp-desc    { grid-column: 1; grid-row: 4; align-self: start; }
-.fp-plan    { grid-column: 2; grid-row: 1 / 5; display: flex; align-items: center; justify-content: center; margin: 0; width: auto; }
+.fp-floor   { grid-column: 2; grid-row: 1; text-align: center; }
+.fp-label   { grid-column: 2; grid-row: 2; text-align: center; }
+.fp-heading { grid-column: 2; grid-row: 3; text-align: center; }
+.fp-desc    { grid-column: 2; grid-row: 4; align-self: start; text-align: center; }
+.fp-plan    { grid-column: 1; grid-row: 1 / 5; display: flex; align-items: center; justify-content: center; margin: 0; width: auto; }
 
 .fp-plan {
     flex: 0 0 auto;
