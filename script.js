@@ -840,7 +840,7 @@ window.addEventListener('load', () => {
 
 /* ============================
    G-PLANET BGM
-   muted autoplay → 구간 진입 시 unmute (클릭 불필요)
+   G-PLANET BGM
    ============================ */
 setTimeout(() => {
     const bgm = qs('#gp-bgm');
@@ -848,10 +848,7 @@ setTimeout(() => {
 
     const FADE = 1.0;
     let fadeTimer = null;
-
-    /* muted 상태로 미리 재생 — 브라우저는 muted autoplay를 항상 허용 */
-    bgm.muted = true;
-    bgm.play().catch(() => {});
+    let inZone = false;
 
     function fadeTo(vol) {
         clearInterval(fadeTimer);
@@ -869,12 +866,27 @@ setTimeout(() => {
     }
 
     function enterZone() {
+        inZone = true;
         bgm.currentTime = 19;
-        bgm.muted = false;
         bgm.volume = 0;
-        bgm.play().catch(() => {});
-        fadeTo(1);
+
+        if (bgm.paused) {
+            /* 아직 재생 안 됨 — muted로 먼저 시작 후 unmute */
+            bgm.muted = true;
+            bgm.play().then(() => {
+                bgm.muted = false;
+                fadeTo(1);
+            }).catch(() => {});
+        } else {
+            /* 이미 muted 재생 중 — 그냥 unmute */
+            bgm.muted = false;
+            fadeTo(1);
+        }
     }
+
+    /* muted 상태로 미리 재생 시작 (브라우저는 muted autoplay 항상 허용) */
+    bgm.muted = true;
+    bgm.play().catch(() => {});
 
     /* #gplanet 진입 ~ #fp-slider(도면) 끝날 때까지 BGM 유지 */
     ScrollTrigger.create({
@@ -883,9 +895,9 @@ setTimeout(() => {
         start: 'top bottom',
         end: 'bottom top',
         onEnter()     { enterZone(); },
-        onLeave()     { fadeTo(0); },
+        onLeave()     { inZone = false; fadeTo(0); },
         onEnterBack() { enterZone(); },
-        onLeaveBack() { fadeTo(0); },
+        onLeaveBack() { inZone = false; fadeTo(0); },
     });
 }, 200);
 
