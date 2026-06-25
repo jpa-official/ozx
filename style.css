@@ -774,7 +774,7 @@ em { font-style: normal; }
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    padding: clamp(32px, 5vw, 64px) clamp(28px, 5vw, 72px);
+    padding: clamp(32px, 5vw, 64px) clamp(28px, 5vw, 72px) clamp(80px, 12vw, 140px);
 }
 
 .gp-info {
