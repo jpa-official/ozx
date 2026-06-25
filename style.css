@@ -70,7 +70,7 @@ em { font-style: normal; }
     bottom: 48px; right: 48px;
     display: flex; align-items: baseline; gap: 2px;
     font-family: var(--f-narrow); font-weight: 500;
-    font-size: clamp(17px, 2.9vw, 42px); letter-spacing: 0.04em;
+    font-size: 15px; letter-spacing: 0.04em;
     color: #fff;
     z-index: 10;
 }
