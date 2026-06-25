@@ -385,6 +385,15 @@ qsa('.fade-up').forEach((el, i) => {
             pinSpacing: true,
             anticipatePin: 1,
         });
+
+        ScrollTrigger.create({
+            trigger: '#fp-slider',
+            start: 'top top',
+            end: '+=800',
+            pin: true,
+            pinSpacing: true,
+            anticipatePin: 1,
+        });
     }, 0);
 })();
 
