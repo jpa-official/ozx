@@ -869,7 +869,6 @@ setTimeout(() => ScrollTrigger.refresh(), 100);
 
     /* 스크롤 드리븐 핀 — 슬라이드당 700px 스크롤 */
     setTimeout(() => {
-        const snapPoints = Array.from({ length: total }, (_, i) => i / (total - 1));
         ScrollTrigger.create({
             trigger: '.pt-slider-wrap',
             start: 'top top',
@@ -877,12 +876,8 @@ setTimeout(() => ScrollTrigger.refresh(), 100);
             pin: true,
             pinSpacing: true,
             anticipatePin: 1,
-            snap: {
-                snapTo: snapPoints,
-                duration: { min: 0.35, max: 0.65 },
-                ease: 'power2.inOut',
-            },
             onUpdate(self) {
+                // progress 구간: 0~0.5 → 0, 0.5~1 → 1, 1 → 2
                 const newIdx = Math.round(self.progress * (total - 1));
                 if (newIdx !== idx) goTo(newIdx);
             },
