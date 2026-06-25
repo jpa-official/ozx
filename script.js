@@ -832,8 +832,11 @@ window.addEventListener('touchend', e => {
     if (currentScroll <= 10 && swipeDown) loopTo('#contact');
 }, { passive: true });
 
-/* 모든 핀 초기화 후 ScrollTrigger 위치 재계산 */
+/* 핀 초기화 후 위치 재계산 — 100ms(빠른 첫 패스) + load 후(이미지/영상 로드 완료 시점) */
 setTimeout(() => ScrollTrigger.refresh(), 100);
+window.addEventListener('load', () => {
+    ScrollTrigger.refresh();
+});
 
 /* ============================
    G-PLANET BGM
@@ -869,6 +872,7 @@ setTimeout(() => {
         bgm.currentTime = 19;
         bgm.muted = false;
         bgm.volume = 0;
+        bgm.play().catch(() => {});
         fadeTo(1);
     }
 
