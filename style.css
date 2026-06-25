@@ -1359,8 +1359,21 @@ em { font-style: normal; }
     color: #000;
 }
 
+/* 슬라이더 래퍼 */
+.pt-slider-wrap {
+    position: relative;
+    overflow: hidden;
+}
+
+.pt-cards {
+    display: flex;
+    transition: transform 0.9s cubic-bezier(0.77, 0, 0.18, 1);
+    will-change: transform;
+}
+
 /* 파트너 카드 */
 .pt-card {
+    flex: 0 0 100%;
     display: grid;
     grid-template-columns: 1fr 1fr;
     min-height: 100vh;
@@ -1446,10 +1459,74 @@ em { font-style: normal; }
 .pt-services li span:first-child { color: rgba(0,0,0,0.5); }
 .pt-services li span:last-child  { color: #000; }
 
+/* 로고 이미지 */
+.pt-logo-img {
+    max-height: clamp(32px, 4vw, 60px);
+    max-width: clamp(120px, 16vw, 240px);
+    width: auto;
+    object-fit: contain;
+    object-position: left center;
+}
+
+/* 우측 사진 */
 .pt-card-right {
+    background-color: #4a0012;
     background-size: cover;
     background-position: center;
     min-height: 100vh;
+}
+
+.pt-img-space   { background-image: url('pt-space.jpg'); }
+.pt-img-accel   { background-image: url('pt-accel.jpg'); }
+.pt-img-content { background-image: url('pt-content.jpg'); }
+
+/* 슬라이더 네비게이션 */
+.pt-nav {
+    position: absolute;
+    bottom: clamp(24px, 3.5vw, 52px);
+    left: 0;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    gap: clamp(16px, 2vw, 32px);
+    padding: 0 clamp(40px, 5vw, 80px);
+}
+
+.pt-nav-btn {
+    background: none;
+    border: none;
+    color: #000;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+}
+
+.pt-nav-btn:hover { opacity: 1; }
+
+.pt-dots {
+    display: flex;
+    gap: clamp(12px, 1.5vw, 24px);
+}
+
+.pt-dot {
+    background: none;
+    border: none;
+    border-bottom: 1px solid transparent;
+    color: rgba(0,0,0,0.35);
+    font-family: var(--f-narrow);
+    font-size: clamp(11px, 0.9vw, 14px);
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    padding: 2px 0;
+    transition: color 0.3s, border-color 0.3s;
+}
+
+.pt-dot.active {
+    color: #000;
+    border-bottom-color: #000;
 }
 
 /* 모바일 */
@@ -1459,6 +1536,10 @@ em { font-style: normal; }
     }
     .pt-card-right {
         min-height: 50vw;
+    }
+    .pt-nav {
+        width: 100%;
+        justify-content: center;
     }
 }
 

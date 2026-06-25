@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://use.typekit.net/bvo1jej.css">
     <!-- dynamic-subset: 사용하는 글자만 로드 (전체 대비 80% 절감) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/dynamic-subset/pretendard-dynamic-subset.css">
-    <link rel="stylesheet" href="style.css?v=6">
+    <link rel="stylesheet" href="style.css?v=7">
 </head>
 <body>
 
@@ -396,74 +396,91 @@
             </div>
         </div>
 
-        <!-- 파트너 카드 -->
-        <div class="pt-cards">
-            <!-- SPACE -->
-            <div class="pt-card">
-                <div class="pt-card-left">
-                    <div class="pt-card-header">
-                        <div class="pt-card-logo-wrap">
-                            <span class="pt-cl-sub">JUNGLIM ORIGIN</span>
-                            <span class="pt-cl-main">jpa.</span>
+        <!-- 파트너 카드 슬라이더 -->
+        <div class="pt-slider-wrap">
+            <div class="pt-cards" id="pt-cards">
+
+                <!-- SPACE -->
+                <div class="pt-card">
+                    <div class="pt-card-left">
+                        <div class="pt-card-header">
+                            <div class="pt-card-logo-wrap">
+                                <img src="logo-jpa.png" alt="jpa" class="pt-logo-img">
+                            </div>
+                            <span class="pt-card-cat">SPACE</span>
                         </div>
-                        <span class="pt-card-cat">SPACE</span>
+                        <p class="pt-card-tagline">성림건축의 노하우를 기반으로<br>창소의 정체성과 공간 운영 기반을 설계합니다.</p>
+                        <p class="pt-card-body">jpa.는 공간과 사람의 관계성을 기반으로 도시, 건축,<br>부동산, 공간에 대한 종합적이고 차별화된 관점의<br>맞춤형 공간 솔루션을 제공하여 공간이 지닌 유무형의<br>가치를 실현합니다.</p>
+                        <ul class="pt-services">
+                            <li><span>DEVELOPMENT STRATEGY</span><span>부동산 개발</span></li>
+                            <li><span>SPACE BX PLANNING</span><span>공간 기획</span></li>
+                            <li><span>SPACE DESIGN</span><span>공간 디자인</span></li>
+                            <li><span>DESIGN BUILD</span><span>공간 구현</span></li>
+                            <li><span>OPERATING ADVISORY</span><span>공간 운영</span></li>
+                        </ul>
                     </div>
-                    <p class="pt-card-tagline">성림건축의 노하우를 기반으로<br>창소의 정체성과 공간 운영 기반을 설계합니다.</p>
-                    <p class="pt-card-body">jpa.는 공간과 사람의 관계성을 기반으로 도시, 건축,<br>부동산, 공간에 대한 종합적이고 차별화된 관점의<br>맞춤형 공간 솔루션을 제공하여 공간이 지닌 유무형의<br>가치를 실현합니다.</p>
-                    <ul class="pt-services">
-                        <li><span>DEVELOPMENT STRATEGY</span><span>부동산 개발</span></li>
-                        <li><span>SPACE BX PLANNING</span><span>공간 기획</span></li>
-                        <li><span>SPACE DESIGN</span><span>공간 디자인</span></li>
-                        <li><span>DESIGN BUILD</span><span>공간 구현</span></li>
-                        <li><span>OPERATING ADVISORY</span><span>공간 운영</span></li>
-                    </ul>
+                    <div class="pt-card-right pt-img-space"></div>
                 </div>
-                <div class="pt-card-right" style="background-color:#4a0012;"></div>
+
+                <!-- ACCELERATION -->
+                <div class="pt-card">
+                    <div class="pt-card-left">
+                        <div class="pt-card-header">
+                            <div class="pt-card-logo-wrap">
+                                <img src="logo-invention-lab.png" alt="The Invention Lab" class="pt-logo-img">
+                            </div>
+                            <span class="pt-card-cat">ACCELERATION</span>
+                        </div>
+                        <p class="pt-card-tagline">브랜드의 성장 가능성을 발굴하고<br>공간 안에서 사업 기회를 가속합니다.</p>
+                        <p class="pt-card-body">The Invention Lab은 혁신적인 아이디어를 현실로<br>구현하는 브랜드 액셀러레이터입니다.<br>공간과 콘텐츠, 네트워크를 통해 브랜드가 성장할<br>수 있는 생태계를 만듭니다.</p>
+                        <ul class="pt-services">
+                            <li><span>BRAND INCUBATION</span><span>브랜드 육성</span></li>
+                            <li><span>BUSINESS DEVELOPMENT</span><span>사업 개발</span></li>
+                            <li><span>NETWORK BUILDING</span><span>네트워크 구축</span></li>
+                            <li><span>MARKET ENTRY</span><span>시장 진입</span></li>
+                            <li><span>GROWTH ADVISORY</span><span>성장 자문</span></li>
+                        </ul>
+                    </div>
+                    <div class="pt-card-right pt-img-accel"></div>
+                </div>
+
+                <!-- CONTENT -->
+                <div class="pt-card">
+                    <div class="pt-card-left">
+                        <div class="pt-card-header">
+                            <div class="pt-card-logo-wrap">
+                                <img src="logo-artverse.png" alt="ARTVERSE" class="pt-logo-img">
+                            </div>
+                            <span class="pt-card-cat">CONTENT</span>
+                        </div>
+                        <p class="pt-card-tagline">공간을 채우는 콘텐츠로<br>지속적인 방문과 경험을 만듭니다.</p>
+                        <p class="pt-card-body">ARTVERSE는 전시, 공연, 팝업 등 다양한 콘텐츠를<br>기획·운영하여 공간에 생명력을 불어넣습니다.<br>IP와 브랜드, 아티스트를 연결해 오프라인 경험의<br>가치를 높입니다.</p>
+                        <ul class="pt-services">
+                            <li><span>EXHIBITION PLANNING</span><span>전시 기획</span></li>
+                            <li><span>EVENT PRODUCTION</span><span>이벤트 제작</span></li>
+                            <li><span>IP COLLABORATION</span><span>IP 협업</span></li>
+                            <li><span>POPUP OPERATION</span><span>팝업 운영</span></li>
+                            <li><span>CONTENT CURATION</span><span>콘텐츠 큐레이션</span></li>
+                        </ul>
+                    </div>
+                    <div class="pt-card-right pt-img-content"></div>
+                </div>
+
             </div>
 
-            <!-- ACCELERATION -->
-            <div class="pt-card">
-                <div class="pt-card-left">
-                    <div class="pt-card-header">
-                        <div class="pt-card-logo-wrap">
-                            <span class="pt-cl-sub">The</span>
-                            <span class="pt-cl-main pt-cl-main--sm">Invention Lab</span>
-                        </div>
-                        <span class="pt-card-cat">ACCELERATION</span>
-                    </div>
-                    <p class="pt-card-tagline">브랜드의 성장 가능성을 발굴하고<br>공간 안에서 사업 기회를 가속합니다.</p>
-                    <p class="pt-card-body">The Invention Lab은 혁신적인 아이디어를 현실로<br>구현하는 브랜드 액셀러레이터입니다.<br>공간과 콘텐츠, 네트워크를 통해 브랜드가 성장할<br>수 있는 생태계를 만듭니다.</p>
-                    <ul class="pt-services">
-                        <li><span>BRAND INCUBATION</span><span>브랜드 육성</span></li>
-                        <li><span>BUSINESS DEVELOPMENT</span><span>사업 개발</span></li>
-                        <li><span>NETWORK BUILDING</span><span>네트워크 구축</span></li>
-                        <li><span>MARKET ENTRY</span><span>시장 진입</span></li>
-                        <li><span>GROWTH ADVISORY</span><span>성장 자문</span></li>
-                    </ul>
+            <!-- 슬라이더 네비게이션 -->
+            <div class="pt-nav">
+                <button class="pt-nav-btn" id="pt-prev" aria-label="이전">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M13 4L7 10L13 16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                <div class="pt-dots" id="pt-dots">
+                    <button class="pt-dot active" data-idx="0">01</button>
+                    <button class="pt-dot" data-idx="1">02</button>
+                    <button class="pt-dot" data-idx="2">03</button>
                 </div>
-                <div class="pt-card-right" style="background-color:#4a0012;"></div>
-            </div>
-
-            <!-- CONTENT -->
-            <div class="pt-card">
-                <div class="pt-card-left">
-                    <div class="pt-card-header">
-                        <div class="pt-card-logo-wrap">
-                            <span class="pt-cl-main">ARTVERSE</span>
-                        </div>
-                        <span class="pt-card-cat">CONTENT</span>
-                    </div>
-                    <p class="pt-card-tagline">공간을 채우는 콘텐츠로<br>지속적인 방문과 경험을 만듭니다.</p>
-                    <p class="pt-card-body">ARTVERSE는 전시, 공연, 팝업 등 다양한 콘텐츠를<br>기획·운영하여 공간에 생명력을 불어넣습니다.<br>IP와 브랜드, 아티스트를 연결해 오프라인 경험의<br>가치를 높입니다.</p>
-                    <ul class="pt-services">
-                        <li><span>EXHIBITION PLANNING</span><span>전시 기획</span></li>
-                        <li><span>EVENT PRODUCTION</span><span>이벤트 제작</span></li>
-                        <li><span>IP COLLABORATION</span><span>IP 협업</span></li>
-                        <li><span>POPUP OPERATION</span><span>팝업 운영</span></li>
-                        <li><span>CONTENT CURATION</span><span>콘텐츠 큐레이션</span></li>
-                    </ul>
-                </div>
-                <div class="pt-card-right" style="background-color:#4a0012;"></div>
+                <button class="pt-nav-btn" id="pt-next" aria-label="다음">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M7 4L13 10L7 16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
             </div>
         </div>
     </section>
@@ -491,6 +508,6 @@
     <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
-    <script src="script.js?v=6" defer></script>
+    <script src="script.js?v=7" defer></script>
 </body>
 </html>

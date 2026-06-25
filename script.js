@@ -834,3 +834,35 @@ window.addEventListener('touchend', e => {
 
 /* 모든 핀 초기화 후 ScrollTrigger 위치 재계산 */
 setTimeout(() => ScrollTrigger.refresh(), 100);
+
+/* ============================
+   PARTNER CARDS — HORIZONTAL SLIDER
+   ============================ */
+(function initPtSlider() {
+    const track = qs('#pt-cards');
+    if (!track) return;
+
+    const dots  = qsa('.pt-dot');
+    const btnPrev = qs('#pt-prev');
+    const btnNext = qs('#pt-next');
+    const total = dots.length;
+    let idx = 0;
+
+    function goTo(n) {
+        idx = (n + total) % total;
+        track.style.transform = `translateX(-${idx * 100}%)`;
+        dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+    }
+
+    btnPrev.addEventListener('click', () => goTo(idx - 1));
+    btnNext.addEventListener('click', () => goTo(idx + 1));
+    dots.forEach(d => d.addEventListener('click', () => goTo(+d.dataset.idx)));
+
+    /* 터치 스와이프 */
+    let sx = 0;
+    track.addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, { passive: true });
+    track.addEventListener('touchend',   e => {
+        const dx = e.changedTouches[0].clientX - sx;
+        if (Math.abs(dx) > 50) goTo(idx + (dx < 0 ? 1 : -1));
+    }, { passive: true });
+})();
