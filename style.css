@@ -1251,8 +1251,8 @@ em { font-style: normal; }
    PARTNERS SECTION (로고 마퀴 + 카드)
    ============================ */
 #pt-section {
-    background: #000;
-    color: #fff;
+    background: #640019;
+    color: #000;
 }
 
 .pt-head {
@@ -1265,19 +1265,20 @@ em { font-style: normal; }
     font-size: clamp(16px, 2.6vw, 34px);
     letter-spacing: 0.03em;
     margin-bottom: clamp(14px, 2vw, 28px);
+    color: #000;
 }
 
 .pt-desc {
     font-family: var(--f-body);
     font-size: clamp(13px, 1vw, 16px);
     line-height: 1.75;
-    color: rgba(255,255,255,0.7);
+    color: rgba(0,0,0,0.75);
 }
 
 /* 마퀴 */
 .pt-marquee-wrap {
-    border-top: 1px solid rgba(255,255,255,0.15);
-    border-bottom: 1px solid rgba(255,255,255,0.15);
+    border-top: 1px solid rgba(0,0,0,0.2);
+    border-bottom: 1px solid rgba(0,0,0,0.2);
     overflow: hidden;
     padding: clamp(20px, 2.5vw, 40px) 0;
 }
@@ -1307,7 +1308,7 @@ em { font-style: normal; }
 .pt-logo-main {
     font-family: var(--f-display);
     font-size: clamp(16px, 1.8vw, 28px);
-    color: #fff;
+    color: #000;
     letter-spacing: 0.04em;
 }
 
@@ -1324,12 +1325,12 @@ em { font-style: normal; }
 .pt-logo-sub {
     font-family: var(--f-body);
     font-size: clamp(7px, 0.6vw, 10px);
-    color: rgba(255,255,255,0.5);
+    color: rgba(0,0,0,0.5);
     letter-spacing: 0.1em;
     text-transform: uppercase;
 }
 
-.pt-logo-yellow { color: #f0d020; }
+.pt-logo-yellow { color: #000; }
 
 .pt-logo-grunge {
     font-family: var(--f-body);
@@ -1342,7 +1343,7 @@ em { font-style: normal; }
     width: clamp(52px, 5vw, 80px);
     height: clamp(52px, 5vw, 80px);
     border-radius: 50%;
-    border: 2px solid rgba(255,255,255,0.6);
+    border: 2px solid rgba(0,0,0,0.5);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1355,7 +1356,7 @@ em { font-style: normal; }
     line-height: 1.4;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: #fff;
+    color: #000;
 }
 
 /* 파트너 카드 */
@@ -1366,7 +1367,7 @@ em { font-style: normal; }
 }
 
 .pt-card-left {
-    background: #5c0b0b;
+    background: #640019;
     padding: clamp(48px, 6vw, 96px) clamp(40px, 5vw, 80px);
     display: flex;
     flex-direction: column;
@@ -1387,7 +1388,7 @@ em { font-style: normal; }
 .pt-cl-sub {
     font-family: var(--f-body);
     font-size: clamp(8px, 0.7vw, 11px);
-    color: rgba(255,255,255,0.55);
+    color: rgba(0,0,0,0.55);
     letter-spacing: 0.1em;
     text-transform: uppercase;
 }
@@ -1395,7 +1396,7 @@ em { font-style: normal; }
 .pt-cl-main {
     font-family: var(--f-display);
     font-size: clamp(22px, 3vw, 48px);
-    color: #fff;
+    color: #000;
     letter-spacing: 0.03em;
 }
 
@@ -1407,7 +1408,7 @@ em { font-style: normal; }
     font-family: var(--f-display);
     font-size: clamp(18px, 2.5vw, 40px);
     letter-spacing: 0.06em;
-    color: #fff;
+    color: #000;
 }
 
 .pt-card-tagline {
@@ -1415,19 +1416,19 @@ em { font-style: normal; }
     font-size: clamp(13px, 1.1vw, 17px);
     line-height: 1.7;
     font-weight: 600;
-    color: #fff;
+    color: #000;
 }
 
 .pt-card-body {
     font-family: var(--f-body);
     font-size: clamp(11px, 0.9vw, 14px);
     line-height: 1.9;
-    color: rgba(255,255,255,0.7);
+    color: rgba(0,0,0,0.7);
 }
 
 .pt-services {
     list-style: none;
-    border-top: 1px solid rgba(255,255,255,0.2);
+    border-top: 1px solid rgba(0,0,0,0.2);
     padding-top: clamp(12px, 1.8vw, 24px);
     display: flex;
     flex-direction: column;
@@ -1442,8 +1443,8 @@ em { font-style: normal; }
     letter-spacing: 0.03em;
 }
 
-.pt-services li span:first-child { color: rgba(255,255,255,0.5); }
-.pt-services li span:last-child  { color: #fff; }
+.pt-services li span:first-child { color: rgba(0,0,0,0.5); }
+.pt-services li span:last-child  { color: #000; }
 
 .pt-card-right {
     background-size: cover;
