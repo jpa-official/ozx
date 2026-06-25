@@ -877,8 +877,8 @@ setTimeout(() => ScrollTrigger.refresh(), 100);
             pinSpacing: true,
             anticipatePin: 1,
             onUpdate(self) {
-                // progress 구간: 0~0.5 → 0, 0.5~1 → 1, 1 → 2
-                const newIdx = Math.round(self.progress * (total - 1));
+                // 진행도를 total 등분해 각 슬라이드에 동일한 스크롤 구간 배분
+                const newIdx = Math.min(total - 1, Math.floor(self.progress * total));
                 if (newIdx !== idx) goTo(newIdx);
             },
         });
