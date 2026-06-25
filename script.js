@@ -749,10 +749,8 @@ qs('.header-brand').addEventListener('click', e => {
 let loopLocked = false;
 let currentScroll = 0;
 
-// 네이티브 scroll로 현재 위치 추적 (Lenis 의존 제거)
-window.addEventListener('scroll', () => {
-    currentScroll = window.scrollY;
-}, { passive: true });
+// Lenis scroll 이벤트로 정확한 현재 위치 추적
+lenis.on('scroll', ({ scroll }) => { currentScroll = scroll; });
 
 function loopTo(target) {
     if (loopLocked) return;
@@ -791,20 +789,7 @@ function loopTo(target) {
     });
 }
 
-// Contact 핀 — onUpdate progress로 루프 감지 (가장 안정적)
-setTimeout(() => {
-    ScrollTrigger.create({
-        trigger: '#contact',
-        start: 'top top',
-        end: '+=350',
-        pin: true,
-        pinSpacing: true,
-        anticipatePin: 1,
-        onUpdate: self => {
-            if (self.progress >= 0.99 && !loopLocked) loopTo(0);
-        },
-    });
-}, 0);
+// Contact 핀은 initPtSlider setTimeout 안에서 마지막에 생성 (순서 보장)
 
 // 위 스크롤 → hero 상단에서 의도적으로 많이 올려야 contact로 이동
 let upWheelAccum = 0;
@@ -832,11 +817,8 @@ window.addEventListener('touchend', e => {
     if (currentScroll <= 10 && swipeDown) loopTo('#contact');
 }, { passive: true });
 
-/* 핀 초기화 후 위치 재계산 — 100ms(빠른 첫 패스) + load 후(이미지/영상 로드 완료 시점) */
+/* 모든 핀 생성 완료 후 위치 재계산 */
 setTimeout(() => ScrollTrigger.refresh(), 100);
-window.addEventListener('load', () => {
-    ScrollTrigger.refresh();
-});
 
 /* ============================
    G-PLANET BGM
@@ -935,6 +917,20 @@ setTimeout(() => {
                 // 진행도를 total 등분해 각 슬라이드에 동일한 스크롤 구간 배분
                 const newIdx = Math.min(total - 1, Math.floor(self.progress * total));
                 if (newIdx !== idx) goTo(newIdx);
+            },
+        });
+
+        /* Contact 핀 — 모든 핀 spacer가 DOM에 추가된 뒤 마지막에 생성해야
+           #contact 위치가 정확히 계산됨 */
+        ScrollTrigger.create({
+            trigger: '#contact',
+            start: 'top top',
+            end: '+=350',
+            pin: true,
+            pinSpacing: true,
+            anticipatePin: 1,
+            onUpdate: self => {
+                if (self.progress >= 0.99 && !loopLocked) loopTo(0);
             },
         });
     }, 0);
