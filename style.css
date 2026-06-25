@@ -825,6 +825,7 @@ em { font-style: normal; }
     border-top: 1px solid rgba(255,255,255,0.12);
     position: relative;
     z-index: 3;
+    overflow: hidden;
 }
 
 .gp-feature {
@@ -876,7 +877,7 @@ em { font-style: normal; }
 
 /* 피처 hover 영상 오버레이 */
 .gp-feat-video-wrap {
-    position: fixed;
+    position: absolute;
     inset: 0;
     pointer-events: none;
     opacity: 0;
@@ -932,9 +933,9 @@ em { font-style: normal; }
     padding: clamp(40px, 6vw, 80px) clamp(60px, 8vw, 140px);
 }
 
-.fp-floor   { grid-column: 2; grid-row: 1; text-align: center; margin-bottom: 2px; }
-.fp-label   { grid-column: 2; grid-row: 2; text-align: center; margin-bottom: 20px; }
-.fp-heading { grid-column: 2; grid-row: 3; text-align: center; margin-bottom: 4px; }
+.fp-floor   { grid-column: 2; grid-row: 1; text-align: center; padding-bottom: 4px; }
+.fp-label   { grid-column: 2; grid-row: 2; text-align: center; padding-bottom: clamp(16px, 2.5vw, 32px); }
+.fp-heading { grid-column: 2; grid-row: 3; text-align: center; padding-bottom: 6px; }
 .fp-desc    { grid-column: 2; grid-row: 4; align-self: start; text-align: center; }
 .fp-plan    { grid-column: 1; grid-row: 1 / 5; display: flex; align-items: center; justify-content: center; margin: 0; width: auto; padding-left: clamp(20px, 3vw, 48px); }
 
