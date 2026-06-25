@@ -837,7 +837,6 @@ setTimeout(() => ScrollTrigger.refresh(), 100);
 
 /* ============================
    G-PLANET BGM
-   (refresh 이후 생성해야 pin spacer 위치가 정확히 계산됨)
    ============================ */
 setTimeout(() => {
     const bgm = qs('#gp-bgm');
@@ -845,6 +844,8 @@ setTimeout(() => {
 
     const FADE = 1.0;
     let fadeTimer = null;
+    let unlocked = false;
+    let inZone   = false;
 
     function fadeTo(vol) {
         clearInterval(fadeTimer);
@@ -862,30 +863,46 @@ setTimeout(() => {
     }
 
     function playBgm() {
+        if (!unlocked) return;
         bgm.currentTime = 19;
         bgm.volume = 0;
         bgm.play().catch(() => {});
         fadeTo(1);
     }
 
+    /* 첫 클릭/터치로 오디오 컨텍스트 언락 */
+    function unlock() {
+        if (unlocked) return;
+        unlocked = true;
+        if (inZone) playBgm();
+        document.removeEventListener('click',    unlock);
+        document.removeEventListener('touchend', unlock);
+        document.removeEventListener('keydown',  unlock);
+        document.removeEventListener('pointerdown', unlock);
+    }
+    document.addEventListener('click',       unlock, { passive: true });
+    document.addEventListener('touchend',    unlock, { passive: true });
+    document.addEventListener('keydown',     unlock, { passive: true });
+    document.addEventListener('pointerdown', unlock, { passive: true });
+
     ScrollTrigger.create({
         trigger: '#gplanet',
         start: 'top bottom',
         end: 'bottom top',
-        onEnter:     () => playBgm(),
-        onLeave:     () => fadeTo(0),
-        onEnterBack: () => playBgm(),
-        onLeaveBack: () => fadeTo(0),
+        onEnter()     { inZone = true;  playBgm(); },
+        onLeave()     { inZone = false; fadeTo(0); },
+        onEnterBack() { inZone = true;  playBgm(); },
+        onLeaveBack() { inZone = false; fadeTo(0); },
     });
 
     ScrollTrigger.create({
         trigger: '#gp-content',
         start: 'top bottom',
         end: 'bottom top',
-        onEnter:     () => { if (bgm.paused) playBgm(); },
-        onLeave:     () => fadeTo(0),
-        onEnterBack: () => { if (bgm.paused) playBgm(); },
-        onLeaveBack: () => fadeTo(0),
+        onEnter()     { inZone = true;  if (bgm.paused) playBgm(); },
+        onLeave()     { inZone = false; fadeTo(0); },
+        onEnterBack() { inZone = true;  if (bgm.paused) playBgm(); },
+        onLeaveBack() { inZone = false; fadeTo(0); },
     });
 }, 200);
 
