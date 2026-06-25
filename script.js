@@ -836,6 +836,57 @@ window.addEventListener('touchend', e => {
 setTimeout(() => ScrollTrigger.refresh(), 100);
 
 /* ============================
+   G-PLANET BGM
+   ============================ */
+(function initGpBgm() {
+    const bgm = qs('#gp-bgm');
+    if (!bgm) return;
+
+    const FADE = 1.2; // 페이드 인/아웃 초
+    let fadeTimer = null;
+
+    function fadeTo(targetVol) {
+        clearInterval(fadeTimer);
+        const step = (targetVol - bgm.volume) / (FADE * 30);
+        fadeTimer = setInterval(() => {
+            const next = bgm.volume + step;
+            if ((step > 0 && next >= targetVol) || (step < 0 && next <= targetVol)) {
+                bgm.volume = Math.max(0, Math.min(1, targetVol));
+                if (targetVol === 0) bgm.pause();
+                clearInterval(fadeTimer);
+            } else {
+                bgm.volume = Math.max(0, Math.min(1, next));
+            }
+        }, 1000 / 30);
+    }
+
+    ScrollTrigger.create({
+        trigger: '#gplanet',
+        start: 'top 80%',
+        end: 'bottom 0%',
+        onEnter() {
+            bgm.volume = 0;
+            bgm.play().catch(() => {});
+            fadeTo(1);
+        },
+        onLeave()      { fadeTo(0); },
+        onEnterBack()  { bgm.volume = 0; bgm.play().catch(() => {}); fadeTo(1); },
+        onLeaveBack()  { fadeTo(0); },
+    });
+
+    // gp-content 구간도 커버
+    ScrollTrigger.create({
+        trigger: '#gp-content',
+        start: 'top 80%',
+        end: 'bottom 0%',
+        onEnter()      { if (bgm.paused) { bgm.volume = 0; bgm.play().catch(() => {}); fadeTo(1); } },
+        onLeave()      { fadeTo(0); },
+        onEnterBack()  { if (bgm.paused) { bgm.volume = 0; bgm.play().catch(() => {}); fadeTo(1); } },
+        onLeaveBack()  { fadeTo(0); },
+    });
+})();
+
+/* ============================
    PARTNER CARDS — SCROLL-DRIVEN HORIZONTAL SLIDER
    ============================ */
 (function initPtSlider() {
