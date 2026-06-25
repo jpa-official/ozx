@@ -738,6 +738,13 @@ em { font-style: normal; }
     z-index: 15;
 }
 
+#gp-content {
+    background: #000;
+    color: #fff;
+    position: relative;
+    z-index: 15;
+}
+
 /* 히어로 영상/이미지 */
 .gp-hero {
     position: relative;
