@@ -1306,6 +1306,13 @@ em { font-style: normal; }
     white-space: nowrap;
 }
 
+.pt-marquee-img {
+    height: clamp(28px, 3.5vw, 52px);
+    width: auto;
+    object-fit: contain;
+    display: block;
+}
+
 .pt-logo-main {
     font-family: var(--f-display);
     font-size: clamp(16px, 1.8vw, 28px);
