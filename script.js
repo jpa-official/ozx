@@ -872,7 +872,7 @@ setTimeout(() => ScrollTrigger.refresh(), 100);
         ScrollTrigger.create({
             trigger: '.pt-slider-wrap',
             start: 'top top',
-            end: `+=${(total - 1) * 700}`,
+            end: `+=${total * 700}`,
             pin: true,
             pinSpacing: true,
             anticipatePin: 1,
