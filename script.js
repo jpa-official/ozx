@@ -532,6 +532,21 @@ gsap.fromTo('.news-text',
         .to('#panel-strategy', { opacity: 0, y: -14, duration: 0.35 }, 3.8)
         .to('#panel-value',    { opacity: 1, y: 0,   duration: 0.35 }, 4.0)
         .to({}, { duration: 0.2 }); // VALUE에서 잠시 유지
+
+    // 탭 클릭 시 해당 패널 즉시 전환
+    tabs.forEach((tab, i) => {
+        tab.addEventListener('click', () => {
+            tabs.forEach((t, ti)   => t.classList.toggle('is-active', ti === i));
+            panels.forEach((pn, pi) => {
+                pn.classList.toggle('is-active', pi === i);
+                if (pi === i) {
+                    gsap.to(pn, { opacity: 1, y: 0,   duration: 0.35, ease: 'power2.out' });
+                } else {
+                    gsap.to(pn, { opacity: 0, y: -14, duration: 0.25, ease: 'power2.in' });
+                }
+            });
+        });
+    });
 })();
 
 /* ============================
