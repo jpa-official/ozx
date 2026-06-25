@@ -869,7 +869,7 @@ setTimeout(() => ScrollTrigger.refresh(), 100);
 
     ScrollTrigger.create({
         trigger: '#gplanet',
-        start: 'top 90%',
+        start: 'top bottom',
         end: 'bottom top',
         onEnter:     () => playBgm(),
         onLeave:     () => fadeTo(0),
@@ -879,7 +879,7 @@ setTimeout(() => ScrollTrigger.refresh(), 100);
 
     ScrollTrigger.create({
         trigger: '#gp-content',
-        start: 'top 90%',
+        start: 'top bottom',
         end: 'bottom top',
         onEnter:     () => { if (bgm.paused) playBgm(); },
         onLeave:     () => fadeTo(0),
