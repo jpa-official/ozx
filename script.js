@@ -822,12 +822,16 @@ setTimeout(() => ScrollTrigger.refresh(), 100);
 
 /* ============================
    G-PLANET BGM
-   G-PLANET BGM
-   HTML autoplay muted 로 재생 시작 → 구간 진입 시 unmute
+   첫 사용자 인터랙션(클릭/터치)으로 오디오 잠금 해제 → 구간 진입 시 19초부터 재생
    ============================ */
 setTimeout(() => {
     const bgm = qs('#gp-bgm');
     if (!bgm) return;
+
+    /* 브라우저 오토플레이 정책: 첫 포인터 다운에서 play() 호출로 오디오 컨텍스트 잠금 해제 */
+    document.addEventListener('pointerdown', () => {
+        bgm.play().catch(() => {});
+    }, { once: true });
 
     const FADE = 1.0;
     let fadeTimer = null;
@@ -852,6 +856,7 @@ setTimeout(() => {
         bgm.currentTime = 19;
         bgm.muted = false;
         bgm.volume = 0;
+        bgm.play().catch(() => {});
         fadeTo(1);
     }
 
@@ -904,17 +909,16 @@ setTimeout(() => {
         if (Math.abs(dx) > 50) goTo(idx + (dx < 0 ? 1 : -1));
     }, { passive: true });
 
-    /* 스크롤 드리븐 핀 — 슬라이드당 700px 스크롤 */
+    /* 스크롤 드리븐 핀 — 슬라이드당 1000px 스크롤 */
     setTimeout(() => {
         ScrollTrigger.create({
             trigger: '.pt-slider-wrap',
             start: 'top top',
-            end: `+=${total * 700}`,
+            end: `+=${total * 1000}`,
             pin: true,
             pinSpacing: true,
             anticipatePin: 1,
             onUpdate(self) {
-                // 진행도를 total 등분해 각 슬라이드에 동일한 스크롤 구간 배분
                 const newIdx = Math.min(total - 1, Math.floor(self.progress * total));
                 if (newIdx !== idx) goTo(newIdx);
             },
@@ -922,6 +926,7 @@ setTimeout(() => {
 
         /* Contact 핀 — 모든 핀 spacer가 DOM에 추가된 뒤 마지막에 생성해야
            #contact 위치가 정확히 계산됨 */
+        let contactEntered = false;
         ScrollTrigger.create({
             trigger: '#contact',
             start: 'top top',
@@ -929,8 +934,12 @@ setTimeout(() => {
             pin: true,
             pinSpacing: true,
             anticipatePin: 1,
-            onUpdate: self => {
-                if (self.progress >= 0.99 && !loopLocked) loopTo(0);
+            onEnter: ()     => { contactEntered = true; },
+            onEnterBack: () => { contactEntered = true; },
+            onLeaveBack: () => { contactEntered = false; },
+            onLeave: () => {
+                contactEntered = false;
+                if (!loopLocked) loopTo(0);
             },
         });
     }, 0);
