@@ -379,7 +379,7 @@ qsa('.fade-up').forEach((el, i) => {
 
         ScrollTrigger.create({
             trigger: '#gp-content',
-            start: 'top 15%',
+            start: 'top 10%',
             end: '+=700',
             pin: true,
             pinSpacing: true,
