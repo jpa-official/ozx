@@ -410,7 +410,7 @@ em { font-style: normal; }
     transition: color 0.35s ease;
     white-space: nowrap;
     display: inline-flex;
-    align-items: baseline;
+    align-items: flex-start;
     gap: 4px;
     line-height: 1;
 }
@@ -424,7 +424,6 @@ em { font-style: normal; }
     font-size: 0.4em;
     font-weight: 700;
     letter-spacing: 0.04em;
-    vertical-align: 0.55em;
 }
 
 .mvvs-content {
@@ -929,15 +928,15 @@ em { font-style: normal; }
     grid-template-rows: auto auto auto auto;
     align-content: center;
     column-gap: clamp(40px, 6vw, 100px);
-    row-gap: clamp(8px, 1.2vw, 16px);
+    row-gap: 0;
     padding: clamp(40px, 6vw, 80px) clamp(60px, 8vw, 140px);
 }
 
-.fp-floor   { grid-column: 2; grid-row: 1; text-align: center; }
-.fp-label   { grid-column: 2; grid-row: 2; text-align: center; }
-.fp-heading { grid-column: 2; grid-row: 3; text-align: center; }
+.fp-floor   { grid-column: 2; grid-row: 1; text-align: center; margin-bottom: 2px; }
+.fp-label   { grid-column: 2; grid-row: 2; text-align: center; margin-bottom: 20px; }
+.fp-heading { grid-column: 2; grid-row: 3; text-align: center; margin-bottom: 4px; }
 .fp-desc    { grid-column: 2; grid-row: 4; align-self: start; text-align: center; }
-.fp-plan    { grid-column: 1; grid-row: 1 / 5; display: flex; align-items: center; justify-content: center; margin: 0; width: auto; }
+.fp-plan    { grid-column: 1; grid-row: 1 / 5; display: flex; align-items: center; justify-content: center; margin: 0; width: auto; padding-left: clamp(20px, 3vw, 48px); }
 
 .fp-plan {
     flex: 0 0 auto;
