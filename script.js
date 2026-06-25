@@ -533,19 +533,13 @@ gsap.fromTo('.news-text',
         .to('#panel-value',    { opacity: 1, y: 0,   duration: 0.35 }, 4.0)
         .to({}, { duration: 0.2 }); // VALUE에서 잠시 유지
 
-    // 탭 클릭 시 해당 패널 즉시 전환
+    // 탭 클릭 시 해당 스크롤 위치로 이동 (scrub과 충돌 방지)
+    const tabProgress = [0.28, 0.55, 0.78, 0.96];
     tabs.forEach((tab, i) => {
         tab.addEventListener('click', () => {
-            tabs.forEach((t, ti) => t.classList.toggle('is-active', ti === i));
-            panels.forEach((pn, pi) => {
-                gsap.killTweensOf(pn);
-                pn.classList.toggle('is-active', pi === i);
-                if (pi === i) {
-                    gsap.to(pn, { opacity: 1, y: 0, duration: 0.35, ease: 'power2.out' });
-                } else {
-                    gsap.set(pn, { opacity: 0, y: 0 });
-                }
-            });
+            const st = tl.scrollTrigger;
+            const target = st.start + tabProgress[i] * (st.end - st.start);
+            lenis.scrollTo(target, { duration: 0.8 });
         });
     });
 })();
