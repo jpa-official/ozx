@@ -837,6 +837,7 @@ setTimeout(() => ScrollTrigger.refresh(), 100);
 
 /* ============================
    G-PLANET BGM
+   muted autoplay → 구간 진입 시 unmute (클릭 불필요)
    ============================ */
 setTimeout(() => {
     const bgm = qs('#gp-bgm');
@@ -844,8 +845,10 @@ setTimeout(() => {
 
     const FADE = 1.0;
     let fadeTimer = null;
-    let unlocked = false;
-    let inZone   = false;
+
+    /* muted 상태로 미리 재생 — 브라우저는 muted autoplay를 항상 허용 */
+    bgm.muted = true;
+    bgm.play().catch(() => {});
 
     function fadeTo(vol) {
         clearInterval(fadeTimer);
@@ -854,7 +857,7 @@ setTimeout(() => {
             const next = bgm.volume + step;
             if ((step > 0 && next >= vol) || (step < 0 && next <= vol)) {
                 bgm.volume = Math.max(0, Math.min(1, vol));
-                if (vol === 0) bgm.pause();
+                if (vol === 0) bgm.muted = true;
                 clearInterval(fadeTimer);
             } else {
                 bgm.volume = Math.max(0, Math.min(1, next));
@@ -862,28 +865,12 @@ setTimeout(() => {
         }, 1000 / 30);
     }
 
-    function playBgm() {
-        if (!unlocked) return;
+    function enterZone() {
         bgm.currentTime = 19;
+        bgm.muted = false;
         bgm.volume = 0;
-        bgm.play().catch(() => {});
         fadeTo(1);
     }
-
-    /* 첫 클릭/터치로 오디오 컨텍스트 언락 */
-    function unlock() {
-        if (unlocked) return;
-        unlocked = true;
-        if (inZone) playBgm();
-        document.removeEventListener('click',    unlock);
-        document.removeEventListener('touchend', unlock);
-        document.removeEventListener('keydown',  unlock);
-        document.removeEventListener('pointerdown', unlock);
-    }
-    document.addEventListener('click',       unlock, { passive: true });
-    document.addEventListener('touchend',    unlock, { passive: true });
-    document.addEventListener('keydown',     unlock, { passive: true });
-    document.addEventListener('pointerdown', unlock, { passive: true });
 
     /* #gplanet 진입 ~ #fp-slider(도면) 끝날 때까지 BGM 유지 */
     ScrollTrigger.create({
@@ -891,10 +878,10 @@ setTimeout(() => {
         endTrigger: '#fp-slider',
         start: 'top bottom',
         end: 'bottom top',
-        onEnter()     { inZone = true;  playBgm(); },
-        onLeave()     { inZone = false; fadeTo(0); },
-        onEnterBack() { inZone = true;  if (bgm.paused) playBgm(); },
-        onLeaveBack() { inZone = false; fadeTo(0); },
+        onEnter()     { enterZone(); },
+        onLeave()     { fadeTo(0); },
+        onEnterBack() { enterZone(); },
+        onLeaveBack() { fadeTo(0); },
     });
 }, 200);
 
