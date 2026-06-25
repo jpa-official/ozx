@@ -606,6 +606,7 @@ em { font-style: normal; }
     grid-template-columns: 1fr 1fr;
     gap: 48px;
     padding: 52px 0;
+    align-items: center;
     will-change: opacity, transform;
 }
 
@@ -786,7 +787,7 @@ em { font-style: normal; }
 
 .gp-title {
     font-family: var(--f-narrow);
-    font-size: clamp(32px, 5.5vw, 80px);
+    font-size: clamp(40px, 7vw, 100px);
     font-weight: 500;
     color: #fff;
     letter-spacing: -0.02em;
@@ -925,7 +926,7 @@ em { font-style: normal; }
     height: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto auto 1fr;
+    grid-template-rows: auto auto auto auto;
     align-content: center;
     column-gap: clamp(40px, 6vw, 100px);
     row-gap: clamp(8px, 1.2vw, 16px);
