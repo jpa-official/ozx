@@ -1260,9 +1260,10 @@ em { font-style: normal; }
 }
 
 .pt-title {
-    font-family: var(--f-display);
-    font-size: clamp(28px, 4.5vw, 64px);
-    letter-spacing: 0.05em;
+    font-family: var(--f-narrow);
+    font-weight: 500;
+    font-size: clamp(16px, 2.6vw, 34px);
+    letter-spacing: 0.03em;
     margin-bottom: clamp(14px, 2vw, 28px);
 }
 
