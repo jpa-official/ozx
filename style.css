@@ -901,6 +901,7 @@ em { font-style: normal; }
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: top;
 }
 
 .gp-feature[data-feat-video] { cursor: pointer; }
