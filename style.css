@@ -877,7 +877,7 @@ em { font-style: normal; }
 
 /* 피처 hover 영상 오버레이 */
 .gp-feat-video-wrap {
-    position: absolute;
+    position: fixed;
     inset: 0;
     pointer-events: none;
     opacity: 0;
