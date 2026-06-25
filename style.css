@@ -1418,8 +1418,9 @@ em { font-style: normal; }
 }
 
 .pt-card-cat {
-    font-family: var(--f-display);
-    font-size: clamp(18px, 2.5vw, 40px);
+    font-family: var(--f-narrow);
+    font-weight: 500;
+    font-size: clamp(14px, 1.6vw, 24px);
     letter-spacing: 0.06em;
     color: #000;
 }
