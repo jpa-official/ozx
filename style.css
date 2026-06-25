@@ -905,7 +905,7 @@ em { font-style: normal; }
 }
 
 .gp-feature[data-feat-video="1 MEDIA FACADE.mp4"] .gp-feat-video {
-    object-position: top;
+    object-position: 50% 0%;
 }
 
 .gp-feature[data-feat-video] { cursor: pointer; }
