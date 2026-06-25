@@ -70,10 +70,9 @@ em { font-style: normal; }
     bottom: 48px; right: 48px;
     display: flex; align-items: baseline; gap: 2px;
     font-family: var(--f-narrow); font-weight: 500;
-    font-size: 11px; letter-spacing: 0.14em;
-    color: rgba(255,255,255,0.45);
+    font-size: clamp(80px, 14vw, 200px); letter-spacing: 0.04em;
+    color: #fff;
     z-index: 10;
-    mix-blend-mode: difference;
 }
 
 .lc-num {
