@@ -77,7 +77,7 @@ lenis.on('scroll', ({ scroll, limit }) => {
    ============================ */
 const loader     = qs('#loader');
 const loaderFill = qs('#loader-fill');
-const lcNum      = qs('.lc-num');
+const lcNums     = qsa('.lc-num');
 
 let loadVal    = 0;
 let loadDone   = false;
@@ -91,11 +91,12 @@ function digitFlash(finalStr, pct) {
     const flashes = 3;
     for (let i = 0; i < flashes; i++) {
         setTimeout(() => {
-            lcNum.textContent = String(Math.floor(Math.random() * 100)).padStart(2, '0');
+            const rand = String(Math.floor(Math.random() * 100)).padStart(2, '0');
+            lcNums.forEach(el => { el.textContent = rand; });
         }, i * 28);
     }
     setTimeout(() => {
-        lcNum.textContent = finalStr;
+        lcNums.forEach(el => { el.textContent = finalStr; });
         if (pct != null) setFill(pct);
     }, flashes * 28 + 10);
 }
