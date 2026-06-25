@@ -865,12 +865,13 @@ setTimeout(() => ScrollTrigger.refresh(), 100);
         start: 'top 80%',
         end: 'bottom 0%',
         onEnter() {
+            bgm.currentTime = 19;
             bgm.volume = 0;
             bgm.play().catch(() => {});
             fadeTo(1);
         },
         onLeave()      { fadeTo(0); },
-        onEnterBack()  { bgm.volume = 0; bgm.play().catch(() => {}); fadeTo(1); },
+        onEnterBack()  { bgm.currentTime = 19; bgm.volume = 0; bgm.play().catch(() => {}); fadeTo(1); },
         onLeaveBack()  { fadeTo(0); },
     });
 
