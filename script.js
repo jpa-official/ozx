@@ -837,8 +837,9 @@ setTimeout(() => ScrollTrigger.refresh(), 100);
 
 /* ============================
    G-PLANET BGM
+   (refresh 이후 생성해야 pin spacer 위치가 정확히 계산됨)
    ============================ */
-(function initGpBgm() {
+setTimeout(() => {
     const bgm = qs('#gp-bgm');
     if (!bgm) return;
 
@@ -886,7 +887,7 @@ setTimeout(() => ScrollTrigger.refresh(), 100);
         onEnterBack: () => { if (bgm.paused) playBgm(); },
         onLeaveBack: () => fadeTo(0),
     });
-})();
+}, 200);
 
 /* ============================
    PARTNER CARDS — SCROLL-DRIVEN HORIZONTAL SLIDER
