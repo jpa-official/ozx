@@ -885,21 +885,13 @@ setTimeout(() => {
     document.addEventListener('keydown',     unlock, { passive: true });
     document.addEventListener('pointerdown', unlock, { passive: true });
 
+    /* #gplanet 진입 ~ #fp-slider(도면) 끝날 때까지 BGM 유지 */
     ScrollTrigger.create({
         trigger: '#gplanet',
+        endTrigger: '#fp-slider',
         start: 'top bottom',
         end: 'bottom top',
         onEnter()     { inZone = true;  playBgm(); },
-        onLeave()     { inZone = false; fadeTo(0); },
-        onEnterBack() { inZone = true;  playBgm(); },
-        onLeaveBack() { inZone = false; fadeTo(0); },
-    });
-
-    ScrollTrigger.create({
-        trigger: '#gp-content',
-        start: 'top bottom',
-        end: 'bottom top',
-        onEnter()     { inZone = true;  if (bgm.paused) playBgm(); },
         onLeave()     { inZone = false; fadeTo(0); },
         onEnterBack() { inZone = true;  if (bgm.paused) playBgm(); },
         onLeaveBack() { inZone = false; fadeTo(0); },
