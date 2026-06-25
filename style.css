@@ -835,6 +835,8 @@ em { font-style: normal; }
     padding: clamp(20px, 2.5vw, 36px) clamp(28px, 5vw, 72px);
     border-bottom: 1px solid rgba(255,255,255,0.12);
     gap: clamp(24px, 6vw, 80px);
+    position: relative;
+    z-index: 2;
 }
 
 .gp-feat-left { flex: 1; min-width: 0; }
@@ -882,10 +884,7 @@ em { font-style: normal; }
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.4s ease;
-    z-index: 2;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    z-index: 1;
     overflow: hidden;
 }
 
@@ -893,8 +892,8 @@ em { font-style: normal; }
 
 .gp-feat-video {
     width: 100%;
-    height: auto;
-    object-fit: fill;
+    height: 100%;
+    object-fit: cover;
 }
 
 .gp-feature[data-feat-video] { cursor: pointer; }
