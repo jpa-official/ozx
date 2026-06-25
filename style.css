@@ -815,7 +815,7 @@ em { font-style: normal; }
     font-size: clamp(11px, 0.85vw, 13px);
     font-weight: 300;
     line-height: 1.8;
-    color: rgba(255,255,255,0.55);
+    color: #fff;
     font-style: normal;
 }
 
