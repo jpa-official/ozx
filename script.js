@@ -836,24 +836,25 @@ window.addEventListener('touchend', e => {
 setTimeout(() => ScrollTrigger.refresh(), 100);
 
 /* ============================
-   PARTNER CARDS — HORIZONTAL SLIDER
+   PARTNER CARDS — SCROLL-DRIVEN HORIZONTAL SLIDER
    ============================ */
 (function initPtSlider() {
-    const track = qs('#pt-cards');
+    const track   = qs('#pt-cards');
     if (!track) return;
 
-    const dots  = qsa('.pt-dot');
+    const dots    = qsa('.pt-dot');
     const btnPrev = qs('#pt-prev');
     const btnNext = qs('#pt-next');
-    const total = dots.length;
+    const total   = dots.length;       // 3
     let idx = 0;
 
     function goTo(n) {
-        idx = (n + total) % total;
+        idx = Math.max(0, Math.min(total - 1, n));
         track.style.transform = `translateX(-${idx * 100}%)`;
         dots.forEach((d, i) => d.classList.toggle('active', i === idx));
     }
 
+    /* 버튼 / 닷 클릭 */
     btnPrev.addEventListener('click', () => goTo(idx - 1));
     btnNext.addEventListener('click', () => goTo(idx + 1));
     dots.forEach(d => d.addEventListener('click', () => goTo(+d.dataset.idx)));
@@ -865,4 +866,26 @@ setTimeout(() => ScrollTrigger.refresh(), 100);
         const dx = e.changedTouches[0].clientX - sx;
         if (Math.abs(dx) > 50) goTo(idx + (dx < 0 ? 1 : -1));
     }, { passive: true });
+
+    /* 스크롤 드리븐 핀 — 슬라이드당 700px 스크롤 */
+    setTimeout(() => {
+        const snapPoints = Array.from({ length: total }, (_, i) => i / (total - 1));
+        ScrollTrigger.create({
+            trigger: '.pt-slider-wrap',
+            start: 'top top',
+            end: `+=${(total - 1) * 700}`,
+            pin: true,
+            pinSpacing: true,
+            anticipatePin: 1,
+            snap: {
+                snapTo: snapPoints,
+                duration: { min: 0.35, max: 0.65 },
+                ease: 'power2.inOut',
+            },
+            onUpdate(self) {
+                const newIdx = Math.round(self.progress * (total - 1));
+                if (newIdx !== idx) goTo(newIdx);
+            },
+        });
+    }, 0);
 })();
