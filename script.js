@@ -41,6 +41,7 @@ qsa([
     '.mvvs-tab', '.mvvs-col-en',
     '.fp-floor', '.fp-label', '.fp-heading',
     '.hdr-temp', '.hdr-date',
+    '.gp-feat-heading', '.gp-title',
 ].join(', ')).forEach(wrapOZText);
 
 /* ============================
