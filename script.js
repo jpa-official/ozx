@@ -842,19 +842,17 @@ setTimeout(() => ScrollTrigger.refresh(), 100);
     const bgm = qs('#gp-bgm');
     if (!bgm) return;
 
-    const FADE = 1.2;
+    const FADE = 1.0;
     let fadeTimer = null;
-    let unlocked = false;
-    let pendingPlay = false;
 
-    function fadeTo(targetVol) {
+    function fadeTo(vol) {
         clearInterval(fadeTimer);
-        const step = (targetVol - bgm.volume) / (FADE * 30);
+        const step = (vol - bgm.volume) / (FADE * 30);
         fadeTimer = setInterval(() => {
             const next = bgm.volume + step;
-            if ((step > 0 && next >= targetVol) || (step < 0 && next <= targetVol)) {
-                bgm.volume = Math.max(0, Math.min(1, targetVol));
-                if (targetVol === 0) bgm.pause();
+            if ((step > 0 && next >= vol) || (step < 0 && next <= vol)) {
+                bgm.volume = Math.max(0, Math.min(1, vol));
+                if (vol === 0) bgm.pause();
                 clearInterval(fadeTimer);
             } else {
                 bgm.volume = Math.max(0, Math.min(1, next));
@@ -865,58 +863,28 @@ setTimeout(() => ScrollTrigger.refresh(), 100);
     function playBgm() {
         bgm.currentTime = 19;
         bgm.volume = 0;
-        bgm.play().then(() => fadeTo(1)).catch(() => {});
-    }
-
-    /* 브라우저 오디오 잠금 해제 — 첫 사용자 인터랙션 시 */
-    function unlock() {
-        if (unlocked) return;
-        unlocked = true;
-        // muted로 잠깐 재생해 오디오 컨텍스트 활성화
-        bgm.muted = true;
-        bgm.play().then(() => {
-            bgm.pause();
-            bgm.muted = false;
-            bgm.currentTime = 0;
-            if (pendingPlay) playBgm();
-        }).catch(() => {});
-        document.removeEventListener('click',      unlock);
-        document.removeEventListener('touchstart', unlock);
-        document.removeEventListener('keydown',    unlock);
-        window.removeEventListener('wheel',        unlock);
-    }
-    document.addEventListener('click',      unlock, { once: true });
-    document.addEventListener('touchstart', unlock, { once: true, passive: true });
-    document.addEventListener('keydown',    unlock, { once: true });
-    window.addEventListener('wheel',        unlock, { once: true, passive: true });
-
-    function startBgm() {
-        pendingPlay = true;
-        if (unlocked) playBgm();
-    }
-    function stopBgm() {
-        pendingPlay = false;
-        fadeTo(0);
+        bgm.play().catch(() => {});
+        fadeTo(1);
     }
 
     ScrollTrigger.create({
         trigger: '#gplanet',
-        start: 'top 85%',
+        start: 'top 90%',
         end: 'bottom top',
-        onEnter()     { startBgm(); },
-        onLeave()     { stopBgm(); },
-        onEnterBack() { startBgm(); },
-        onLeaveBack() { stopBgm(); },
+        onEnter:     () => playBgm(),
+        onLeave:     () => fadeTo(0),
+        onEnterBack: () => playBgm(),
+        onLeaveBack: () => fadeTo(0),
     });
 
     ScrollTrigger.create({
         trigger: '#gp-content',
-        start: 'top 85%',
+        start: 'top 90%',
         end: 'bottom top',
-        onEnter()     { if (bgm.paused) startBgm(); },
-        onLeave()     { stopBgm(); },
-        onEnterBack() { if (bgm.paused) startBgm(); },
-        onLeaveBack() { stopBgm(); },
+        onEnter:     () => { if (bgm.paused) playBgm(); },
+        onLeave:     () => fadeTo(0),
+        onEnterBack: () => { if (bgm.paused) playBgm(); },
+        onLeaveBack: () => fadeTo(0),
     });
 })();
 
