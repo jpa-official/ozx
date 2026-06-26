@@ -886,20 +886,18 @@ setTimeout(() => {
         }
     }
 
-    function leaveZone() {
-        fadeTo(0);
-    }
-
-    /* #gplanet 진입 ~ #fp-slider(도면) 끝날 때까지 BGM 유지 */
+    /* #gplanet 진입 시 BGM 시작 — 한번 시작되면 계속 재생 */
     ScrollTrigger.create({
         trigger: '#gplanet',
-        endTrigger: '#fp-slider',
         start: 'top bottom',
-        end: 'bottom top',
         onEnter()     { enterZone(); },
-        onLeave()     { leaveZone(); },
-        onEnterBack() { enterZone(); },
-        onLeaveBack() { leaveZone(); },
+        onEnterBack() {
+            if (!userMuted) {
+                bgm.muted = false;
+                bgm.play().catch(() => {});
+                fadeTo(1);
+            }
+        },
     });
 }, 200);
 
