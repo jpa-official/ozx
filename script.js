@@ -328,18 +328,7 @@ qsa('.fade-up').forEach((el, i) => {
     if (!sr1 || !sr2 || !sr3) return;
 
     if (window.innerWidth < 900) {
-        [sr1, sr2, sr3].forEach((row, i) => {
-            row.style.gridArea = 'unset';
-            gsap.set(row, { opacity: 0, y: 40 });
-            ScrollTrigger.create({
-                trigger: row, start: 'top 85%', once: true,
-                onEnter: () => gsap.to(row, {
-                    opacity: 1, y: 0, duration: 0.8,
-                    delay: i * 0.08, ease: 'power2.out'
-                })
-            });
-        });
-        return;
+        return; /* 모바일: 자연 스크롤, 애니메이션 없음 */
     }
 
     /* MVVS pin-spacer가 먼저 DOM에 삽입된 뒤 #space 위치를 계산해야
@@ -440,15 +429,17 @@ qsa('.nav-a, .f-nav a').forEach(link => {
    ============================ */
 
 /* Service row 01 — 데스크탑 첫 진입 */
-ScrollTrigger.create({
-    trigger: '.sr-01', start: 'top 85%', once: true,
-    onEnter: () => {
-        gsap.fromTo('.sr-01 .sr-title, .sr-01 .sr-num, .sr-01 .sr-ko, .sr-01 .sr-body',
-            { opacity: 0, y: 20 },
-            { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out', stagger: 0.1 }
-        );
-    }
-});
+if (window.innerWidth >= 900) {
+    ScrollTrigger.create({
+        trigger: '.sr-01', start: 'top 85%', once: true,
+        onEnter: () => {
+            gsap.fromTo('.sr-01 .sr-title, .sr-01 .sr-num, .sr-01 .sr-ko, .sr-01 .sr-body',
+                { opacity: 0, y: 20 },
+                { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out', stagger: 0.1 }
+            );
+        }
+    });
+}
 
 /* Strength lead — 문단별 스태거 */
 qsa('.strength-lead p').forEach((p, i) => {
