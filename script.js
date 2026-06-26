@@ -897,10 +897,53 @@ setTimeout(() => {
    PARTNER CARDS — SCROLL-DRIVEN HORIZONTAL SLIDER
    ============================ */
 (function initPtSlider() {
-    const track   = qs('#pt-cards');
+    const track = qs('#pt-cards');
     if (!track) return;
 
-    const total   = qsa('.pt-card', track).length;   // 3
+    const cards = Array.from(qsa('.pt-card', track));
+    const total = cards.length; // 3
+
+    /* ── 모바일: 무한 터치 캐러셀 ── */
+    if (window.innerWidth < 900) {
+        /* 앞뒤에 클론 추가: [CONTENT_clone][SPACE][ACCEL][CONTENT][SPACE_clone] */
+        track.prepend(cards[total - 1].cloneNode(true));
+        track.append(cards[0].cloneNode(true));
+
+        let pos = 1, animating = false;
+
+        function setPos(p, animate) {
+            pos = p;
+            track.style.transition = animate
+                ? 'transform 0.55s cubic-bezier(0.77, 0, 0.18, 1)'
+                : 'none';
+            track.style.transform = `translateX(-${pos * 100}%)`;
+        }
+
+        setPos(1, false);
+
+        track.addEventListener('transitionend', () => {
+            if (pos <= 0)            setPos(total,     false); // 클론→실제 마지막
+            else if (pos >= total + 1) setPos(1,       false); // 클론→실제 첫번째
+            requestAnimationFrame(() => { animating = false; });
+        });
+
+        let sx = 0;
+        track.addEventListener('touchstart', e => {
+            if (!animating) sx = e.touches[0].clientX;
+        }, { passive: true });
+        track.addEventListener('touchend', e => {
+            if (animating) return;
+            const dx = e.changedTouches[0].clientX - sx;
+            if (Math.abs(dx) > 50) {
+                animating = true;
+                setPos(pos + (dx < 0 ? 1 : -1), true);
+            }
+        }, { passive: true });
+
+        return;
+    }
+
+    /* ── 데스크탑: ScrollTrigger 스크롤 드리븐 ── */
     let idx = 0;
 
     function goTo(n) {
@@ -908,10 +951,9 @@ setTimeout(() => {
         track.style.transform = `translateX(-${idx * 100}%)`;
     }
 
-    /* 터치 스와이프 */
     let sx = 0;
     track.addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, { passive: true });
-    track.addEventListener('touchend',   e => {
+    track.addEventListener('touchend', e => {
         const dx = e.changedTouches[0].clientX - sx;
         if (Math.abs(dx) > 50) goTo(idx + (dx < 0 ? 1 : -1));
     }, { passive: true });
