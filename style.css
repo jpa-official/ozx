@@ -1329,7 +1329,7 @@ em { font-style: normal; }
     border-top: 1px solid rgba(0,0,0,0.2);
     border-bottom: 1px solid rgba(0,0,0,0.2);
     overflow: hidden;
-    padding: clamp(20px, 2.5vw, 40px) 0;
+    padding: clamp(10px, 1.2vw, 18px) 0;
 }
 
 @keyframes pt-marquee {
@@ -1340,32 +1340,18 @@ em { font-style: normal; }
 .pt-marquee-track {
     display: flex;
     align-items: center;
-    gap: clamp(40px, 6vw, 100px);
+    gap: clamp(24px, 4vw, 60px);
     animation: pt-marquee 28s linear infinite;
     width: max-content;
 }
 
 .pt-logo-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
+    font-family: var(--f-narrow);
+    font-weight: 500;
+    font-size: clamp(9px, 0.75vw, 12px);
+    letter-spacing: 0.1em;
+    color: rgba(0,0,0,0.55);
     white-space: nowrap;
-}
-
-.pt-marquee-img {
-    height: clamp(28px, 3.5vw, 52px);
-    width: auto;
-    object-fit: contain;
-    display: block;
-}
-
-.pt-logo-main {
-    font-family: var(--f-display);
-    font-size: clamp(16px, 1.8vw, 28px);
-    color: #000;
-    letter-spacing: 0.04em;
 }
 
 .pt-logo-main strong {
