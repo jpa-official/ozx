@@ -741,7 +741,13 @@ let loopLocked = false;
 let currentScroll = 0;
 
 // Lenis scroll 이벤트로 정확한 현재 위치 추적
-lenis.on('scroll', ({ scroll }) => { currentScroll = scroll; });
+lenis.on('scroll', ({ scroll, limit }) => {
+    currentScroll = scroll;
+    // 모바일: 페이지 맨 아래 도달 시 히어로로 루프
+    if (window.innerWidth < 900 && scroll >= limit - 5 && !loopLocked) {
+        loopTo(0);
+    }
+});
 
 function loopTo(target) {
     if (loopLocked) return;
