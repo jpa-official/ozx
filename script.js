@@ -835,6 +835,30 @@ setTimeout(() => {
 
     const FADE = 1.0;
     let fadeTimer = null;
+    let userMuted = false;
+
+    const bgmBtn = qs('#gp-bgm-btn');
+
+    function updateBtn() {
+        if (!bgmBtn) return;
+        bgmBtn.classList.toggle('is-muted', userMuted);
+        bgmBtn.setAttribute('aria-label', userMuted ? 'BGM 켜기' : 'BGM 끄기');
+    }
+
+    if (bgmBtn) {
+        bgmBtn.addEventListener('click', () => {
+            userMuted = !userMuted;
+            updateBtn();
+            if (userMuted) {
+                fadeTo(0);
+            } else {
+                bgm.muted = false;
+                bgm.volume = 0;
+                bgm.play().catch(() => {});
+                fadeTo(1);
+            }
+        });
+    }
 
     function fadeTo(vol) {
         clearInterval(fadeTimer);
@@ -854,10 +878,12 @@ setTimeout(() => {
 
     function enterZone() {
         bgm.currentTime = 19;
-        bgm.muted = false;
-        bgm.volume = 0;
         bgm.play().catch(() => {});
-        fadeTo(1);
+        if (!userMuted) {
+            bgm.muted = false;
+            bgm.volume = 0;
+            fadeTo(1);
+        }
     }
 
     function leaveZone() {
