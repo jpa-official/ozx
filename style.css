@@ -1509,7 +1509,8 @@ em { font-style: normal; }
     color: rgba(0,0,0,0.5);
 }
 .pt-services li span:last-child  { color: #000; }
-.pt-services .oz-char { font-family: var(--f-display); }
+.pt-services .oz-char,
+.pt-card-cat .oz-char { font-family: var(--f-display) !important; }
 
 .pt-bullets {
     list-style: disc;
