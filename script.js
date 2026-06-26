@@ -877,7 +877,7 @@ setTimeout(() => {
     }
 
     function enterZone() {
-        bgm.currentTime = 19;
+        bgm.currentTime = 20;
         bgm.play().catch(() => {});
         if (!userMuted) {
             bgm.muted = false;
