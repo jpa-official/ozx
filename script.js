@@ -502,15 +502,15 @@ gsap.fromTo('.news-text',
     tabs[0].classList.add('is-active');
     panels[0].classList.add('is-active');
 
-    // 타임라인 총 ~4.95 기준 탭 전환 임계값:
-    // MISSION→VISION  at 2.175/4.95 = 0.440
-    // VISION→STRATEGY at 3.175/4.95 = 0.641
-    // STRATEGY→VALUE  at 4.175/4.95 = 0.843
+    // 타임라인 총 ~5.25 기준 탭 전환 임계값 (VISION 체류 연장: 2.8→3.5):
+    // MISSION→VISION  at 2.175/5.25 = 0.414
+    // VISION→STRATEGY at 3.600/5.25 = 0.686
+    // STRATEGY→VALUE  at 4.600/5.25 = 0.876
     const tl = gsap.timeline({
         scrollTrigger: {
             trigger: '#mvvs',
             start: 'top top',
-            end: '+=' + (window.innerHeight * 3.5),
+            end: '+=' + (window.innerHeight * 4.0),
             scrub: 0.8,
             pin: true,
             pinSpacing: true,
@@ -518,9 +518,9 @@ gsap.fromTo('.news-text',
             onUpdate: (self) => {
                 const p = self.progress;
                 let idx = 0;
-                if      (p >= 0.917) idx = 3;
-                else if (p >= 0.698) idx = 2;
-                else if (p >= 0.478) idx = 1;
+                if      (p >= 0.876) idx = 3;
+                else if (p >= 0.686) idx = 2;
+                else if (p >= 0.414) idx = 1;
                 tabs.forEach((t, i)   => t.classList.toggle('is-active', i === idx));
                 panels.forEach((pn, i) => pn.classList.toggle('is-active', i === idx));
             },
@@ -533,17 +533,17 @@ gsap.fromTo('.news-text',
         // Phase 2: 탭 + 첫 패널 등장
         .to(tabs,              { opacity: 1, stagger: 0.08, duration: 0.35 }, 0.75)
         .to('#panel-mission',  { opacity: 1, y: 0, duration: 0.35 }, 1.0)
-        // Phase 3: 패널 전환 MISSION → VISION → STRATEGY → VALUE
+        // Phase 3: 패널 전환 MISSION → VISION(체류 연장) → STRATEGY → VALUE
         .to('#panel-mission',  { opacity: 0, y: -14, duration: 0.35 }, 1.8)
         .to('#panel-vision',   { opacity: 1, y: 0,   duration: 0.35 }, 2.0)
-        .to('#panel-vision',   { opacity: 0, y: -14, duration: 0.35 }, 2.8)
-        .to('#panel-strategy', { opacity: 1, y: 0,   duration: 0.35 }, 3.0)
-        .to('#panel-strategy', { opacity: 0, y: -14, duration: 0.35 }, 3.8)
-        .to('#panel-value',    { opacity: 1, y: 0,   duration: 0.35 }, 4.0)
+        .to('#panel-vision',   { opacity: 0, y: -14, duration: 0.35 }, 3.5)  // 2.8 → 3.5
+        .to('#panel-strategy', { opacity: 1, y: 0,   duration: 0.35 }, 3.7)  // 3.0 → 3.7
+        .to('#panel-strategy', { opacity: 0, y: -14, duration: 0.35 }, 4.5)  // 3.8 → 4.5
+        .to('#panel-value',    { opacity: 1, y: 0,   duration: 0.35 }, 4.7)  // 4.0 → 4.7
         .to({}, { duration: 0.2 }); // VALUE에서 잠시 유지
 
     // 탭 클릭 시 해당 스크롤 위치로 이동 (scrub과 충돌 방지)
-    const tabProgress = [0.28, 0.55, 0.78, 0.96];
+    const tabProgress = [0.22, 0.56, 0.81, 0.97];
     tabs.forEach((tab, i) => {
         tab.addEventListener('click', () => {
             const st = tl.scrollTrigger;
