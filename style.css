@@ -1580,6 +1580,7 @@ em { font-style: normal; }
 }
 
 .pt-nav-btn {
+    display: none;
     background: none;
     border: none;
     color: #000;
