@@ -827,6 +827,7 @@ setTimeout(() => ScrollTrigger.refresh(), 100);
 setTimeout(() => {
     const bgm = qs('#gp-bgm');
     if (!bgm) return;
+    const MAX_VOL = 0.4;
 
     /* 브라우저 오토플레이 정책: 첫 포인터 다운에서 play() 호출로 오디오 컨텍스트 잠금 해제 */
     document.addEventListener('pointerdown', () => {
@@ -855,7 +856,7 @@ setTimeout(() => {
                 bgm.muted = false;
                 bgm.volume = 0;
                 bgm.play().catch(() => {});
-                fadeTo(1);
+                fadeTo(MAX_VOL);
             }
         });
     }
@@ -882,7 +883,7 @@ setTimeout(() => {
         if (!userMuted) {
             bgm.muted = false;
             bgm.volume = 0;
-            fadeTo(1);
+            fadeTo(MAX_VOL);
         }
     }
 
@@ -895,7 +896,7 @@ setTimeout(() => {
             if (!userMuted) {
                 bgm.muted = false;
                 bgm.play().catch(() => {});
-                fadeTo(1);
+                fadeTo(MAX_VOL);
             }
         },
     });
