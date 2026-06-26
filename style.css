@@ -1522,9 +1522,9 @@ em { font-style: normal; }
     min-height: 100vh;
 }
 
-.pt-img-space   { background: #3d000f; }
-.pt-img-accel   { background: #2d0009; }
-.pt-img-content { background: #1a0008; }
+.pt-img-space,
+.pt-img-accel,
+.pt-img-content { background: #640019; }
 
 /* 슬라이더 네비게이션 */
 .pt-nav {
