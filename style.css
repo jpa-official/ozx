@@ -1436,7 +1436,8 @@ em { font-style: normal; }
 
 .pt-card-header {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .pt-card-logo-wrap {
@@ -1469,9 +1470,7 @@ em { font-style: normal; }
     font-size: clamp(14px, 1.6vw, 24px);
     letter-spacing: 0.06em;
     color: #000;
-    align-self: flex-end;
     text-align: right;
-    margin-top: auto;
 }
 
 .pt-card-tagline {
