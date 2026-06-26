@@ -1464,7 +1464,7 @@ em { font-style: normal; }
     font-family: var(--f-narrow);
     font-weight: 500;
     font-size: clamp(20px, 2.8vw, 40px);
-    letter-spacing: 0.06em;
+    letter-spacing: 0.01em;
     color: #000;
     text-align: right;
 }
@@ -1506,11 +1506,11 @@ em { font-style: normal; }
 .pt-services li span:first-child {
     font-family: var(--f-narrow);
     font-weight: 700;
-    color: rgba(0,0,0,0.5);
+    color: #000;
 }
 .pt-services li span:last-child  { color: #000; }
 .pt-services .oz-char,
-.pt-card-cat .oz-char { font-family: var(--f-display) !important; }
+.pt-card-cat .oz-char { font-family: var(--f-display) !important; font-weight: 500 !important; }
 
 .pt-bullets {
     list-style: disc;
