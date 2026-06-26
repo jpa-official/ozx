@@ -908,22 +908,13 @@ setTimeout(() => {
     const track   = qs('#pt-cards');
     if (!track) return;
 
-    const dots    = qsa('.pt-dot');
-    const btnPrev = qs('#pt-prev');
-    const btnNext = qs('#pt-next');
-    const total   = dots.length;       // 3
+    const total   = qsa('.pt-card', track).length;   // 3
     let idx = 0;
 
     function goTo(n) {
         idx = Math.max(0, Math.min(total - 1, n));
         track.style.transform = `translateX(-${idx * 100}%)`;
-        dots.forEach((d, i) => d.classList.toggle('active', i === idx));
     }
-
-    /* 버튼 / 닷 클릭 */
-    btnPrev.addEventListener('click', () => goTo(idx - 1));
-    btnNext.addEventListener('click', () => goTo(idx + 1));
-    dots.forEach(d => d.addEventListener('click', () => goTo(+d.dataset.idx)));
 
     /* 터치 스와이프 */
     let sx = 0;
