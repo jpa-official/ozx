@@ -1265,6 +1265,8 @@ em { font-style: normal; }
         line-height: 1.3;
     }
 
+    .pill-body { font-size: 13px; }
+
     /* what we do / operating strength 행간은 조금 넓게 */
     .sec-lead,
     .sr-ko,
