@@ -456,7 +456,7 @@ em { font-style: normal; }
 .mvvs-single {
     font-family: var(--f-body);
     font-size: clamp(14px, 1.3vw, 17px);
-    font-weight: 300;
+    font-weight: 700;
     line-height: 1.85;
     color: #000;
     text-align: center;
@@ -481,7 +481,7 @@ em { font-style: normal; }
 .mvvs-col p {
     font-family: var(--f-body);
     font-size: clamp(13px, 1.1vw, 16px);
-    font-weight: 300;
+    font-weight: 700;
     line-height: 1.9;
     color: #000;
 }
@@ -908,8 +908,8 @@ em { font-style: normal; }
 
 .gp-feat-sub {
     font-family: var(--f-body);
-    font-size: clamp(10px, 0.65vw, 11px);
-    font-weight: 300;
+    font-size: clamp(13px, 1.1vw, 18px);
+    font-weight: 600;
     color: #fff;
     line-height: 1.5;
 }
