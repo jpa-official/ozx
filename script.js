@@ -727,8 +727,8 @@ qs('.header-brand').addEventListener('click', e => {
         requestAnimationFrame(() => { animating = false; });
     });
 
-    if (prev) prev.addEventListener('click', () => move(-1));
-    if (next) next.addEventListener('click', () => move(+1));
+    prev.addEventListener('click', () => move(-1));
+    next.addEventListener('click', () => move(+1));
 
     document.addEventListener('keydown', e => {
         if (e.key === 'ArrowLeft')  move(-1);
