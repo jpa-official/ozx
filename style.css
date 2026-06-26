@@ -1238,17 +1238,18 @@ em { font-style: normal; }
         gap: 4px;
     }
     .mvvs-tab {
-        font-size: clamp(28px, 8vw, 44px);
+        font-size: clamp(22px, 6vw, 32px);
     }
     .mvvs-bg {
-        padding: 0 var(--pad-x);
-        align-items: center;
+        padding: clamp(60px, 15vh, 100px) var(--pad-x) clamp(40px, 8vh, 80px);
+        align-items: flex-start;
+        justify-content: center;
     }
     .mvvs-inner {
-        gap: 32px;
+        gap: 20px;
     }
     .mvvs-content {
-        min-height: 420px;
+        min-height: 220px;
     }
 
     /* 한글 본문 행간 축소 */
