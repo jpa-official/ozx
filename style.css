@@ -1423,9 +1423,10 @@ em { font-style: normal; }
 
 .pt-card-left {
     background: #640019;
-    padding: clamp(48px, 6vw, 96px) clamp(40px, 5vw, 80px);
+    padding: clamp(60px, 8vw, 120px) clamp(40px, 5vw, 80px);
     display: flex;
     flex-direction: column;
+    justify-content: center;
     gap: clamp(10px, 1.2vw, 18px);
 }
 
@@ -1462,7 +1463,7 @@ em { font-style: normal; }
 .pt-card-cat {
     font-family: var(--f-narrow);
     font-weight: 500;
-    font-size: clamp(14px, 1.6vw, 24px);
+    font-size: clamp(20px, 2.8vw, 40px);
     letter-spacing: 0.06em;
     color: #000;
     text-align: right;
@@ -1470,7 +1471,7 @@ em { font-style: normal; }
 
 .pt-card-tagline {
     font-family: var(--f-body);
-    font-size: clamp(13px, 1.1vw, 17px);
+    font-size: clamp(15px, 1.3vw, 20px);
     line-height: 1.7;
     font-weight: 600;
     color: #000;
@@ -1478,7 +1479,7 @@ em { font-style: normal; }
 
 .pt-card-body {
     font-family: var(--f-body);
-    font-size: clamp(11px, 0.9vw, 14px);
+    font-size: clamp(12px, 1vw, 16px);
     line-height: 1.9;
     font-weight: 700;
     color: rgba(0,0,0,0.7);
@@ -1498,7 +1499,7 @@ em { font-style: normal; }
     justify-content: flex-start;
     gap: 8px;
     font-family: var(--f-body);
-    font-size: clamp(10px, 0.82vw, 13px);
+    font-size: clamp(11px, 0.9vw, 14px);
     letter-spacing: 0.03em;
 }
 
@@ -1508,6 +1509,7 @@ em { font-style: normal; }
     color: rgba(0,0,0,0.5);
 }
 .pt-services li span:last-child  { color: #000; }
+.pt-services .oz-char { font-family: var(--f-display); }
 
 .pt-bullets {
     list-style: disc;
@@ -1519,7 +1521,8 @@ em { font-style: normal; }
 
 .pt-bullets li {
     font-family: var(--f-body);
-    font-size: clamp(10px, 0.85vw, 13px);
+    font-size: clamp(11px, 0.95vw, 15px);
+    font-weight: 700;
     line-height: 1.7;
     color: rgba(0,0,0,0.8);
 }
@@ -1540,7 +1543,8 @@ em { font-style: normal; }
 
 .pt-proj-body {
     font-family: var(--f-body);
-    font-size: clamp(9px, 0.78vw, 12px);
+    font-size: clamp(10px, 0.85vw, 13px);
+    font-weight: 700;
     line-height: 1.75;
     color: rgba(0,0,0,0.65);
 }
@@ -1590,8 +1594,7 @@ em { font-style: normal; }
 .pt-nav-btn:hover { opacity: 1; }
 
 .pt-dots {
-    display: flex;
-    gap: clamp(12px, 1.5vw, 24px);
+    display: none;
 }
 
 .pt-dot {
