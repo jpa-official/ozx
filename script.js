@@ -232,7 +232,7 @@ if (idSection) idObs.observe(idSection);
 ScrollTrigger.create({
     trigger: '#identity',
     start: 'top top',
-    end: '+=700',
+    end: '+=350',
     pin: true,
     pinSpacing: true,
     anticipatePin: 1,
