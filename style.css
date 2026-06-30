@@ -1241,8 +1241,8 @@ em { font-style: normal; }
         font-size: clamp(22px, 6vw, 32px);
     }
     .mvvs-bg {
-        padding: clamp(60px, 15vh, 100px) var(--pad-x) clamp(40px, 8vh, 80px);
-        align-items: flex-start;
+        padding: 0 var(--pad-x);
+        align-items: center;
         justify-content: center;
     }
     .mvvs-inner {
