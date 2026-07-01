@@ -1156,8 +1156,8 @@ em { font-style: normal; }
 
 .cf-submit {
     width: 100%;
-    background: transparent;
-    border: 1px solid rgba(255,255,255,0.25);
+    background: #000;
+    border: 1px solid rgba(0,0,0,0.4);
     color: #fff;
     font-family: var(--f-narrow);
     font-size: clamp(11px, 1vw, 13px);
@@ -1170,9 +1170,8 @@ em { font-style: normal; }
 }
 
 .cf-submit:hover {
-    background: #fff;
-    color: #000;
-    border-color: #fff;
+    background: #222;
+    border-color: #222;
 }
 
 .contact-copy {
