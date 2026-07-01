@@ -880,7 +880,7 @@ em { font-style: normal; }
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    padding: clamp(20px, 2.5vw, 36px) clamp(28px, 5vw, 72px);
+    padding: clamp(32px, 4vw, 56px) clamp(28px, 5vw, 72px);
     border-bottom: 1px solid rgba(255,255,255,0.12);
     gap: clamp(24px, 6vw, 80px);
     position: relative;
