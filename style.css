@@ -852,7 +852,7 @@ em { font-style: normal; }
     font-family: var(--f-body);
     font-size: clamp(12px, 0.95vw, 14px);
     font-weight: 300;
-    line-height: 1.85;
+    line-height: 1.5;
     color: rgba(255,255,255,0.80);
     max-width: 720px;
     word-break: keep-all;
@@ -1271,7 +1271,7 @@ em { font-style: normal; }
     }
 
     .gp-desc {
-        line-height: 2.2;
+        line-height: 1.7;
         color: #fff;
     }
 
