@@ -1087,7 +1087,7 @@ em { font-style: normal; }
    CONTACT
    ============================ */
 #contact {
-    background: #000;
+    background: #640019;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -1112,6 +1112,7 @@ em { font-style: normal; }
     width: clamp(120px, 20vw, 280px);
     height: auto;
     display: block;
+    filter: brightness(0);
 }
 
 .contact-form {
@@ -1308,8 +1309,8 @@ em { font-style: normal; }
    PARTNERS SECTION (로고 마퀴 + 카드)
    ============================ */
 #pt-section {
-    background: #640019;
-    color: #000;
+    background: #000;
+    color: #fff;
 }
 
 .pt-head {
@@ -1337,8 +1338,8 @@ em { font-style: normal; }
 
 /* 마퀴 */
 .pt-marquee-wrap {
-    border-top: 1px solid rgba(0,0,0,0.2);
-    border-bottom: 1px solid rgba(0,0,0,0.2);
+    border-top: 1px solid rgba(255,255,255,0.2);
+    border-bottom: 1px solid rgba(255,255,255,0.2);
     overflow: hidden;
     padding: clamp(10px, 1.2vw, 18px) 0;
 }
@@ -1378,12 +1379,12 @@ em { font-style: normal; }
 .pt-logo-sub {
     font-family: var(--f-body);
     font-size: clamp(7px, 0.6vw, 10px);
-    color: rgba(0,0,0,0.5);
+    color: rgba(255,255,255,0.5);
     letter-spacing: 0.1em;
     text-transform: uppercase;
 }
 
-.pt-logo-yellow { color: #000; }
+.pt-logo-yellow { color: #fff; }
 
 .pt-logo-grunge {
     font-family: var(--f-body);
@@ -1396,7 +1397,7 @@ em { font-style: normal; }
     width: clamp(52px, 5vw, 80px);
     height: clamp(52px, 5vw, 80px);
     border-radius: 50%;
-    border: 2px solid rgba(0,0,0,0.5);
+    border: 2px solid rgba(255,255,255,0.5);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1409,7 +1410,7 @@ em { font-style: normal; }
     line-height: 1.4;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: #000;
+    color: #fff;
 }
 
 /* 슬라이더 래퍼 */
