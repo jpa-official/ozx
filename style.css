@@ -1433,18 +1433,20 @@ em { font-style: normal; }
 }
 
 .pt-card-left {
-    background: #640019;
+    background: #000;
     padding: clamp(60px, 8vw, 120px) clamp(40px, 5vw, 80px);
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     gap: clamp(10px, 1.2vw, 18px);
 }
 
 .pt-card-header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
+    gap: clamp(16px, 2vw, 32px);
 }
 
 .pt-card-logo-wrap {
@@ -1455,7 +1457,7 @@ em { font-style: normal; }
 .pt-cl-sub {
     font-family: var(--f-body);
     font-size: clamp(8px, 0.7vw, 11px);
-    color: rgba(0,0,0,0.55);
+    color: rgba(255,255,255,0.55);
     letter-spacing: 0.1em;
     text-transform: uppercase;
 }
@@ -1463,7 +1465,7 @@ em { font-style: normal; }
 .pt-cl-main {
     font-family: var(--f-display);
     font-size: clamp(22px, 3vw, 48px);
-    color: #000;
+    color: #fff;
     letter-spacing: 0.03em;
 }
 
@@ -1476,7 +1478,7 @@ em { font-style: normal; }
     font-weight: 500;
     font-size: clamp(20px, 2.8vw, 40px);
     letter-spacing: 0.01em;
-    color: #000;
+    color: #fff;
     text-align: right;
 }
 
@@ -1485,7 +1487,8 @@ em { font-style: normal; }
     font-size: clamp(15px, 1.3vw, 20px);
     line-height: 1.7;
     font-weight: 600;
-    color: #000;
+    color: #fff;
+    text-align: center;
 }
 
 .pt-card-body {
@@ -1493,21 +1496,23 @@ em { font-style: normal; }
     font-size: clamp(12px, 1vw, 16px);
     line-height: 1.9;
     font-weight: 700;
-    color: rgba(0,0,0,0.7);
+    color: rgba(255,255,255,0.7);
+    text-align: center;
 }
 
 .pt-services {
     list-style: none;
-    border-top: 1px solid rgba(0,0,0,0.2);
+    border-top: 1px solid rgba(255,255,255,0.2);
     padding-top: clamp(12px, 1.8vw, 24px);
     display: flex;
     flex-direction: column;
     gap: clamp(7px, 0.8vw, 12px);
+    align-items: center;
 }
 
 .pt-services li {
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     gap: 8px;
     font-family: var(--f-body);
     font-size: clamp(11px, 0.9vw, 14px);
@@ -1517,9 +1522,9 @@ em { font-style: normal; }
 .pt-services li span:first-child {
     font-family: var(--f-narrow);
     font-weight: 700;
-    color: #000;
+    color: #fff;
 }
-.pt-services li span:last-child  { color: #000; }
+.pt-services li span:last-child  { color: #fff; }
 .pt-services .oz-char,
 .pt-card-cat .oz-char { font-family: var(--f-display) !important; font-weight: 500 !important; }
 
@@ -1528,6 +1533,8 @@ em { font-style: normal; }
     padding-left: 1.2em;
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
     gap: clamp(6px, 0.7vw, 10px);
 }
 
@@ -1536,11 +1543,11 @@ em { font-style: normal; }
     font-size: clamp(11px, 0.95vw, 15px);
     font-weight: 700;
     line-height: 1.7;
-    color: rgba(0,0,0,0.8);
+    color: rgba(255,255,255,0.8);
 }
 
 .pt-proj {
-    border-top: 1px solid rgba(0,0,0,0.2);
+    border-top: 1px solid rgba(255,255,255,0.2);
     padding-top: clamp(10px, 1.2vw, 18px);
 }
 
@@ -1548,7 +1555,7 @@ em { font-style: normal; }
     font-family: var(--f-body);
     font-size: clamp(10px, 0.85vw, 13px);
     font-weight: 700;
-    color: #000;
+    color: #fff;
     margin-bottom: 6px;
     letter-spacing: 0.02em;
 }
@@ -1558,7 +1565,7 @@ em { font-style: normal; }
     font-size: clamp(10px, 0.85vw, 13px);
     font-weight: 700;
     line-height: 1.75;
-    color: rgba(0,0,0,0.65);
+    color: rgba(255,255,255,0.65);
 }
 
 /* 로고 이미지 */
@@ -1577,7 +1584,7 @@ em { font-style: normal; }
 
 .pt-img-space,
 .pt-img-accel,
-.pt-img-content { background: #640019; }
+.pt-img-content { background: #000; }
 
 /* 슬라이더 네비게이션 */
 .pt-nav {
