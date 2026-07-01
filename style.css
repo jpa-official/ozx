@@ -1158,6 +1158,7 @@ em { font-style: normal; }
 .cf-textarea {
     height: clamp(80px, 14vh, 160px);
     resize: none;
+    border-bottom: none;
 }
 
 .cf-submit {
