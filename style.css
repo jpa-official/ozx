@@ -1126,9 +1126,9 @@ em { font-style: normal; }
 
 .cf-input {
     width: 100%;
-    background: transparent;
-    border: 1px solid rgba(255,255,255,0.25);
-    color: #fff;
+    background: #000;
+    border: 1px solid rgba(0,0,0,0.4);
+    color: #000;
     font-family: var(--f-body);
     font-size: clamp(11px, 1vw, 13px);
     font-weight: 300;
@@ -1140,14 +1140,14 @@ em { font-style: normal; }
 }
 
 .cf-input::placeholder {
-    color: rgba(255,255,255,0.35);
+    color: rgba(0,0,0,0.4);
     font-family: var(--f-body);
     font-size: clamp(11px, 1vw, 13px);
     font-weight: 300;
     letter-spacing: 0.04em;
 }
 
-.cf-input:focus { border-color: rgba(255,255,255,0.6); }
+.cf-input:focus { border-color: rgba(0,0,0,0.8); }
 
 .cf-textarea {
     height: clamp(56px, 8vh, 110px);
