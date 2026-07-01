@@ -1575,6 +1575,7 @@ em { font-style: normal; }
     width: auto;
     object-fit: contain;
     object-position: left center;
+    filter: brightness(0) invert(1);
 }
 
 /* 우측 배경 */
