@@ -1323,17 +1323,17 @@ em { font-style: normal; }
     font-size: clamp(16px, 2.6vw, 34px);
     letter-spacing: 0.03em;
     margin-bottom: clamp(14px, 2vw, 28px);
-    color: #000;
+    color: #fff;
 }
 
 .pt-desc {
     font-family: var(--f-body);
     font-size: clamp(13px, 1vw, 16px);
     line-height: 1.75;
-    color: rgba(0,0,0,0.75);
+    color: rgba(255,255,255,0.75);
     font-weight: 600;
     padding-bottom: clamp(20px, 2.5vw, 36px);
-    border-bottom: 1px solid rgba(0,0,0,0.2);
+    border-bottom: 1px solid rgba(255,255,255,0.2);
 }
 
 /* 마퀴 */
@@ -1362,7 +1362,7 @@ em { font-style: normal; }
     font-weight: 500;
     font-size: clamp(9px, 0.75vw, 12px);
     letter-spacing: 0.1em;
-    color: rgba(0,0,0,0.55);
+    color: rgba(255,255,255,0.55);
     white-space: nowrap;
 }
 
@@ -1485,7 +1485,7 @@ em { font-style: normal; }
 
 .pt-card-tagline {
     font-family: var(--f-body);
-    font-size: clamp(15px, 1.3vw, 20px);
+    font-size: clamp(13px, 1vw, 16px);
     line-height: 1.7;
     font-weight: 600;
     color: #fff;
@@ -1494,9 +1494,9 @@ em { font-style: normal; }
 
 .pt-card-body {
     font-family: var(--f-body);
-    font-size: clamp(12px, 1vw, 16px);
+    font-size: clamp(11px, 0.85vw, 13px);
     line-height: 1.9;
-    font-weight: 700;
+    font-weight: 400;
     color: rgba(255,255,255,0.7);
     text-align: center;
 }
