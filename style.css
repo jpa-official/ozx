@@ -1491,7 +1491,7 @@ em { font-style: normal; }
 .pt-card-cat {
     font-family: var(--f-narrow);
     font-weight: 500;
-    font-size: clamp(40px, 6vw, 90px);
+    font-size: clamp(56px, 9vw, 130px);
     letter-spacing: 0.01em;
     color: #fff;
     text-align: center;
