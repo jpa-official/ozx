@@ -1428,19 +1428,28 @@ em { font-style: normal; }
 /* 파트너 카드 */
 .pt-card {
     flex: 0 0 100%;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     min-height: 100vh;
 }
 
 .pt-card-left {
     background: #000;
-    padding: clamp(60px, 8vw, 120px) clamp(60px, 10vw, 200px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(40px, 6vw, 80px);
+}
+
+.pt-card-right {
+    background: #000;
+    padding: clamp(60px, 7vw, 100px) clamp(40px, 5vw, 80px);
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-    flex: 1;
+    align-items: flex-start;
     gap: clamp(10px, 1.2vw, 18px);
+    border-left: 1px solid rgba(255,255,255,0.1);
 }
 
 .pt-card-header {
@@ -1478,12 +1487,11 @@ em { font-style: normal; }
 .pt-card-cat {
     font-family: var(--f-narrow);
     font-weight: 500;
-    font-size: clamp(20px, 2.8vw, 40px);
+    font-size: clamp(40px, 6vw, 90px);
     letter-spacing: 0.01em;
     color: #fff;
-    text-align: right;
-    position: absolute;
-    right: 0;
+    text-align: center;
+    line-height: 1;
 }
 
 .pt-card-tagline {
@@ -1492,7 +1500,7 @@ em { font-style: normal; }
     line-height: 1.7;
     font-weight: 600;
     color: #fff;
-    text-align: center;
+    text-align: left;
 }
 
 .pt-card-body {
@@ -1501,7 +1509,7 @@ em { font-style: normal; }
     line-height: 1.9;
     font-weight: 400;
     color: rgba(255,255,255,0.7);
-    text-align: center;
+    text-align: left;
 }
 
 .pt-services {
@@ -1589,10 +1597,10 @@ em { font-style: normal; }
     mix-blend-mode: screen;
 }
 
-/* 우측 배경 */
-.pt-card-right {
-    display: none;
-}
+/* 우측 배경 이미지 클래스 (사용 안함) */
+.pt-img-space,
+.pt-img-accel,
+.pt-img-content { display: none; }
 
 .pt-img-space,
 .pt-img-accel,
