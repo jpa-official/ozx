@@ -1428,18 +1428,18 @@ em { font-style: normal; }
 /* 파트너 카드 */
 .pt-card {
     flex: 0 0 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
     min-height: 100vh;
 }
 
 .pt-card-left {
     background: #000;
-    padding: clamp(60px, 8vw, 120px) clamp(40px, 5vw, 80px);
+    padding: clamp(60px, 8vw, 120px) clamp(60px, 10vw, 200px);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    flex: 1;
     gap: clamp(10px, 1.2vw, 18px);
 }
 
@@ -1582,7 +1582,7 @@ em { font-style: normal; }
 
 /* 우측 배경 */
 .pt-card-right {
-    min-height: 100vh;
+    display: none;
 }
 
 .pt-img-space,
