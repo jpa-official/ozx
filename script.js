@@ -375,14 +375,6 @@ qsa('.fade-up').forEach((el, i) => {
             anticipatePin: 1,
         });
 
-        ScrollTrigger.create({
-            trigger: '#gp-content',
-            start: 'top top',
-            end: '+=700',
-            pin: true,
-            pinSpacing: true,
-            anticipatePin: 1,
-        });
 
         ScrollTrigger.create({
             trigger: '#fp-slider',
