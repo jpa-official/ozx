@@ -867,6 +867,11 @@ em { font-style: normal; }
     font-style: normal;
     margin-top: clamp(8px, 1vw, 14px);
 }
+.gp-addr-en {
+    font-family: var(--f-body);
+    font-size: clamp(14px, 1.2vw, 18px);
+    font-weight: 300;
+}
 
 /* 피처 항목 */
 .gp-features {
