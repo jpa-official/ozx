@@ -1628,10 +1628,10 @@ em { font-style: normal; }
     }
     #mobile-nav::-webkit-scrollbar { display: none; }
     #mobile-nav a {
-        font-family: var(--f-narrow);
-        font-size: 11px;
+        font-family: var(--f-display);
+        font-size: 10px;
         font-weight: 500;
-        letter-spacing: 0.08em;
+        letter-spacing: 0.03em;
         color: #fff;
         text-decoration: none;
         white-space: nowrap;
