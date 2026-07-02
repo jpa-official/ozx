@@ -490,43 +490,52 @@ gsap.fromTo('.news-text',
     tabs[0].classList.add('is-active');
     panels[0].classList.add('is-active');
 
-    /* ── 모바일: MISSION 멈춤 → VISION 멈춤 → 해제 ── */
+    /* ── 모바일: 4패널 각각 snap으로 멈춤 ── */
     if (window.innerWidth < 768) {
         gsap.set('.mvvs-bg',       { clipPath: 'inset(0% 0 0% 0)' });
         gsap.set(tabs,             { opacity: 1 });
         gsap.set('#panel-mission', { opacity: 1, y: 0 });
 
+        // 총 timeline duration = 4.0 (패널 하나당 ~1.0)
+        // progress 0     → MISSION
+        // progress 0.25  → VISION
+        // progress 0.5   → STRATEGY
+        // progress 0.75  → VALUE
+        // progress 1.0   → 핀 해제
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: '#mvvs',
                 start: 'top top',
-                end: '+=' + (window.innerHeight * 2),
+                end: '+=' + (window.innerHeight * 3.5),
                 scrub: 1,
                 pin: true,
                 pinSpacing: true,
                 anticipatePin: 1,
                 snap: {
-                    snapTo: [0, 0.5, 1],
+                    snapTo: [0, 0.25, 0.5, 0.75, 1],
                     duration: { min: 0.2, max: 0.5 },
                     delay: 0.05,
                     ease: 'power2.inOut',
                 },
                 onUpdate: (self) => {
                     const p = self.progress;
-                    const idx = p >= 0.5 ? 1 : 0;
+                    let idx = 0;
+                    if      (p >= 0.875) idx = 3;
+                    else if (p >= 0.625) idx = 2;
+                    else if (p >= 0.375) idx = 1;
                     tabs.forEach((t, i)    => t.classList.toggle('is-active', i === idx));
                     panels.forEach((pn, i) => pn.classList.toggle('is-active', i === idx));
                 },
             }
         });
-        // 총 타임라인 duration ≈ 2.0
-        // progress 0   → pos 0    : MISSION
-        // progress 0.5 → pos 1.0  : VISION 완전 표시
-        // progress 1   → pos 2.0  : 핀 해제
         tl
-            .to('#panel-mission', { opacity: 0, y: -14, duration: 0.25 }, 0.5)
-            .to('#panel-vision',  { opacity: 1, y: 0,   duration: 0.25 }, 0.75)
-            .to({}, { duration: 1.0 }); // VISION 유지 후 해제
+            .to('#panel-mission',  { opacity: 0, y: -14, duration: 0.2 }, 0.8)
+            .to('#panel-vision',   { opacity: 1, y: 0,   duration: 0.2 }, 1.0)
+            .to('#panel-vision',   { opacity: 0, y: -14, duration: 0.2 }, 1.8)
+            .to('#panel-strategy', { opacity: 1, y: 0,   duration: 0.2 }, 2.0)
+            .to('#panel-strategy', { opacity: 0, y: -14, duration: 0.2 }, 2.8)
+            .to('#panel-value',    { opacity: 1, y: 0,   duration: 0.2 }, 3.0)
+            .to({}, { duration: 0.8 }); // VALUE 유지 후 해제
         return;
     }
 
