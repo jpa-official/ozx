@@ -1257,9 +1257,6 @@ em { font-style: normal; }
 
 @media (max-width: 768px) {
     /* identity 섹션: 모바일 패딩 축소 */
-    #identity {
-        min-height: auto;
-    }
     .id-inner {
         padding: 68px var(--pad-x) 20px;
     }
