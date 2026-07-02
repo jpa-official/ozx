@@ -1013,7 +1013,7 @@ setTimeout(() => ScrollTrigger.refresh(), 100);
 
 /* ============================
    G-PLANET BGM
-   첫 사용자 인터랙션(클릭/터치)으로 오디오 잠금 해제 → 구간 진입 시 19초부터 재생
+   첫 사용자 인터랙션(클릭/터치)으로 오디오 잠금 해제 → 구간 진입 시 1:31부터 재생
    ============================ */
 setTimeout(() => {
     const bgm = qs('#gp-bgm');
@@ -1070,7 +1070,7 @@ setTimeout(() => {
     }
 
     function enterZone() {
-        bgm.currentTime = 20;
+        bgm.currentTime = 91;
         bgm.play().catch(() => {});
         if (!userMuted) {
             bgm.muted = false;
