@@ -1261,7 +1261,7 @@ em { font-style: normal; }
         min-height: auto;
     }
     .id-inner {
-        padding: 52px var(--pad-x) 12px;
+        padding: 68px var(--pad-x) 20px;
     }
     .id-title-block {
         margin-bottom: 20px;

@@ -233,17 +233,15 @@ const idObs = new IntersectionObserver(entries => {
 const idSection = qs('#identity');
 if (idSection) idObs.observe(idSection);
 
-/* Identity 섹션 — 스크롤 핀 (데스크탑만, 모바일 갭 방지) */
-if (window.innerWidth >= 768) {
-    ScrollTrigger.create({
-        trigger: '#identity',
-        start: 'top top',
-        end: '+=350',
-        pin: true,
-        pinSpacing: true,
-        anticipatePin: 1,
-    });
-}
+/* Identity 섹션 — 스크롤 핀 (모바일은 짧게) */
+ScrollTrigger.create({
+    trigger: '#identity',
+    start: 'top top',
+    end: window.innerWidth < 768 ? '+=220' : '+=350',
+    pin: true,
+    pinSpacing: true,
+    anticipatePin: 1,
+});
 
 /* ============================
    TEXT SCRAMBLE CLASS
@@ -492,24 +490,27 @@ gsap.fromTo('.news-text',
     tabs[0].classList.add('is-active');
     panels[0].classList.add('is-active');
 
-    /* ── 모바일: 진입 즉시 MISSION 표시, 스크롤로 VISION 전환 ── */
+    /* ── 모바일: MISSION 멈춤 → VISION 멈춤 → 해제 ── */
     if (window.innerWidth < 768) {
-        // bg 즉시 공개 + 초기 콘텐츠(MISSION) 즉시 표시
-        gsap.set('.mvvs-bg',      { clipPath: 'inset(0% 0 0% 0)' });
-        gsap.set(tabs,            { opacity: 1 });
+        gsap.set('.mvvs-bg',       { clipPath: 'inset(0% 0 0% 0)' });
+        gsap.set(tabs,             { opacity: 1 });
         gsap.set('#panel-mission', { opacity: 1, y: 0 });
-        tabs[0].classList.add('is-active');
-        panels[0].classList.add('is-active');
 
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: '#mvvs',
                 start: 'top top',
-                end: '+=' + (window.innerHeight * 1.4),
-                scrub: 0.8,
+                end: '+=' + (window.innerHeight * 2),
+                scrub: 1,
                 pin: true,
                 pinSpacing: true,
                 anticipatePin: 1,
+                snap: {
+                    snapTo: [0, 0.5, 1],
+                    duration: { min: 0.2, max: 0.5 },
+                    delay: 0.05,
+                    ease: 'power2.inOut',
+                },
                 onUpdate: (self) => {
                     const p = self.progress;
                     const idx = p >= 0.5 ? 1 : 0;
@@ -518,10 +519,14 @@ gsap.fromTo('.news-text',
                 },
             }
         });
+        // 총 타임라인 duration ≈ 2.0
+        // progress 0   → pos 0    : MISSION
+        // progress 0.5 → pos 1.0  : VISION 완전 표시
+        // progress 1   → pos 2.0  : 핀 해제
         tl
-            .to('#panel-mission', { opacity: 0, y: -14, duration: 0.3 }, 0.3)
-            .to('#panel-vision',  { opacity: 1, y: 0,   duration: 0.3 }, 0.55)
-            .to({}, { duration: 0.5 }); // VISION에서 멈춤
+            .to('#panel-mission', { opacity: 0, y: -14, duration: 0.25 }, 0.5)
+            .to('#panel-vision',  { opacity: 1, y: 0,   duration: 0.25 }, 0.75)
+            .to({}, { duration: 1.0 }); // VISION 유지 후 해제
         return;
     }
 
