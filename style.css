@@ -1375,8 +1375,10 @@ em { font-style: normal; }
         display: flex;
         flex-direction: column;
         gap: 12px;
-        padding: 24px 0;
+        padding: 24px var(--pad-x);
         will-change: transform;
+        text-align: center;
+        align-items: center;
     }
     .sr-02, .sr-03 {
         transform: translateX(100%);
