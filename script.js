@@ -786,19 +786,7 @@ qs('.header-brand').addEventListener('click', e => {
 /* ============================
    G-PLANET HERO — 모바일 핀
    ============================ */
-(function initGplanetMobilePin() {
-    if (window.innerWidth >= 768) return;
-    setTimeout(() => {
-        ScrollTrigger.create({
-            trigger: '#gplanet',
-            start: 'top top',
-            end: '+=400',
-            pin: true,
-            pinSpacing: true,
-            anticipatePin: 1,
-        });
-    }, 0);
-})();
+/* initGplanetMobilePin: 비활성화 — gp-features 슬라이더 핀과 중첩 충돌 */
 
 /* ============================
    GP FEATURES — 모바일 가로 슬라이드
@@ -1137,13 +1125,13 @@ setTimeout(() => {
     const cards = Array.from(qsa('.pt-card', track));
     const total = cards.length; // 3
 
-    /* ── 모바일: 가로 슬라이드 (GSAP 핀) ── */
+    /* ── 모바일: 트랙 전체 슬라이드 (GSAP 핀) ── */
     if (window.innerWidth < 768) {
         const mtabs = qsa('.pt-mtab');
+        const vw = window.innerWidth;
         let currentIdx = 0;
 
-        gsap.set(cards[0], { x: 0 });
-        cards.slice(1).forEach(c => gsap.set(c, { x: '100%' }));
+        gsap.set(track, { x: 0 });
 
         function activateTab(i) {
             currentIdx = i;
@@ -1157,7 +1145,7 @@ setTimeout(() => {
                 scrollTrigger: {
                     trigger: '#pt-section',
                     start: 'top top',
-                    end: '+=' + (window.innerHeight * (total - 1)),
+                    end: '+=' + (vw * (total - 1) * 2),
                     scrub: 1,
                     pin: true,
                     pinSpacing: true,
@@ -1174,10 +1162,8 @@ setTimeout(() => {
                     },
                 }
             });
-            tl.to(cards[0], { x: '-100%', ease: 'none', duration: 1 }, 0)
-              .to(cards[1], { x: '0%',    ease: 'none', duration: 1 }, 0)
-              .to(cards[1], { x: '-100%', ease: 'none', duration: 1 }, 1)
-              .to(cards[2], { x: '0%',    ease: 'none', duration: 1 }, 1)
+            tl.to(track, { x: -vw,      ease: 'none', duration: 1 }, 0)
+              .to(track, { x: -vw * 2,   ease: 'none', duration: 1 }, 1)
               .to({}, { duration: 0.01 });
         }, 0);
         return;

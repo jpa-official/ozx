@@ -1565,22 +1565,23 @@ em { font-style: normal; }
 
     .pt-pinned-head { display: none !important; }
 
-    /* 카드: 가로 슬라이드 */
+    /* 카드: 트랙 가로 슬라이드 */
+    #pt-section { overflow-x: hidden; }
     .pt-cards {
-        display: grid;
-        grid-template-columns: 1fr;
-        overflow: hidden;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        width: 100%;
+        will-change: transform;
         transition: none;
-        transform: none !important;
     }
     .pt-card {
-        grid-area: 1 / 1;
-        grid-template-columns: 1fr;
+        flex: 0 0 100vw;
+        width: 100vw;
+        display: block;
         min-height: auto;
-        pointer-events: none;
-        will-change: transform;
+        pointer-events: auto;
     }
-    .pt-card.is-active { pointer-events: auto; }
     .pt-card-left { display: none; }
     .pt-card-right {
         padding: 10px var(--pad-x) 16px;
