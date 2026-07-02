@@ -1256,6 +1256,14 @@ em { font-style: normal; }
 }
 
 @media (max-width: 768px) {
+    /* identity 섹션: 모바일에서 min-height 제거해 갭 축소 */
+    #identity {
+        min-height: auto;
+    }
+    .id-inner {
+        padding: clamp(80px, 16vh, 120px) var(--pad-x) clamp(60px, 10vh, 80px);
+    }
+
     /* 헤더: flex로 전환, 로고는 절대위치로 정중앙 고정 */
     #header {
         display: flex;

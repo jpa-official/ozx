@@ -233,15 +233,17 @@ const idObs = new IntersectionObserver(entries => {
 const idSection = qs('#identity');
 if (idSection) idObs.observe(idSection);
 
-/* Identity 섹션 — 스크롤 핀 (한 화면에 머물렀다가 계속) */
-ScrollTrigger.create({
-    trigger: '#identity',
-    start: 'top top',
-    end: '+=350',
-    pin: true,
-    pinSpacing: true,
-    anticipatePin: 1,
-});
+/* Identity 섹션 — 스크롤 핀 (데스크탑만, 모바일 갭 방지) */
+if (window.innerWidth >= 768) {
+    ScrollTrigger.create({
+        trigger: '#identity',
+        start: 'top top',
+        end: '+=350',
+        pin: true,
+        pinSpacing: true,
+        anticipatePin: 1,
+    });
+}
 
 /* ============================
    TEXT SCRAMBLE CLASS
