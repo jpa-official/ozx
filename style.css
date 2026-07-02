@@ -975,7 +975,7 @@ em { font-style: normal; }
 .gp-feature[data-feat-video] { cursor: pointer; }
 
 /* 배경 영상 항목 */
-.gp-feature--bg-video { overflow: hidden; }
+.gp-feature--bg-video { overflow: hidden; min-height: 100vh; }
 
 .gp-feat-bg-video {
     position: absolute;
