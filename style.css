@@ -893,7 +893,7 @@ em { font-style: normal; }
 }
 .gp-addr-en {
     font-family: var(--f-body);
-    font-size: clamp(14px, 1.2vw, 18px);
+    font-size: clamp(10px, 0.8vw, 13px);
     font-weight: 300;
 }
 

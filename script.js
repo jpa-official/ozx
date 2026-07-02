@@ -1021,16 +1021,16 @@ setTimeout(() => {
     if (window.innerWidth < 768) return; /* 모바일: BGM 비활성화 */
     const MAX_VOL = 0.4;
 
-    /* 브라우저 오토플레이 정책: 첫 포인터 다운에서 play() 호출로 오디오 컨텍스트 잠금 해제 */
-    document.addEventListener('pointerdown', () => {
-        bgm.play().catch(() => {});
-    }, { once: true });
-
     const FADE = 1.0;
     let fadeTimer = null;
     let userMuted = false;
+    let unlocked = false;
+    let pendingPlay = false;
 
     const bgmBtn = qs('#gp-bgm-btn');
+
+    /* 메타데이터 로드 후 시작 시간 고정 */
+    bgm.addEventListener('loadedmetadata', () => { bgm.currentTime = 91; });
 
     function updateBtn() {
         if (!bgmBtn) return;
@@ -1069,13 +1069,32 @@ setTimeout(() => {
         }, 1000 / 30);
     }
 
-    function enterZone() {
-        bgm.currentTime = 91;
-        bgm.play().catch(() => {});
-        if (!userMuted) {
+    /* 브라우저 오토플레이 정책: 첫 인터랙션에서 잠금 해제 후 pendingPlay 처리 */
+    function unlock() {
+        if (unlocked) return;
+        unlocked = true;
+        if (pendingPlay && !userMuted) {
             bgm.muted = false;
             bgm.volume = 0;
+            bgm.play().catch(() => {});
             fadeTo(MAX_VOL);
+        }
+    }
+    ['pointerdown', 'keydown'].forEach(ev =>
+        document.addEventListener(ev, unlock, { once: true, capture: true })
+    );
+
+    function enterZone() {
+        bgm.currentTime = 91;
+        pendingPlay = true;
+        if (!userMuted) {
+            if (unlocked) {
+                bgm.muted = false;
+                bgm.volume = 0;
+                bgm.play().catch(() => {});
+                fadeTo(MAX_VOL);
+            }
+            /* 아직 미잠금이면 unlock() 호출 시 자동 재생 */
         }
     }
 
