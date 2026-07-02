@@ -1352,12 +1352,27 @@ em { font-style: normal; }
         font-size: 16px;
     }
 
-    /* 섹션 제목 (WHAT WE DO / OUR OPERATING STRENGTH) */
+    /* 섹션 제목 */
     .sec-h2 {
         font-size: clamp(22px, 6vw, 32px);
         opacity: 1 !important;
         transform: none !important;
         clip-path: inset(0 0% 0 0) !important;
+    }
+
+    /* GSAP 애니메이션 요소 강제 표시 (ScrollTrigger 미동작 대응) */
+    .fade-up,
+    .sr-01, .sr-02, .sr-03,
+    .sr-01 .sr-title, .sr-01 .sr-num, .sr-01 .sr-ko, .sr-01 .sr-body,
+    .id-desc, .id-title-block {
+        opacity: 1 !important;
+        transform: none !important;
+        clip-path: none !important;
+    }
+    /* pill 카드 clip-path 초기화 */
+    .pc-reveal {
+        clip-path: inset(0% 0 0 0) !important;
+        opacity: 1 !important;
     }
 
     /* ── 모든 설명글: 14px / weight 400 ── */
