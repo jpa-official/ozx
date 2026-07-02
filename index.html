@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://use.typekit.net/bvo1jej.css">
     <!-- dynamic-subset: 사용하는 글자만 로드 (전체 대비 80% 절감) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/dynamic-subset/pretendard-dynamic-subset.css">
-    <link rel="stylesheet" href="style.css?v=86">
+    <link rel="stylesheet" href="style.css?v=87">
     <!-- 히어로 이미지 preload -->
     <link rel="preload" as="image" href="logo-main.webp">
 </head>
@@ -267,7 +267,11 @@
 
         <!-- 피처 항목 -->
         <div class="gp-features">
-            <div class="gp-feature" data-feat-video="1 MEDIA FACADE.mp4">
+            <div class="gp-feature gp-feature--bg-video" data-feat-video="1 MEDIA FACADE.mp4">
+                <video class="gp-feat-bg-video" autoplay muted loop playsinline preload="metadata">
+                    <source src="1 MEDIA FACADE.mp4" type="video/mp4">
+                </video>
+                <div class="gp-feat-bg-overlay"></div>
                 <div class="gp-feat-left">
                     <p class="gp-feat-heading">MEDIA FACADE</p>
                     <p class="gp-feat-sub">파사드를 통한 미디어화</p>

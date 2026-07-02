@@ -974,6 +974,32 @@ em { font-style: normal; }
 
 .gp-feature[data-feat-video] { cursor: pointer; }
 
+/* 배경 영상 항목 */
+.gp-feature--bg-video { overflow: hidden; }
+
+.gp-feat-bg-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 0%;
+    z-index: 0;
+}
+
+.gp-feat-bg-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.52);
+    z-index: 1;
+}
+
+.gp-feature--bg-video .gp-feat-left,
+.gp-feature--bg-video .gp-feat-desc {
+    position: relative;
+    z-index: 2;
+}
+
 /* ============================
    FLOOR PLAN SLIDER
    ============================ */
