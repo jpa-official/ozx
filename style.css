@@ -1360,6 +1360,28 @@ em { font-style: normal; }
         clip-path: inset(0 0% 0 0) !important;
     }
 
+    /* WHAT WE DO 가로 슬라이더 */
+    #space { min-height: 100vh; }
+    .service-stack {
+        display: grid;
+        grid-template-rows: auto;
+        overflow: hidden;
+        max-width: none;
+        margin: 0;
+        border-bottom: none;
+    }
+    .service-row {
+        grid-area: 1 / 1;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding: 24px 0;
+        will-change: transform;
+    }
+    .sr-02, .sr-03 {
+        transform: translateX(100%);
+    }
+
     /* fade-up 요소: ScrollTrigger 미동작 시 숨김 방지 */
     .fade-up {
         opacity: 1 !important;

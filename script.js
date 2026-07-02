@@ -332,8 +332,44 @@ qsa('.fade-up').forEach((el, i) => {
     const sr3 = qs('.sr-03');
     if (!sr1 || !sr2 || !sr3) return;
 
+    /* ── 모바일: 가로 슬라이드 ── */
+    if (window.innerWidth < 768) {
+        setTimeout(() => {
+            gsap.set(sr1, { x: 0 });
+            gsap.set(sr2, { x: '100%' });
+            gsap.set(sr3, { x: '100%' });
+
+            // snap [0, 0.5, 1] → timeline pos [0, 1, 2]
+            // sr2 slide-in: pos 0.3→0.7  → 완전히 표시 pos 0.7 < pos 1.0(snap 0.5) ✓
+            // sr3 slide-in: pos 1.3→1.7  → 완전히 표시 pos 1.7 < pos 2.0(snap 1.0) ✓
+            gsap.timeline({
+                scrollTrigger: {
+                    trigger: '#space',
+                    start: 'top top',
+                    end: '+=' + (window.innerHeight * 2),
+                    scrub: 1,
+                    pin: true,
+                    pinSpacing: true,
+                    anticipatePin: 1,
+                    snap: {
+                        snapTo: [0, 0.5, 1],
+                        duration: { min: 0.2, max: 0.5 },
+                        delay: 0.05,
+                        ease: 'power2.inOut',
+                    },
+                }
+            })
+            .to(sr1, { x: '-100%', ease: 'power2.inOut', duration: 0.4 }, 0.3)
+            .to(sr2, { x: 0,       ease: 'power2.inOut', duration: 0.4 }, 0.3)
+            .to(sr2, { x: '-100%', ease: 'power2.inOut', duration: 0.4 }, 1.3)
+            .to(sr3, { x: 0,       ease: 'power2.inOut', duration: 0.4 }, 1.3)
+            .to({}, { duration: 0.3 }); // total 2.0
+        }, 0);
+        return;
+    }
+
     if (window.innerWidth < 900) {
-        return; /* 모바일: 자연 스크롤, 애니메이션 없음 */
+        return;
     }
 
     /* MVVS pin-spacer가 먼저 DOM에 삽입된 뒤 #space 위치를 계산해야
