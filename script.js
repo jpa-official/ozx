@@ -803,38 +803,7 @@ qs('.header-brand').addEventListener('click', e => {
 /* ============================
    GP FEATURES — 모바일 가로 슬라이드
    ============================ */
-(function initFeatSlider() {
-    if (window.innerWidth >= 768) return;
-    const features = qsa('.gp-feature');
-    if (features.length < 3) return;
-    setTimeout(() => {
-        gsap.set(features[0], { x: 0 });
-        gsap.set(features[1], { x: '100%' });
-        gsap.set(features[2], { x: '100%' });
-        gsap.timeline({
-            scrollTrigger: {
-                trigger: '.gp-features',
-                start: 'top top',
-                end: '+=' + (window.innerHeight * 2),
-                scrub: 1,
-                pin: true,
-                pinSpacing: true,
-                anticipatePin: 1,
-                snap: {
-                    snapTo: [0, 0.5, 1],
-                    duration: { min: 0.2, max: 0.5 },
-                    delay: 0.05,
-                    ease: 'power2.inOut',
-                },
-            }
-        })
-        .to(features[0], { x: '-100%', ease: 'power2.inOut', duration: 0.4 }, 0.3)
-        .to(features[1], { x: 0,       ease: 'power2.inOut', duration: 0.4 }, 0.3)
-        .to(features[1], { x: '-100%', ease: 'power2.inOut', duration: 0.4 }, 1.3)
-        .to(features[2], { x: 0,       ease: 'power2.inOut', duration: 0.4 }, 1.3)
-        .to({}, { duration: 0.3 });
-    }, 0);
-})();
+/* initFeatSlider: 모바일은 CSS scroll-snap으로 대체 */
 
 /* ============================
    FLOOR PLAN SLIDER — 무한 루프

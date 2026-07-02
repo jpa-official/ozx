@@ -981,9 +981,11 @@ em { font-style: normal; }
 
 .gp-feature[data-feat-video] { cursor: pointer; }
 
-/* .gp-feat-bg-video / overlay — 모바일 전용, PC에서 숨김 */
-.gp-feat-bg-video  { display: none !important; }
-.gp-feat-bg-overlay { display: none !important; }
+/* PC 전용: bg-video 숨김 */
+@media (min-width: 769px) {
+    .gp-feat-bg-video  { display: none; }
+    .gp-feat-bg-overlay { display: none; }
+}
 
 /* ============================
    FLOOR PLAN SLIDER
@@ -1477,37 +1479,37 @@ em { font-style: normal; }
     /* 모바일: BGM 버튼 숨김 */
     .gp-bgm-btn { display: none !important; }
 
-    /* GP Features 가로 슬라이더 */
+    /* GP Features — 모바일 세로 스크롤 스냅 */
     .gp-feat-video-wrap { display: none !important; }
     .gp-features {
-        display: grid;
-        grid-template-rows: auto;
-        overflow: hidden;
+        display: block;
+        height: 100svh;
+        overflow-y: scroll;
+        scroll-snap-type: y mandatory;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior-y: contain;
         border-top: none;
     }
     .gp-feature {
-        grid-area: 1 / 1;
+        display: flex;
+        position: relative;
+        height: 100svh;
+        scroll-snap-align: start;
         flex-direction: column;
         align-items: flex-start;
         gap: 12px;
         padding: 32px var(--pad-x);
         border-bottom: none;
-        will-change: transform;
-    }
-    .gp-feature:nth-child(2),
-    .gp-feature:nth-child(3) {
-        transform: translateX(100%);
+        will-change: unset;
+        transform: none !important;
     }
     .gp-feat-heading { font-size: clamp(32px, 9vw, 56px) !important; }
     .gp-feat-desc { text-align: left; font-size: 12px !important; }
 
-    /* ── 배경 영상 항목 — 모바일 전용 ── */
+    /* ── 배경 영상 (세로 스냅 섹션) ── */
     .gp-feature[data-feat-video] {
         overflow: hidden;
-        min-height: 100vh;
-        flex-direction: column;
         justify-content: flex-end;
-        align-items: flex-start;
         gap: 8px;
     }
     .gp-feat-bg-video {
