@@ -496,12 +496,8 @@ gsap.fromTo('.news-text',
         gsap.set(tabs,             { opacity: 1 });
         gsap.set('#panel-mission', { opacity: 1, y: 0 });
 
-        // 총 timeline duration = 4.0 (패널 하나당 ~1.0)
-        // progress 0     → MISSION
-        // progress 0.25  → VISION
-        // progress 0.5   → STRATEGY
-        // progress 0.75  → VALUE
-        // progress 1.0   → 핀 해제
+        // snap [0,0.25,0.5,0.75,1] → timeline pos [0,1,2,3,4]
+        // 각 snap 도달 시 해당 패널이 완전히 표시되도록 정렬
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: '#mvvs',
@@ -520,22 +516,25 @@ gsap.fromTo('.news-text',
                 onUpdate: (self) => {
                     const p = self.progress;
                     let idx = 0;
-                    if      (p >= 0.875) idx = 3;
-                    else if (p >= 0.625) idx = 2;
-                    else if (p >= 0.375) idx = 1;
+                    if      (p >= 0.75) idx = 3;
+                    else if (p >= 0.5)  idx = 2;
+                    else if (p >= 0.25) idx = 1;
                     tabs.forEach((t, i)    => t.classList.toggle('is-active', i === idx));
                     panels.forEach((pn, i) => pn.classList.toggle('is-active', i === idx));
                 },
             }
         });
+        // pos 0.75~1.0: VISION 페이드인  → snap 0.25(pos 1.0)에서 완전히 표시
+        // pos 1.75~2.0: STRATEGY 페이드인 → snap 0.5 (pos 2.0)에서 완전히 표시
+        // pos 2.75~3.0: VALUE 페이드인    → snap 0.75(pos 3.0)에서 완전히 표시
         tl
-            .to('#panel-mission',  { opacity: 0, y: -14, duration: 0.2 }, 0.8)
-            .to('#panel-vision',   { opacity: 1, y: 0,   duration: 0.2 }, 1.0)
-            .to('#panel-vision',   { opacity: 0, y: -14, duration: 0.2 }, 1.8)
-            .to('#panel-strategy', { opacity: 1, y: 0,   duration: 0.2 }, 2.0)
-            .to('#panel-strategy', { opacity: 0, y: -14, duration: 0.2 }, 2.8)
-            .to('#panel-value',    { opacity: 1, y: 0,   duration: 0.2 }, 3.0)
-            .to({}, { duration: 0.8 }); // VALUE 유지 후 해제
+            .to('#panel-mission',  { opacity: 0, y: -14, duration: 0.25 }, 0.5)
+            .to('#panel-vision',   { opacity: 1, y: 0,   duration: 0.25 }, 0.75)
+            .to('#panel-vision',   { opacity: 0, y: -14, duration: 0.25 }, 1.5)
+            .to('#panel-strategy', { opacity: 1, y: 0,   duration: 0.25 }, 1.75)
+            .to('#panel-strategy', { opacity: 0, y: -14, duration: 0.25 }, 2.5)
+            .to('#panel-value',    { opacity: 1, y: 0,   duration: 0.25 }, 2.75)
+            .to({}, { duration: 1.0 }); // VALUE 유지 후 해제 (total 4.0)
         return;
     }
 
