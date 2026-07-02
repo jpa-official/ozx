@@ -1484,6 +1484,29 @@ em { font-style: normal; }
 
     /* 모바일: BGM 버튼 숨김 */
     .gp-bgm-btn { display: none !important; }
+
+    /* GP Features 가로 슬라이더 */
+    .gp-feat-video-wrap { display: none !important; }
+    .gp-features {
+        display: grid;
+        grid-template-rows: auto;
+        overflow: hidden;
+        border-top: none;
+    }
+    .gp-feature {
+        grid-area: 1 / 1;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 32px var(--pad-x);
+        border-bottom: none;
+        will-change: transform;
+    }
+    .gp-feature:nth-child(2),
+    .gp-feature:nth-child(3) {
+        transform: translateX(100%);
+    }
+    .gp-feat-desc { text-align: left; }
 }
 
 /* ============================
