@@ -1343,7 +1343,7 @@ em { font-style: normal; }
 /* 슬라이더 내부 고정 헤더 — 카드 위에 절대 배치, 카드 전환 동안 유지 */
 .pt-pinned-head {
     position: absolute;
-    top: clamp(32px, 5vh, 56px);
+    top: clamp(100px, 13vh, 140px);
     left: clamp(32px, 5vw, 64px);
     z-index: 10;
     pointer-events: none;
