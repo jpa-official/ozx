@@ -1360,6 +1360,39 @@ em { font-style: normal; }
         clip-path: inset(0 0% 0 0) !important;
     }
 
+    /* 섹션 헤더 폰트 통일: WHAT WE DO / OUR OPERATING STRENGTH / PARTNERS */
+    .pt-title { font-size: clamp(22px, 6vw, 32px); }
+
+    /* 섹션 구분: OUR OPERATING STRENGTH 배경 살짝 다르게 */
+    #partners {
+        background: #111;
+        border-top: 1px solid rgba(255,255,255,0.15);
+        min-height: 100vh;
+    }
+
+    /* OUR OPERATING STRENGTH 가로 슬라이더 */
+    .pill-grid {
+        display: grid;
+        grid-template-rows: auto;
+        grid-template-columns: 1fr;
+        overflow: hidden;
+        gap: 0;
+        margin-top: 32px;
+    }
+    .pill-card {
+        grid-area: 1 / 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 24px var(--pad-x);
+        will-change: transform;
+    }
+    .pill-card:nth-child(2),
+    .pill-card:nth-child(3) {
+        transform: translateX(100%);
+    }
+
     /* WHAT WE DO 가로 슬라이더 */
     #space { min-height: 100vh; }
     .service-stack {

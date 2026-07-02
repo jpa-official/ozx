@@ -429,22 +429,56 @@ qsa('.fade-up').forEach((el, i) => {
 })();
 
 /* ============================
-   PILL CARDS — REVEAL
+   PILL CARDS — REVEAL (데스크탑) / 슬라이더 (모바일)
    ============================ */
-qsa('.pc-reveal').forEach((card, i) => {
-    /* Clip-path wipe from bottom */
-    gsap.set(card, { clipPath: 'inset(100% 0 0 0)' });
-    ScrollTrigger.create({
-        trigger: card, start: 'top 90%', once: true,
-        onEnter: () => gsap.to(card, {
-            clipPath: 'inset(0% 0 0 0)',
-            opacity: 1, y: 0,
-            duration: 0.85,
-            delay: i * 0.18,
-            ease: 'power3.out',
-        })
+if (window.innerWidth >= 768) {
+    qsa('.pc-reveal').forEach((card, i) => {
+        gsap.set(card, { clipPath: 'inset(100% 0 0 0)' });
+        ScrollTrigger.create({
+            trigger: card, start: 'top 90%', once: true,
+            onEnter: () => gsap.to(card, {
+                clipPath: 'inset(0% 0 0 0)',
+                opacity: 1, y: 0,
+                duration: 0.85,
+                delay: i * 0.18,
+                ease: 'power3.out',
+            })
+        });
     });
-});
+} else {
+    /* 모바일: OUR OPERATING STRENGTH 가로 슬라이드 */
+    const cards = qsa('.pill-card');
+    if (cards.length >= 3) {
+        setTimeout(() => {
+            gsap.set(cards[0], { x: 0,      opacity: 1, y: 0, clipPath: 'none' });
+            gsap.set(cards[1], { x: '100%', opacity: 1, y: 0, clipPath: 'none' });
+            gsap.set(cards[2], { x: '100%', opacity: 1, y: 0, clipPath: 'none' });
+
+            gsap.timeline({
+                scrollTrigger: {
+                    trigger: '#partners',
+                    start: 'top top',
+                    end: '+=' + (window.innerHeight * 2),
+                    scrub: 1,
+                    pin: true,
+                    pinSpacing: true,
+                    anticipatePin: 1,
+                    snap: {
+                        snapTo: [0, 0.5, 1],
+                        duration: { min: 0.2, max: 0.5 },
+                        delay: 0.05,
+                        ease: 'power2.inOut',
+                    },
+                }
+            })
+            .to(cards[0], { x: '-100%', ease: 'power2.inOut', duration: 0.4 }, 0.3)
+            .to(cards[1], { x: 0,       ease: 'power2.inOut', duration: 0.4 }, 0.3)
+            .to(cards[1], { x: '-100%', ease: 'power2.inOut', duration: 0.4 }, 1.3)
+            .to(cards[2], { x: 0,       ease: 'power2.inOut', duration: 0.4 }, 1.3)
+            .to({}, { duration: 0.3 });
+        }, 0);
+    }
+}
 
 /* ============================
    MAGNETIC NAV
