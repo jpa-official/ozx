@@ -12,7 +12,9 @@
     <link rel="stylesheet" href="https://use.typekit.net/bvo1jej.css">
     <!-- dynamic-subset: 사용하는 글자만 로드 (전체 대비 80% 절감) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/dynamic-subset/pretendard-dynamic-subset.css">
-    <link rel="stylesheet" href="style.css?v=53">
+    <link rel="stylesheet" href="style.css?v=54">
+    <!-- 히어로 이미지 preload -->
+    <link rel="preload" as="image" href="logo-main.webp">
 </head>
 <body>
 
@@ -20,11 +22,11 @@
     <div id="loader">
         <!-- 검은 배경 레이어 (흰 로고) -->
         <div class="loader-base">
-            <img src="logo-main.png" class="loader-logo loader-logo--white" alt="OZX">
+            <img src="logo-main.webp" class="loader-logo loader-logo--white" alt="OZX">
         </div>
         <!-- 버건디 필 레이어 (검은 로고, 왼쪽→오른쪽 wipe) -->
         <div class="loader-fill" id="loader-fill">
-            <img src="logo-main.png" class="loader-logo loader-logo--black" alt="OZX">
+            <img src="logo-main.webp" class="loader-logo loader-logo--black" alt="OZX">
         </div>
     </div>
 
@@ -40,7 +42,7 @@
         <div class="header-center">
             <a href="#hero" class="header-brand">
                 <div class="header-wordmark-wrap">
-                    <img src="logo-wordmark.png" alt="OZX" class="hwm-white">
+                    <img src="logo-wordmark.webp" alt="OZX" class="hwm-white">
                 </div>
             </a>
         </div>
@@ -53,7 +55,7 @@
                 <a href="#contact"  class="nav-a">CONTACT</a>
             </nav>
             <button class="menu-toggle" id="menu-toggle" aria-label="메뉴">
-                <img src="logo-symbol.png" alt="OZX" class="logo-mark-img">
+                <img src="logo-symbol.webp" alt="OZX" class="logo-mark-img">
             </button>
         </div>
     </header>
@@ -62,7 +64,7 @@
     <section id="hero">
 <div class="hero-center">
             <div class="hero-logo-wrap" id="hero-logo-wrap">
-                <img src="logo-main.png" class="hero-logo-img" id="hero-logo" alt="OZX">
+                <img src="logo-main.webp" class="hero-logo-img" id="hero-logo" alt="OZX">
             </div>
         </div>
     </section>
@@ -71,7 +73,7 @@
     <section id="identity">
         <div class="id-inner">
             <div class="id-title-block" id="id-title-block">
-                <img src="hero-sub.png" alt="SPACE CONTENT OPERATOR" class="id-sub-img">
+                <img src="hero-sub.webp" alt="SPACE CONTENT OPERATOR" class="id-sub-img" loading="lazy" decoding="async">
             </div>
             <p class="id-desc" id="id-desc">
                 오즈엑스는 공간과 콘텐츠를 연결해<br>
@@ -222,7 +224,7 @@
     </section>
 
     <!-- G-PLANET BGM -->
-    <audio id="gp-bgm" autoplay muted loop preload="auto">
+    <audio id="gp-bgm" muted loop preload="none">
         <source src="g-planet bgm.mp4" type="audio/mp4">
     </audio>
 
@@ -230,7 +232,7 @@
     <section id="gplanet">
         <!-- 히어로: 비디오 (파일 없으면 poster 이미지로 표시) -->
         <div class="gp-hero">
-            <video class="gp-video" autoplay muted loop playsinline poster="gwanghwa169.jpg">
+            <video class="gp-video" autoplay muted loop playsinline preload="metadata" poster="gwanghwa169.webp">
                 <source src="0 G-PLANET.mp4" type="video/mp4">
             </video>
             <div class="gp-overlay"></div>
@@ -299,7 +301,7 @@
         <button class="fp-arrow fp-prev" id="fp-prev" aria-label="Previous floor">&#60;</button>
         <div class="fp-track" id="fp-track">
             <div class="fp-slide">
-                <div class="fp-plan"><img src="b1f.png" alt="B1F"></div>
+                <div class="fp-plan"><img src="B1F.webp" alt="B1F" loading="lazy" decoding="async"></div>
                 <div class="fp-info">
                     <p class="fp-floor">B1F</p>
                     <p class="fp-label">ANCHOR TENANT</p>
@@ -308,7 +310,7 @@
                 </div>
             </div>
             <div class="fp-slide">
-                <div class="fp-plan"><img src="1f.png" alt="1F"></div>
+                <div class="fp-plan"><img src="1F.webp" alt="1F" loading="lazy" decoding="async"></div>
                 <div class="fp-info">
                     <p class="fp-floor">1F</p>
                     <p class="fp-label">ANCHOR TENANT</p>
@@ -317,7 +319,7 @@
                 </div>
             </div>
             <div class="fp-slide">
-                <div class="fp-plan"><img src="2f.png" alt="2F"></div>
+                <div class="fp-plan"><img src="2F.webp" alt="2F" loading="lazy" decoding="async"></div>
                 <div class="fp-info">
                     <p class="fp-floor">2F</p>
                     <p class="fp-label">POP-UP OPERATING</p>
@@ -326,7 +328,7 @@
                 </div>
             </div>
             <div class="fp-slide">
-                <div class="fp-plan"><img src="3f.png" alt="3F"></div>
+                <div class="fp-plan"><img src="3F.webp" alt="3F" loading="lazy" decoding="async"></div>
                 <div class="fp-info">
                     <p class="fp-floor">3F</p>
                     <p class="fp-label">POP-UP OPERATING</p>
@@ -335,7 +337,7 @@
                 </div>
             </div>
             <div class="fp-slide">
-                <div class="fp-plan"><img src="4f.png" alt="4F"></div>
+                <div class="fp-plan"><img src="4F.webp" alt="4F" loading="lazy" decoding="async"></div>
                 <div class="fp-info">
                     <p class="fp-floor">4F</p>
                     <p class="fp-label">ANCHOR TENANT</p>
@@ -344,7 +346,7 @@
                 </div>
             </div>
             <div class="fp-slide">
-                <div class="fp-plan"><img src="5f.png" alt="5F"></div>
+                <div class="fp-plan"><img src="5F.webp" alt="5F" loading="lazy" decoding="async"></div>
                 <div class="fp-info">
                     <p class="fp-floor">5F</p>
                     <p class="fp-label">PRIVATE / PREMIUM F&amp;B</p>
@@ -353,7 +355,7 @@
                 </div>
             </div>
             <div class="fp-slide">
-                <div class="fp-plan"><img src="6f.png" alt="6F"></div>
+                <div class="fp-plan"><img src="6F.webp" alt="6F" loading="lazy" decoding="async"></div>
                 <div class="fp-info">
                     <p class="fp-floor">6F</p>
                     <p class="fp-label">PRIVATE / PREMIUM F&amp;B</p>
@@ -362,7 +364,7 @@
                 </div>
             </div>
             <div class="fp-slide">
-                <div class="fp-plan"><img src="7f.png" alt="7F"></div>
+                <div class="fp-plan"><img src="7F.webp" alt="7F" loading="lazy" decoding="async"></div>
                 <div class="fp-info">
                     <p class="fp-floor">7F</p>
                     <p class="fp-label">LOUNGE BAR</p>
@@ -371,7 +373,7 @@
                 </div>
             </div>
             <div class="fp-slide">
-                <div class="fp-plan"><img src="RF.png" alt="RF"></div>
+                <div class="fp-plan"><img src="RF.webp" alt="RF" loading="lazy" decoding="async"></div>
                 <div class="fp-info">
                     <p class="fp-floor">RF</p>
                     <p class="fp-label">ROOFTOP TERRACE</p>
@@ -404,7 +406,7 @@
                     </div>
                     <div class="pt-card-right">
                         <div class="pt-card-logo-wrap">
-                            <img src="logo-jpa.png" alt="jpa" class="pt-logo-img">
+                            <img src="logo-jpa.webp" alt="jpa" class="pt-logo-img" loading="lazy" decoding="async">
                         </div>
                         <p class="pt-card-tagline">정림건축의 노하우를 기반으로<br>장소의 정체성과 공간 운영 기반을 설계합니다.</p>
                         <p class="pt-card-body">jpa.는 공간과 사람의 관계성을 기반으로 도시, 건축,<br>부동산, 공간에 대한 종합적이고 차별화된 관점의<br>맞춤형 공간 솔루션을 제공하여 공간이 지닌 유무형의<br>가치를 실현합니다.</p>
@@ -425,7 +427,7 @@
                     </div>
                     <div class="pt-card-right">
                         <div class="pt-card-logo-wrap">
-                            <img src="logo-invention-lab.png" alt="The Invention Lab" class="pt-logo-img">
+                            <img src="logo-invention-lab.webp" alt="The Invention Lab" class="pt-logo-img" loading="lazy" decoding="async">
                         </div>
                         <p class="pt-card-tagline">사업화와 투자 연계 역량을 통해<br>공간과 콘텐츠가 확장 가능한 비즈니스로 성장하도록 지원합니다.</p>
                         <ul class="pt-bullets">
@@ -447,7 +449,7 @@
                     </div>
                     <div class="pt-card-right">
                         <div class="pt-card-logo-wrap">
-                            <img src="logo-likeplay.png" alt="ILiKEPLAY" class="pt-logo-img">
+                            <img src="logo-likeplay.webp" alt="ILiKEPLAY" class="pt-logo-img" loading="lazy" decoding="async">
                         </div>
                         <p class="pt-card-tagline">콘텐츠 기획과 IP 운영 역량을 통해<br>공간에 지속적인 방문 이유와 경험 가치를 더합니다.</p>
                         <div class="pt-proj">
@@ -495,7 +497,7 @@
     <!-- FOOTER / CONTACT -->
     <section id="contact">
         <div class="contact-inner">
-            <img src="contact.png" alt="BE THE FIRST TO JOIN G-PLANET" class="contact-img">
+            <img src="contact.webp" alt="BE THE FIRST TO JOIN G-PLANET" class="contact-img" loading="lazy" decoding="async">
             <form class="contact-form" onsubmit="return false;">
                 <div class="cf-field">
                     <input type="text" placeholder="NAME / 이름" class="cf-input">
@@ -515,6 +517,6 @@
     <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
-    <script src="script.js?v=29" defer></script>
+    <script src="script.js?v=30" defer></script>
 </body>
 </html>

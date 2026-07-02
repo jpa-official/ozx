@@ -4,6 +4,9 @@
 
 gsap.registerPlugin(ScrollTrigger);
 
+/* 성능 최적화 */
+ScrollTrigger.config({ limitCallbacks: true, ignoreMobileResize: true });
+
 const lerp   = (a, b, t) => a + (b - a) * t;
 const clamp  = (v, mn, mx) => Math.max(mn, Math.min(mx, v));
 const qs     = (sel, ctx = document) => ctx.querySelector(sel);
@@ -48,9 +51,11 @@ qsa([
    LENIS SMOOTH SCROLL
    ============================ */
 const lenis = new Lenis({
-    duration: 1.25,
+    duration: 1.1,
     easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
     smoothTouch: false,
+    syncTouch: false,
+    wheelMultiplier: 0.9,
 });
 
 gsap.ticker.add(time => lenis.raf(time * 1000));

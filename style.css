@@ -1,5 +1,5 @@
 /* ============================
-   OZX — style.css (v5)
+   OZX — style.css (v54)
    ============================ */
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -14,6 +14,23 @@
 }
 
 html { scroll-behavior: smooth; overflow-x: hidden; }
+
+/* GPU 가속: GSAP이 transform 애니메이션하는 핵심 요소들 */
+#hero-logo-wrap,
+.mvvs-bg,
+#loader,
+.loader-fill,
+#loop-overlay,
+.sr-01, .sr-02, .sr-03,
+.pt-cards,
+.fp-track {
+    will-change: transform;
+}
+
+/* 페인트 레이어 분리: 핀 섹션들 */
+#mvvs, #space, #gplanet, #fp-slider, .pt-slider-wrap {
+    transform: translateZ(0);
+}
 
 body {
     background: var(--black);
