@@ -492,6 +492,35 @@ gsap.fromTo('.news-text',
     tabs[0].classList.add('is-active');
     panels[0].classList.add('is-active');
 
+    /* ── 모바일: MISSION → VISION만 표시 후 핀 해제 ── */
+    if (window.innerWidth < 768) {
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: '#mvvs',
+                start: 'top top',
+                end: '+=' + (window.innerHeight * 2.2),
+                scrub: 0.8,
+                pin: true,
+                pinSpacing: true,
+                anticipatePin: 1,
+                onUpdate: (self) => {
+                    const p = self.progress;
+                    const idx = p >= 0.5 ? 1 : 0;
+                    tabs.forEach((t, i)    => t.classList.toggle('is-active', i === idx));
+                    panels.forEach((pn, i) => pn.classList.toggle('is-active', i === idx));
+                },
+            }
+        });
+        tl
+            .to('.mvvs-bg',       { clipPath: 'inset(0% 0 0% 0)', duration: 1.0, ease: 'power3.out' }, 0)
+            .to(tabs,             { opacity: 1, stagger: 0.08, duration: 0.35 }, 0.75)
+            .to('#panel-mission', { opacity: 1, y: 0,   duration: 0.35 }, 1.0)
+            .to('#panel-mission', { opacity: 0, y: -14, duration: 0.35 }, 1.5)
+            .to('#panel-vision',  { opacity: 1, y: 0,   duration: 0.35 }, 1.7)
+            .to({}, { duration: 0.8 }); // VISION에서 멈춤 후 해제
+        return;
+    }
+
     // 타임라인 총 ~5.25 기준 탭 전환 임계값 (VISION 체류 연장: 2.8→3.5):
     // MISSION→VISION  at 2.175/5.25 = 0.414
     // VISION→STRATEGY at 3.600/5.25 = 0.686
@@ -526,10 +555,10 @@ gsap.fromTo('.news-text',
         // Phase 3: 패널 전환 MISSION → VISION(체류 연장) → STRATEGY → VALUE
         .to('#panel-mission',  { opacity: 0, y: -14, duration: 0.35 }, 1.8)
         .to('#panel-vision',   { opacity: 1, y: 0,   duration: 0.35 }, 2.0)
-        .to('#panel-vision',   { opacity: 0, y: -14, duration: 0.35 }, 3.5)  // 2.8 → 3.5
-        .to('#panel-strategy', { opacity: 1, y: 0,   duration: 0.35 }, 3.7)  // 3.0 → 3.7
-        .to('#panel-strategy', { opacity: 0, y: -14, duration: 0.35 }, 4.5)  // 3.8 → 4.5
-        .to('#panel-value',    { opacity: 1, y: 0,   duration: 0.35 }, 4.7)  // 4.0 → 4.7
+        .to('#panel-vision',   { opacity: 0, y: -14, duration: 0.35 }, 3.5)
+        .to('#panel-strategy', { opacity: 1, y: 0,   duration: 0.35 }, 3.7)
+        .to('#panel-strategy', { opacity: 0, y: -14, duration: 0.35 }, 4.5)
+        .to('#panel-value',    { opacity: 1, y: 0,   duration: 0.35 }, 4.7)
         .to({}, { duration: 0.2 }); // VALUE에서 잠시 유지
 
     // 탭 클릭 시 해당 스크롤 위치로 이동 (scrub과 충돌 방지)
