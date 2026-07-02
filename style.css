@@ -1453,7 +1453,7 @@ em { font-style: normal; }
     }
 
     .sr-body, .pill-body { font-size: 12px; }
-    .gp-desc { line-height: 1.7; color: #fff; }
+    .gp-desc { font-size: 12px; line-height: 1.7; color: #fff; }
     .gp-address { font-size: 11px; line-height: 1.25; }
 
     /* 모바일: BGM 버튼 숨김 */
