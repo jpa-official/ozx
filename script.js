@@ -526,14 +526,20 @@ gsap.fromTo('.news-text',
     tabs[0].classList.add('is-active');
     panels[0].classList.add('is-active');
 
-    /* ── 모바일: 4패널 각각 snap으로 멈춤 ── */
+    /* ── 모바일: 4패널 snap, 탭·패널 동시 전환 ── */
     if (window.innerWidth < 768) {
-        gsap.set('.mvvs-bg',       { clipPath: 'inset(0% 0 0% 0)' });
-        gsap.set(tabs,             { opacity: 1 });
-        gsap.set('#panel-mission', { opacity: 1, y: 0 });
+        gsap.set('.mvvs-bg', { clipPath: 'inset(0% 0 0% 0)' });
+        gsap.set(tabs,       { opacity: 1 });
+        // 모든 패널 y=0 초기화 (y 움직임 제거)
+        gsap.set(panels,          { opacity: 0, y: 0 });
+        gsap.set('#panel-mission', { opacity: 1 });
 
-        // snap [0,0.25,0.5,0.75,1] → timeline pos [0,1,2,3,4]
-        // 각 snap 도달 시 해당 패널이 완전히 표시되도록 정렬
+        // total timeline duration = 4.0
+        // 패널 fade-in 시작 위치 → 탭 전환 progress 기준값:
+        //   VISION   fade-in pos 0.8 → p = 0.8/4 = 0.20
+        //   STRATEGY fade-in pos 1.8 → p = 1.8/4 = 0.45
+        //   VALUE    fade-in pos 2.8 → p = 2.8/4 = 0.70
+        // 탭은 패널이 나타나기 시작하는 순간 동시에 전환
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: '#mvvs',
@@ -552,25 +558,22 @@ gsap.fromTo('.news-text',
                 onUpdate: (self) => {
                     const p = self.progress;
                     let idx = 0;
-                    if      (p >= 0.75) idx = 3;
-                    else if (p >= 0.5)  idx = 2;
-                    else if (p >= 0.25) idx = 1;
+                    if      (p >= 0.70) idx = 3;
+                    else if (p >= 0.45) idx = 2;
+                    else if (p >= 0.20) idx = 1;
                     tabs.forEach((t, i)    => t.classList.toggle('is-active', i === idx));
                     panels.forEach((pn, i) => pn.classList.toggle('is-active', i === idx));
                 },
             }
         });
-        // pos 0.75~1.0: VISION 페이드인  → snap 0.25(pos 1.0)에서 완전히 표시
-        // pos 1.75~2.0: STRATEGY 페이드인 → snap 0.5 (pos 2.0)에서 완전히 표시
-        // pos 2.75~3.0: VALUE 페이드인    → snap 0.75(pos 3.0)에서 완전히 표시
         tl
-            .to('#panel-mission',  { opacity: 0, y: -14, duration: 0.25 }, 0.5)
-            .to('#panel-vision',   { opacity: 1, y: 0,   duration: 0.25 }, 0.75)
-            .to('#panel-vision',   { opacity: 0, y: -14, duration: 0.25 }, 1.5)
-            .to('#panel-strategy', { opacity: 1, y: 0,   duration: 0.25 }, 1.75)
-            .to('#panel-strategy', { opacity: 0, y: -14, duration: 0.25 }, 2.5)
-            .to('#panel-value',    { opacity: 1, y: 0,   duration: 0.25 }, 2.75)
-            .to({}, { duration: 1.0 }); // VALUE 유지 후 해제 (total 4.0)
+            .to('#panel-mission',  { opacity: 0, duration: 0.2 }, 0.6)
+            .to('#panel-vision',   { opacity: 1, duration: 0.2 }, 0.8)   // p=0.2에서 시작 = 탭 전환과 동시
+            .to('#panel-vision',   { opacity: 0, duration: 0.2 }, 1.6)
+            .to('#panel-strategy', { opacity: 1, duration: 0.2 }, 1.8)   // p=0.45
+            .to('#panel-strategy', { opacity: 0, duration: 0.2 }, 2.6)
+            .to('#panel-value',    { opacity: 1, duration: 0.2 }, 2.8)   // p=0.70
+            .to({}, { duration: 1.0 }); // total 4.0
         return;
     }
 
