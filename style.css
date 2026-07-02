@@ -206,6 +206,9 @@ em { font-style: normal; }
 /* 모바일 전체화면 메뉴 — 데스크탑에서 숨김 */
 .mobile-menu { display: none; }
 
+/* 모바일 전용 상단 nav — 데스크탑에서 숨김 */
+#mobile-nav { display: none; }
+
 .header-center {
     display: flex; align-items: center; justify-content: center;
     padding-top: 2px;
@@ -1597,69 +1600,42 @@ em { font-style: normal; }
         gap: 14px;
     }
 
-    /* ── 헤더: nav 항목 상단 가운데 고정 ── */
+    /* ── 헤더: 기존 요소 숨기고 mobile-nav만 표시 ── */
     .menu-toggle   { display: none !important; }
     .header-center { display: none !important; }
     .header-left   { display: none !important; }
+    .header-right  { display: none !important; }
 
     #header {
         display: flex !important;
-        flex-direction: row !important;
         align-items: center !important;
         justify-content: center !important;
         padding: 6px 10px !important;
         background: none !important;
-        background-color: transparent !important;
         backdrop-filter: none !important;
         box-shadow: none !important;
     }
 
-    .header-right {
-        flex: 1 !important;
-        display: flex !important;
-        justify-content: center !important;
-        align-items: center !important;
-        background: none !important;
-        border: none !important;
-        gap: 0 !important;
-        position: static !important;
-        width: 100% !important;
-    }
-
-    #nav-menu {
+    #mobile-nav {
         display: flex !important;
         flex-direction: row !important;
         justify-content: center !important;
         align-items: center !important;
-        position: static !important;
-        top: auto !important;
-        right: auto !important;
-        left: auto !important;
         gap: 16px !important;
-        opacity: 1 !important;
-        pointer-events: auto !important;
-        transform: none !important;
-        background: none !important;
-        border: none !important;
-        box-shadow: none !important;
+        width: 100% !important;
         overflow-x: auto;
         scrollbar-width: none;
-        width: auto !important;
     }
-    #nav-menu::-webkit-scrollbar { display: none; }
-    #nav-menu .nav-a {
-        font-family: var(--f-display) !important;
-        font-size: 10px !important;
-        font-weight: 500 !important;
-        letter-spacing: 0.03em !important;
-        color: #fff !important;
+    #mobile-nav::-webkit-scrollbar { display: none; }
+    #mobile-nav a {
+        font-family: var(--f-display);
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0.03em;
+        color: #fff;
+        text-decoration: none;
         white-space: nowrap;
-        padding-bottom: 0 !important;
-        text-decoration: none !important;
-        border: none !important;
-        outline: none !important;
     }
-    #nav-menu .nav-a::after { display: none !important; }
 }
 
 /* ============================
