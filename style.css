@@ -1478,11 +1478,14 @@ em { font-style: normal; }
     align-items: center;
     justify-content: center;
     padding: clamp(40px, 6vw, 80px);
+    min-width: 0;
+    overflow: hidden;
 }
 
 .pt-card-right {
     background: #000;
     padding: clamp(60px, 7vw, 100px) clamp(40px, 5vw, 80px);
+    min-width: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -1531,6 +1534,11 @@ em { font-style: normal; }
     color: #fff;
     text-align: center;
     line-height: 1;
+}
+
+/* ACCELERATION — 글자 수가 많아 1:1 컬럼 유지를 위해 폰트 축소 */
+.pt-card-cat--accel {
+    font-size: clamp(28px, 5vw, 72px);
 }
 
 .pt-card-tagline {
