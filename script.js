@@ -192,8 +192,30 @@ function startHero() {
 const menuToggle = qs('#menu-toggle');
 const navMenu    = qs('#nav-menu');
 
+const mobileMenu      = qs('#mobile-menu');
+const mobileMenuClose = qs('#mobile-menu-close');
+
+function openMobileMenu() {
+    mobileMenu.classList.add('is-open');
+    mobileMenu.setAttribute('aria-hidden', 'false');
+}
+function closeMobileMenu() {
+    mobileMenu.classList.remove('is-open');
+    mobileMenu.setAttribute('aria-hidden', 'true');
+}
+
 menuToggle.addEventListener('click', () => {
-    navMenu.classList.toggle('open');
+    if (window.innerWidth < 768) {
+        mobileMenu.classList.contains('is-open') ? closeMobileMenu() : openMobileMenu();
+    } else {
+        navMenu.classList.toggle('open');
+    }
+});
+
+mobileMenuClose?.addEventListener('click', closeMobileMenu);
+
+qsa('.mobile-nav-a').forEach(a => {
+    a.addEventListener('click', closeMobileMenu);
 });
 
 qsa('#nav-menu .nav-a').forEach(a => {
