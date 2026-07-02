@@ -974,8 +974,15 @@ em { font-style: normal; }
 
 .gp-feature[data-feat-video] { cursor: pointer; }
 
-/* 배경 영상 항목 */
-.gp-feature--bg-video { overflow: hidden; min-height: 100vh; }
+/* 배경 영상 항목 — 콘텐츠 좌측 하단 배치 */
+.gp-feature--bg-video {
+    overflow: hidden;
+    min-height: 100vh;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    gap: 8px;
+}
 
 .gp-feat-bg-video {
     position: absolute;
@@ -990,14 +997,23 @@ em { font-style: normal; }
 .gp-feat-bg-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.52);
+    background: rgba(0, 0, 0, 0.45);
     z-index: 1;
 }
 
-.gp-feature--bg-video .gp-feat-left,
+.gp-feature--bg-video .gp-feat-left {
+    position: relative;
+    z-index: 2;
+    flex: unset;
+    min-width: unset;
+}
+
 .gp-feature--bg-video .gp-feat-desc {
     position: relative;
     z-index: 2;
+    text-align: left;
+    flex-shrink: unset;
+    padding-top: 0;
 }
 
 /* ============================
@@ -1481,6 +1497,13 @@ em { font-style: normal; }
     .sr-body, .pill-body { font-size: 12px; }
     .gp-desc { font-size: 12px; line-height: 1.7; color: #fff; }
     .gp-address { font-size: 11px; line-height: 1.5; }
+
+    /* G-Planet 히어로 전체화면 + 타이틀 폰트 확대 */
+    .gp-hero {
+        aspect-ratio: unset;
+        min-height: 100vh;
+    }
+    .gp-title { font-size: clamp(48px, 14vw, 80px); }
 
     /* 모바일: BGM 버튼 숨김 */
     .gp-bgm-btn { display: none !important; }

@@ -762,6 +762,23 @@ qs('.header-brand').addEventListener('click', e => {
 })();
 
 /* ============================
+   G-PLANET HERO — 모바일 핀
+   ============================ */
+(function initGplanetMobilePin() {
+    if (window.innerWidth >= 768) return;
+    setTimeout(() => {
+        ScrollTrigger.create({
+            trigger: '#gplanet',
+            start: 'top top',
+            end: '+=400',
+            pin: true,
+            pinSpacing: true,
+            anticipatePin: 1,
+        });
+    }, 0);
+})();
+
+/* ============================
    GP FEATURES — 모바일 가로 슬라이드
    ============================ */
 (function initFeatSlider() {
