@@ -1480,45 +1480,38 @@ em { font-style: normal; }
     /* 모바일: BGM 버튼 숨김 */
     .gp-bgm-btn { display: none !important; }
 
-    /* GP Features — 모바일 세로 스크롤 스냅 */
+    /* GP Features — 모바일 세로 슬라이드 (GSAP 핀) */
     .gp-feat-video-wrap { display: none !important; }
     .gp-features {
         display: block;
+        position: relative;
         height: 100svh;
-        overflow-y: scroll;
-        scroll-snap-type: y mandatory;
-        -webkit-overflow-scrolling: touch;
-        overscroll-behavior-y: contain;
+        overflow: hidden;
         border-top: none;
     }
     .gp-feature {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
         display: flex;
-        position: relative;
-        height: 100svh;
-        scroll-snap-align: start;
         flex-direction: column;
         align-items: flex-start;
-        gap: 12px;
+        justify-content: flex-end;
+        gap: 8px;
         padding: 32px var(--pad-x);
         border-bottom: none;
-        will-change: unset;
-        transform: none !important;
+        will-change: transform;
+        overflow: hidden;
     }
     .gp-feat-heading { font-size: clamp(32px, 9vw, 56px) !important; }
     .gp-feat-desc { text-align: left; font-size: 12px !important; }
 
-    /* ── 배경 영상 (세로 스냅 섹션) ── */
-    .gp-feature[data-feat-video] {
-        overflow: hidden;
-        justify-content: flex-end;
-        gap: 8px;
-    }
+    /* ── 배경 영상 ── */
     .gp-feat-bg-video {
         display: block;
         position: absolute;
         inset: 0;
-        width: 100%;
-        height: 100%;
+        width: 100%; height: 100%;
         object-fit: cover;
         object-position: 50% 0%;
         z-index: 0;
@@ -1530,11 +1523,11 @@ em { font-style: normal; }
         background: rgba(0,0,0,0.45);
         z-index: 1;
     }
-    .gp-feature[data-feat-video] .gp-feat-left {
+    .gp-feature .gp-feat-left {
         position: relative; z-index: 2;
         flex: unset; min-width: unset;
     }
-    .gp-feature[data-feat-video] .gp-feat-desc {
+    .gp-feature .gp-feat-desc {
         position: relative; z-index: 2;
         text-align: left; flex-shrink: unset; padding-top: 0;
     }

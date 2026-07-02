@@ -803,7 +803,42 @@ qs('.header-brand').addEventListener('click', e => {
 /* ============================
    GP FEATURES — 모바일 가로 슬라이드
    ============================ */
-/* initFeatSlider: 모바일은 CSS scroll-snap으로 대체 */
+(function initFeatSlider() {
+    if (window.innerWidth >= 768) return;
+    const features = qsa('.gp-feature[data-feat-video]');
+    if (features.length < 2) return;
+    setTimeout(() => {
+        gsap.set(features[0], { y: 0 });
+        gsap.set(features[1], { y: '100%' });
+        if (features[2]) gsap.set(features[2], { y: '100%' });
+
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: '.gp-features',
+                start: 'top top',
+                end: '+=' + (window.innerHeight * (features.length - 1)),
+                scrub: 1,
+                pin: true,
+                pinSpacing: true,
+                anticipatePin: 1,
+                snap: {
+                    snapTo: [0, 0.5, 1],
+                    duration: { min: 0.2, max: 0.5 },
+                    delay: 0.05,
+                    ease: 'power2.inOut',
+                },
+            }
+        });
+
+        tl.to(features[0], { y: '-100%', ease: 'none', duration: 1 }, 0)
+          .to(features[1], { y: '0%',    ease: 'none', duration: 1 }, 0);
+        if (features[2]) {
+            tl.to(features[1], { y: '-100%', ease: 'none', duration: 1 }, 1)
+              .to(features[2], { y: '0%',    ease: 'none', duration: 1 }, 1);
+        }
+        tl.to({}, { duration: 0.01 });
+    }, 0);
+})();
 
 /* ============================
    FLOOR PLAN SLIDER — 무한 루프
