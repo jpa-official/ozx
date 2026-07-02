@@ -1332,7 +1332,12 @@ em { font-style: normal; }
         font-size: 16px;
     }
 
-    /* ── 모든 설명글: MVVS 기준 사이즈, 두께는 조금 더 얇게 ── */
+    /* 섹션 제목 (WHAT WE DO / OUR OPERATING STRENGTH) */
+    .sec-h2 {
+        font-size: clamp(22px, 6vw, 32px);
+    }
+
+    /* ── 모든 설명글: 14px / weight 400 ── */
     .id-desc,
     .sec-lead,
     .sr-ko,
@@ -1351,7 +1356,7 @@ em { font-style: normal; }
     .pt-bullets li,
     .pt-services li span,
     .pt-proj-body {
-        font-size: 15px;
+        font-size: 14px;
         font-weight: 400;
         line-height: 1.65;
     }
