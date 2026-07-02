@@ -807,7 +807,7 @@ em { font-style: normal; }
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    padding: clamp(32px, 5vw, 64px) clamp(28px, 5vw, 72px) clamp(80px, 12vw, 140px);
+    padding: clamp(32px, 5vw, 64px) clamp(28px, 5vw, 72px) clamp(36px, 5vw, 60px);
 }
 
 .gp-info {
@@ -819,7 +819,7 @@ em { font-style: normal; }
 
 .gp-title {
     font-family: var(--f-narrow);
-    font-size: clamp(40px, 7vw, 100px);
+    font-size: clamp(24px, 4vw, 56px);
     font-weight: 500;
     color: #fff;
     letter-spacing: -0.02em;
@@ -829,7 +829,7 @@ em { font-style: normal; }
 /* BGM 토글 버튼 */
 .gp-bgm-btn {
     position: absolute;
-    bottom: clamp(80px, 12vw, 140px);
+    bottom: clamp(36px, 5vw, 60px);
     right: clamp(28px, 5vw, 72px);
     z-index: 10;
     width: 44px;
@@ -877,7 +877,7 @@ em { font-style: normal; }
 
 .gp-address {
     font-family: var(--f-body);
-    font-size: clamp(14px, 1.2vw, 18px);
+    font-size: clamp(10px, 0.8vw, 13px);
     line-height: 1.25;
     font-weight: 300;
     line-height: 1.8;
