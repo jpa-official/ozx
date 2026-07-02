@@ -1507,6 +1507,68 @@ em { font-style: normal; }
         transform: translateX(100%);
     }
     .gp-feat-desc { text-align: left; }
+
+    /* ── PARTNERS 모바일 탭 슬라이더 ── */
+    .pt-mobile-tabs {
+        display: flex;
+        overflow-x: auto;
+        gap: 8px;
+        padding: 20px var(--pad-x) 16px;
+        scrollbar-width: none;
+        background: #000;
+    }
+    .pt-mobile-tabs::-webkit-scrollbar { display: none; }
+
+    .pt-mtab {
+        flex-shrink: 0;
+        padding: 8px 18px;
+        border-radius: 999px;
+        border: 1px solid rgba(255,255,255,0.25);
+        background: transparent;
+        color: rgba(255,255,255,0.45);
+        font-family: var(--f-narrow);
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.07em;
+        cursor: pointer;
+        transition: background 0.3s, color 0.3s, border-color 0.3s;
+    }
+    .pt-mtab.is-active {
+        background: #fff;
+        color: #000;
+        border-color: #fff;
+    }
+
+    .pt-pinned-head { display: none !important; }
+
+    /* 카드 스택: grid-area 1/1 trick */
+    .pt-cards {
+        display: grid;
+        grid-template-rows: auto;
+        grid-template-columns: 1fr;
+        transition: none;
+        transform: none !important;
+    }
+    .pt-card {
+        grid-area: 1 / 1;
+        grid-template-columns: 1fr;
+        min-height: auto;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+        pointer-events: none;
+    }
+    .pt-card.is-active {
+        opacity: 1;
+        pointer-events: auto;
+    }
+    .pt-card-left { display: none; }
+    .pt-card-right {
+        padding: 28px var(--pad-x) 40px;
+        border-left: none;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        justify-content: flex-start;
+        gap: 14px;
+    }
 }
 
 /* ============================
@@ -1540,8 +1602,9 @@ em { font-style: normal; }
     color: #fff;
 }
 
-/* 데스크탑: pt-head 숨기고 pt-pinned-head 사용 */
+/* 데스크탑: pt-head, pt-mobile-tabs 숨기고 pt-pinned-head 사용 */
 .pt-head { display: none; }
+.pt-mobile-tabs { display: none; }
 
 /* 슬라이더 내부 고정 헤더 — 카드 위에 절대 배치, 카드 전환 동안 유지 */
 .pt-pinned-head {

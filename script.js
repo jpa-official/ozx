@@ -1065,9 +1065,47 @@ setTimeout(() => {
     const cards = Array.from(qsa('.pt-card', track));
     const total = cards.length; // 3
 
-    /* ── 모바일: 무한 터치 캐러셀 ── */
+    /* ── 모바일: 탭 바 + 스크롤 드리븐 전환 ── */
+    if (window.innerWidth < 768) {
+        const mtabs = qsa('.pt-mtab');
+        let currentIdx = 0;
+
+        function activateCard(i) {
+            currentIdx = i;
+            cards.forEach((c, j) => c.classList.toggle('is-active', j === i));
+            mtabs.forEach((t, j) => t.classList.toggle('is-active', j === i));
+        }
+        activateCard(0);
+
+        mtabs.forEach((btn, i) => {
+            btn.addEventListener('click', () => activateCard(i));
+        });
+
+        setTimeout(() => {
+            ScrollTrigger.create({
+                trigger: '#pt-section',
+                start: 'top top',
+                end: `+=${total * window.innerHeight}`,
+                pin: true,
+                pinSpacing: true,
+                anticipatePin: 1,
+                snap: {
+                    snapTo: [0, 1 / total, 2 / total, 1],
+                    duration: { min: 0.2, max: 0.5 },
+                    delay: 0.05,
+                    ease: 'power2.inOut',
+                },
+                onUpdate(self) {
+                    const newIdx = Math.min(total - 1, Math.floor(self.progress * total));
+                    if (newIdx !== currentIdx) activateCard(newIdx);
+                },
+            });
+        }, 0);
+        return;
+    }
+
+    /* ── 768~900px: 터치 스와이프 ── */
     if (window.innerWidth < 900) {
-        /* 앞뒤에 클론 추가: [CONTENT_clone][SPACE][ACCEL][CONTENT][SPACE_clone] */
         track.prepend(cards[total - 1].cloneNode(true));
         track.append(cards[0].cloneNode(true));
 
@@ -1084,8 +1122,8 @@ setTimeout(() => {
         setPos(1, false);
 
         track.addEventListener('transitionend', () => {
-            if (pos <= 0)            setPos(total,     false); // 클론→실제 마지막
-            else if (pos >= total + 1) setPos(1,       false); // 클론→실제 첫번째
+            if (pos <= 0)              setPos(total, false);
+            else if (pos >= total + 1) setPos(1,     false);
             requestAnimationFrame(() => { animating = false; });
         });
 
