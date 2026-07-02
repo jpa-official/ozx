@@ -1537,7 +1537,7 @@ em { font-style: normal; }
         display: flex;
         overflow-x: auto;
         gap: 8px;
-        padding: 10px var(--pad-x) 8px;
+        padding: 6px var(--pad-x);
         scrollbar-width: none;
         background: #000;
     }
@@ -1545,7 +1545,7 @@ em { font-style: normal; }
 
     .pt-mtab {
         flex-shrink: 0;
-        padding: 8px 18px;
+        padding: 6px 16px;
         border-radius: 999px;
         border: 1px solid rgba(255,255,255,0.25);
         background: transparent;
@@ -1565,11 +1565,11 @@ em { font-style: normal; }
 
     .pt-pinned-head { display: none !important; }
 
-    /* 카드 스택: grid-area 1/1 trick */
+    /* 카드: 가로 슬라이드 */
     .pt-cards {
         display: grid;
-        grid-template-rows: auto;
         grid-template-columns: 1fr;
+        overflow: hidden;
         transition: none;
         transform: none !important;
     }
@@ -1577,17 +1577,13 @@ em { font-style: normal; }
         grid-area: 1 / 1;
         grid-template-columns: 1fr;
         min-height: auto;
-        opacity: 0;
-        transition: opacity 0.4s ease;
         pointer-events: none;
+        will-change: transform;
     }
-    .pt-card.is-active {
-        opacity: 1;
-        pointer-events: auto;
-    }
+    .pt-card.is-active { pointer-events: auto; }
     .pt-card-left { display: none; }
     .pt-card-right {
-        padding: 14px var(--pad-x) 20px;
+        padding: 10px var(--pad-x) 16px;
         border-left: none;
         border-top: 1px solid rgba(255,255,255,0.1);
         justify-content: flex-start;

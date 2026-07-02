@@ -808,9 +808,9 @@ qs('.header-brand').addEventListener('click', e => {
     const features = qsa('.gp-feature[data-feat-video]');
     if (features.length < 2) return;
     setTimeout(() => {
-        gsap.set(features[0], { y: 0 });
-        gsap.set(features[1], { y: '100%' });
-        if (features[2]) gsap.set(features[2], { y: '100%' });
+        gsap.set(features[0], { x: 0 });
+        gsap.set(features[1], { x: '100%' });
+        if (features[2]) gsap.set(features[2], { x: '100%' });
 
         const tl = gsap.timeline({
             scrollTrigger: {
@@ -830,11 +830,11 @@ qs('.header-brand').addEventListener('click', e => {
             }
         });
 
-        tl.to(features[0], { y: '-100%', ease: 'none', duration: 1 }, 0)
-          .to(features[1], { y: '0%',    ease: 'none', duration: 1 }, 0);
+        tl.to(features[0], { x: '-100%', ease: 'none', duration: 1 }, 0)
+          .to(features[1], { x: '0%',    ease: 'none', duration: 1 }, 0);
         if (features[2]) {
-            tl.to(features[1], { y: '-100%', ease: 'none', duration: 1 }, 1)
-              .to(features[2], { y: '0%',    ease: 'none', duration: 1 }, 1);
+            tl.to(features[1], { x: '-100%', ease: 'none', duration: 1 }, 1)
+              .to(features[2], { x: '0%',    ease: 'none', duration: 1 }, 1);
         }
         tl.to({}, { duration: 0.01 });
     }, 0);
@@ -1137,41 +1137,48 @@ setTimeout(() => {
     const cards = Array.from(qsa('.pt-card', track));
     const total = cards.length; // 3
 
-    /* ── 모바일: 탭 바 + 스크롤 드리븐 전환 ── */
+    /* ── 모바일: 가로 슬라이드 (GSAP 핀) ── */
     if (window.innerWidth < 768) {
         const mtabs = qsa('.pt-mtab');
         let currentIdx = 0;
 
-        function activateCard(i) {
-            currentIdx = i;
-            cards.forEach((c, j) => c.classList.toggle('is-active', j === i));
-            mtabs.forEach((t, j) => t.classList.toggle('is-active', j === i));
-        }
-        activateCard(0);
+        gsap.set(cards[0], { x: 0 });
+        cards.slice(1).forEach(c => gsap.set(c, { x: '100%' }));
 
-        mtabs.forEach((btn, i) => {
-            btn.addEventListener('click', () => activateCard(i));
-        });
+        function activateTab(i) {
+            currentIdx = i;
+            mtabs.forEach((t, j) => t.classList.toggle('is-active', j === i));
+            cards.forEach((c, j) => c.classList.toggle('is-active', j === i));
+        }
+        activateTab(0);
 
         setTimeout(() => {
-            ScrollTrigger.create({
-                trigger: '#pt-section',
-                start: 'top top',
-                end: `+=${total * window.innerHeight}`,
-                pin: true,
-                pinSpacing: true,
-                anticipatePin: 1,
-                snap: {
-                    snapTo: [0, 1 / total, 2 / total, 1],
-                    duration: { min: 0.2, max: 0.5 },
-                    delay: 0.05,
-                    ease: 'power2.inOut',
-                },
-                onUpdate(self) {
-                    const newIdx = Math.min(total - 1, Math.floor(self.progress * total));
-                    if (newIdx !== currentIdx) activateCard(newIdx);
-                },
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: '#pt-section',
+                    start: 'top top',
+                    end: '+=' + (window.innerHeight * (total - 1)),
+                    scrub: 1,
+                    pin: true,
+                    pinSpacing: true,
+                    anticipatePin: 1,
+                    snap: {
+                        snapTo: [0, 0.5, 1],
+                        duration: { min: 0.2, max: 0.5 },
+                        delay: 0.05,
+                        ease: 'power2.inOut',
+                    },
+                    onUpdate(self) {
+                        const newIdx = Math.min(total - 1, Math.round(self.progress * (total - 1)));
+                        if (newIdx !== currentIdx) activateTab(newIdx);
+                    },
+                }
             });
+            tl.to(cards[0], { x: '-100%', ease: 'none', duration: 1 }, 0)
+              .to(cards[1], { x: '0%',    ease: 'none', duration: 1 }, 0)
+              .to(cards[1], { x: '-100%', ease: 'none', duration: 1 }, 1)
+              .to(cards[2], { x: '0%',    ease: 'none', duration: 1 }, 1)
+              .to({}, { duration: 0.01 });
         }, 0);
         return;
     }
