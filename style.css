@@ -1529,8 +1529,8 @@ em { font-style: normal; }
     .gp-feature:nth-child(3) {
         transform: translateX(100%);
     }
-    .gp-feat-heading { font-size: clamp(32px, 9vw, 56px); }
-    .gp-feat-desc { text-align: left; font-size: 12px; }
+    .gp-feat-heading { font-size: clamp(32px, 9vw, 56px) !important; }
+    .gp-feat-desc { text-align: left; font-size: 12px !important; }
 
     /* ── PARTNERS 모바일 탭 슬라이더 ── */
     .pt-mobile-tabs {
