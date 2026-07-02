@@ -981,47 +981,9 @@ em { font-style: normal; }
 
 .gp-feature[data-feat-video] { cursor: pointer; }
 
-/* 배경 영상 항목 — 콘텐츠 좌측 하단 배치 */
-.gp-feature--bg-video {
-    overflow: hidden;
-    min-height: 100vh;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: flex-start;
-    gap: 8px;
-}
-
-.gp-feat-bg-video {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: 50% 0%;
-    z-index: 0;
-}
-
-.gp-feat-bg-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.45);
-    z-index: 1;
-}
-
-.gp-feature--bg-video .gp-feat-left {
-    position: relative;
-    z-index: 2;
-    flex: unset;
-    min-width: unset;
-}
-
-.gp-feature--bg-video .gp-feat-desc {
-    position: relative;
-    z-index: 2;
-    text-align: left;
-    flex-shrink: unset;
-    padding-top: 0;
-}
+/* .gp-feat-bg-video / overlay — 모바일 전용 (768px 블록에서 정의) */
+.gp-feat-bg-video  { display: none; }
+.gp-feat-bg-overlay { display: none; }
 
 /* ============================
    FLOOR PLAN SLIDER
@@ -1538,6 +1500,41 @@ em { font-style: normal; }
     }
     .gp-feat-heading { font-size: clamp(32px, 9vw, 56px) !important; }
     .gp-feat-desc { text-align: left; font-size: 12px !important; }
+
+    /* ── 배경 영상 항목 — 모바일 전용 ── */
+    .gp-feature--bg-video {
+        overflow: hidden;
+        min-height: 100vh;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    .gp-feat-bg-video {
+        display: block;
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: 50% 0%;
+        z-index: 0;
+    }
+    .gp-feat-bg-overlay {
+        display: block;
+        position: absolute;
+        inset: 0;
+        background: rgba(0,0,0,0.45);
+        z-index: 1;
+    }
+    .gp-feature--bg-video .gp-feat-left {
+        position: relative; z-index: 2;
+        flex: unset; min-width: unset;
+    }
+    .gp-feature--bg-video .gp-feat-desc {
+        position: relative; z-index: 2;
+        text-align: left; flex-shrink: unset; padding-top: 0;
+    }
 
     /* ── PARTNERS 모바일 탭 슬라이더 ── */
     .pt-mobile-tabs {
