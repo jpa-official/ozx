@@ -1360,14 +1360,10 @@ em { font-style: normal; }
         clip-path: inset(0 0% 0 0) !important;
     }
 
-    /* GSAP 애니메이션 요소 강제 표시 (ScrollTrigger 미동작 대응) */
-    .fade-up,
-    .sr-01, .sr-02, .sr-03,
-    .sr-01 .sr-title, .sr-01 .sr-num, .sr-01 .sr-ko, .sr-01 .sr-body,
-    .id-desc, .id-title-block {
+    /* fade-up 요소: ScrollTrigger 미동작 시 숨김 방지 */
+    .fade-up {
         opacity: 1 !important;
-        transform: none !important;
-        clip-path: none !important;
+        transform: translateY(0) !important;
     }
     /* pill 카드 clip-path 초기화 */
     .pc-reveal {
