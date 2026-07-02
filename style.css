@@ -1348,6 +1348,9 @@ em { font-style: normal; }
     z-index: 10;
     pointer-events: none;
 }
+.pt-pinned-head .pt-title {
+    margin-bottom: clamp(4px, 0.5vw, 8px);
+}
 .pt-pinned-head .pt-desc {
     border-bottom: none;
     padding-bottom: 0;
