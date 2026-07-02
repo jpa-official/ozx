@@ -1621,23 +1621,29 @@ em { font-style: normal; }
 
     #nav-menu {
         display: flex !important;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        gap: 16px;
+        flex-direction: row !important;
+        justify-content: center !important;
+        align-items: center !important;
+        position: static !important;
+        top: auto !important;
+        right: auto !important;
+        left: auto !important;
+        gap: 16px !important;
         opacity: 1 !important;
         pointer-events: auto !important;
         transform: none !important;
         background: none !important;
+        border: none !important;
+        box-shadow: none !important;
         overflow-x: auto;
         scrollbar-width: none;
     }
     #nav-menu::-webkit-scrollbar { display: none; }
     #nav-menu .nav-a {
-        font-family: var(--f-display);
-        font-size: 10px;
-        font-weight: 500;
-        letter-spacing: 0.03em;
+        font-family: var(--f-display) !important;
+        font-size: 10px !important;
+        font-weight: 500 !important;
+        letter-spacing: 0.03em !important;
         color: #fff !important;
         white-space: nowrap;
         padding-bottom: 0 !important;
