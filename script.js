@@ -492,33 +492,36 @@ gsap.fromTo('.news-text',
     tabs[0].classList.add('is-active');
     panels[0].classList.add('is-active');
 
-    /* ── 모바일: MISSION → VISION만 표시 후 핀 해제 ── */
+    /* ── 모바일: 진입 즉시 MISSION 표시, 스크롤로 VISION 전환 ── */
     if (window.innerWidth < 768) {
-        // 진입 즉시 bg 표시 (clip 애니 제거 → 빈 화면 갭 방지)
-        gsap.set('.mvvs-bg', { clipPath: 'inset(0% 0 0% 0)' });
+        // bg 즉시 공개 + 초기 콘텐츠(MISSION) 즉시 표시
+        gsap.set('.mvvs-bg',      { clipPath: 'inset(0% 0 0% 0)' });
+        gsap.set(tabs,            { opacity: 1 });
+        gsap.set('#panel-mission', { opacity: 1, y: 0 });
+        tabs[0].classList.add('is-active');
+        panels[0].classList.add('is-active');
+
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: '#mvvs',
                 start: 'top top',
-                end: '+=' + (window.innerHeight * 1.6),
+                end: '+=' + (window.innerHeight * 1.4),
                 scrub: 0.8,
                 pin: true,
                 pinSpacing: true,
                 anticipatePin: 1,
                 onUpdate: (self) => {
                     const p = self.progress;
-                    const idx = p >= 0.55 ? 1 : 0;
+                    const idx = p >= 0.5 ? 1 : 0;
                     tabs.forEach((t, i)    => t.classList.toggle('is-active', i === idx));
                     panels.forEach((pn, i) => pn.classList.toggle('is-active', i === idx));
                 },
             }
         });
         tl
-            .to(tabs,             { opacity: 1, stagger: 0.06, duration: 0.3 }, 0)
-            .to('#panel-mission', { opacity: 1, y: 0,   duration: 0.3 }, 0.2)
-            .to('#panel-mission', { opacity: 0, y: -14, duration: 0.25 }, 0.7)
-            .to('#panel-vision',  { opacity: 1, y: 0,   duration: 0.3  }, 0.9)
-            .to({}, { duration: 0.5 }); // VISION에서 멈춤 후 해제
+            .to('#panel-mission', { opacity: 0, y: -14, duration: 0.3 }, 0.3)
+            .to('#panel-vision',  { opacity: 1, y: 0,   duration: 0.3 }, 0.55)
+            .to({}, { duration: 0.5 }); // VISION에서 멈춤
         return;
     }
 
