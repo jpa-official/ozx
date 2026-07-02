@@ -1543,7 +1543,7 @@ em { font-style: normal; }
         display: flex;
         overflow-x: auto;
         gap: 8px;
-        padding: 20px var(--pad-x) 16px;
+        padding: 10px var(--pad-x) 8px;
         scrollbar-width: none;
         background: #000;
     }
@@ -1593,11 +1593,11 @@ em { font-style: normal; }
     }
     .pt-card-left { display: none; }
     .pt-card-right {
-        padding: 28px var(--pad-x) 40px;
+        padding: 14px var(--pad-x) 20px;
         border-left: none;
         border-top: 1px solid rgba(255,255,255,0.1);
         justify-content: flex-start;
-        gap: 14px;
+        gap: 8px;
     }
 
     /* ── 헤더: 기존 요소 숨기고 mobile-nav만 표시 ── */
