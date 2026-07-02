@@ -1598,27 +1598,33 @@ em { font-style: normal; }
     }
 
     /* ── 헤더: nav 항목 상단 가운데 고정 ── */
-    .menu-toggle  { display: none !important; }
+    .menu-toggle   { display: none !important; }
     .header-center { display: none !important; }
-    .header-left  { display: none; }
+    .header-left   { display: none !important; }
 
+    #header,
+    #header::before,
+    #header::after {
+        background: none !important;
+        background-color: transparent !important;
+        backdrop-filter: none !important;
+        box-shadow: none !important;
+    }
     #header {
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: center;
-        padding: 18px var(--pad-x);
-        background: transparent !important;
-        backdrop-filter: none !important;
+        padding: 16px 10px;
+    }
+    .header-right,
+    #nav-menu {
+        background: none !important;
     }
     .header-right {
         width: 100%;
         justify-content: center;
         gap: 0;
-    }
-
-    #header {
-        padding: 16px 10px;
     }
 
     #nav-menu {
