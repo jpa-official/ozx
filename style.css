@@ -1602,22 +1602,29 @@ em { font-style: normal; }
     .header-center { display: none !important; }
     .header-left   { display: none !important; }
 
-    #header,
-    #header::before,
-    #header::after {
+    #header {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding: 6px 10px !important;
         background: none !important;
         background-color: transparent !important;
         backdrop-filter: none !important;
         box-shadow: none !important;
     }
-    #header {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        padding: 6px 10px;
+
+    .header-right {
+        flex: 1 !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        background: none !important;
+        border: none !important;
+        gap: 0 !important;
+        position: static !important;
+        width: 100% !important;
     }
-    .header-right { display: contents; }
 
     #nav-menu {
         display: flex !important;
@@ -1637,6 +1644,7 @@ em { font-style: normal; }
         box-shadow: none !important;
         overflow-x: auto;
         scrollbar-width: none;
+        width: auto !important;
     }
     #nav-menu::-webkit-scrollbar { display: none; }
     #nav-menu .nav-a {
