@@ -1397,6 +1397,9 @@ em { font-style: normal; }
 
     .gp-desc { line-height: 1.7; color: #fff; }
     .gp-address { line-height: 1.25; }
+
+    /* 모바일: BGM 버튼 숨김 */
+    .gp-bgm-btn { display: none !important; }
 }
 
 /* ============================

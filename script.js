@@ -870,6 +870,7 @@ setTimeout(() => ScrollTrigger.refresh(), 100);
 setTimeout(() => {
     const bgm = qs('#gp-bgm');
     if (!bgm) return;
+    if (window.innerWidth < 768) return; /* 모바일: BGM 비활성화 */
     const MAX_VOL = 0.4;
 
     /* 브라우저 오토플레이 정책: 첫 포인터 다운에서 play() 호출로 오디오 컨텍스트 잠금 해제 */
