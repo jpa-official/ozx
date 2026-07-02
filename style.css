@@ -1310,6 +1310,10 @@ em { font-style: normal; }
     .mvvs-tab {
         font-size: clamp(28px, 8vw, 42px);
         text-align: center;
+        color: rgba(0,0,0,0.45);
+    }
+    .mvvs-tab.is-active {
+        color: #000;
     }
     .mvvs-inner {
         align-items: center;
