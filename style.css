@@ -1256,9 +1256,38 @@ em { font-style: normal; }
 }
 
 @media (max-width: 768px) {
-    /* 헤더 패딩 축소 */
+    /* 헤더: hdr-info 숨김 → 좌측 컬럼 비워서 로고 정중앙 정렬 */
     #header {
         padding: 20px var(--pad-x) 14px;
+    }
+    .hdr-info { display: none; }
+
+    /* 메뉴버튼: JS 애니메이션 대기 없이 항상 표시 */
+    .menu-toggle {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    /* 네비게이션: 플로우에서 분리해 드롭다운으로 전환 */
+    #nav-menu {
+        position: absolute;
+        top: 56px;
+        right: var(--pad-x);
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 18px;
+        background: rgba(0,0,0,0.95);
+        padding: 24px 28px;
+        transform: translateY(-8px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        border: 1px solid rgba(255,255,255,0.08);
+    }
+    #nav-menu.open {
+        transform: translateY(0);
+    }
+    #nav-menu .nav-a {
+        font-size: 15px;
+        letter-spacing: 0.08em;
     }
 
     /* MVVS 탭 크기 확대 */
