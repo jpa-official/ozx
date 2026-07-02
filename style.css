@@ -981,9 +981,9 @@ em { font-style: normal; }
 
 .gp-feature[data-feat-video] { cursor: pointer; }
 
-/* .gp-feat-bg-video / overlay — 모바일 전용 (768px 블록에서 정의) */
-.gp-feat-bg-video  { display: none; }
-.gp-feat-bg-overlay { display: none; }
+/* .gp-feat-bg-video / overlay — 모바일 전용, PC에서 숨김 */
+.gp-feat-bg-video  { display: none !important; }
+.gp-feat-bg-overlay { display: none !important; }
 
 /* ============================
    FLOOR PLAN SLIDER
@@ -1502,7 +1502,7 @@ em { font-style: normal; }
     .gp-feat-desc { text-align: left; font-size: 12px !important; }
 
     /* ── 배경 영상 항목 — 모바일 전용 ── */
-    .gp-feature--bg-video {
+    .gp-feature[data-feat-video] {
         overflow: hidden;
         min-height: 100vh;
         flex-direction: column;
@@ -1527,11 +1527,11 @@ em { font-style: normal; }
         background: rgba(0,0,0,0.45);
         z-index: 1;
     }
-    .gp-feature--bg-video .gp-feat-left {
+    .gp-feature[data-feat-video] .gp-feat-left {
         position: relative; z-index: 2;
         flex: unset; min-width: unset;
     }
-    .gp-feature--bg-video .gp-feat-desc {
+    .gp-feature[data-feat-video] .gp-feat-desc {
         position: relative; z-index: 2;
         text-align: left; flex-shrink: unset; padding-top: 0;
     }
