@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://use.typekit.net/bvo1jej.css">
     <!-- dynamic-subset: 사용하는 글자만 로드 (전체 대비 80% 절감) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/dynamic-subset/pretendard-dynamic-subset.css">
-    <link rel="stylesheet" href="style.css?v=54">
+    <link rel="stylesheet" href="style.css?v=55">
     <!-- 히어로 이미지 preload -->
     <link rel="preload" as="image" href="logo-main.webp">
 </head>
@@ -262,7 +262,7 @@
         <div class="gp-info">
             <p class="gp-desc">G-Planet은 광화문169를 리뉴얼하여 탄생한 오즈엑스의 첫 번째 공간 운영 사업지입니다. 광화문 한가운데의 검증된 유동성을 기반으로,<br><br>
                 브랜드와 IP, 국내외 고객, 파트너가 하나의 궤도 안에서 만나는 광화문의 새로운 행성으로 재정의됩니다.<br><br>
-                오즈엑스는 G-Planet을 통해 공간을 단순한 임대 자산이나 광고 매체가 아닌, 행사와 커뮤니티, 오프라인 현장 중심으로 확장되는 도심형 복합문화공간으로 운영합니다.
+                오즈엑스는 G-Planet을 통해 공간을 단순한 임대 자산이나 광고 매체가 아닌, 행사와 커뮤니티, 오프라인 현장 중심으로<br>확장되는 도심형 복합문화공간으로 운영합니다.
             </p>
         </div>
 
@@ -390,6 +390,7 @@
 
     <!-- PARTNERS LOGOS + CARDS -->
     <section id="pt-section">
+        <!-- 모바일 전용 헤더 (데스크탑은 pt-pinned-head 사용) -->
         <div class="pt-head">
             <h2 class="pt-title">PARTNERS</h2>
             <p class="pt-desc">공간이 하나의 통합된 BX 경험으로 작동하도록,<br>오즈엑스는 공간·미디어·콘텐츠의 전문성을 연결합니다.</p>
@@ -397,6 +398,11 @@
 
         <!-- 파트너 카드 슬라이더 -->
         <div class="pt-slider-wrap">
+            <!-- 슬라이더 고정 헤더: 카드가 바뀌는 동안 좌상단에 고정 -->
+            <div class="pt-pinned-head">
+                <h2 class="pt-title">PARTNERS</h2>
+                <p class="pt-desc">공간이 하나의 통합된 BX 경험으로 작동하도록,<br>오즈엑스는 공간·미디어·콘텐츠의 전문성을 연결합니다.</p>
+            </div>
             <div class="pt-cards" id="pt-cards">
 
                 <!-- SPACE -->

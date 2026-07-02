@@ -28,7 +28,7 @@ html { scroll-behavior: smooth; overflow-x: hidden; }
 }
 
 /* 페인트 레이어 분리: 핀 섹션들 */
-#mvvs, #space, #gplanet, #fp-slider, .pt-slider-wrap {
+#mvvs, #space, #gplanet, #fp-slider {
     transform: translateZ(0);
 }
 
@@ -878,6 +878,7 @@ em { font-style: normal; }
 .gp-address {
     font-family: var(--f-body);
     font-size: clamp(14px, 1.2vw, 18px);
+    line-height: 1.25;
     font-weight: 300;
     line-height: 1.8;
     color: #fff;
@@ -1336,8 +1337,20 @@ em { font-style: normal; }
     color: #fff;
 }
 
-.pt-head {
-    padding: clamp(60px, 8vw, 120px) clamp(40px, 6vw, 100px) clamp(40px, 5vw, 72px);
+/* 데스크탑: pt-head 숨기고 pt-pinned-head 사용 */
+.pt-head { display: none; }
+
+/* 슬라이더 내부 고정 헤더 — 카드 위에 절대 배치, 카드 전환 동안 유지 */
+.pt-pinned-head {
+    position: absolute;
+    top: clamp(32px, 5vh, 56px);
+    left: clamp(32px, 5vw, 64px);
+    z-index: 10;
+    pointer-events: none;
+}
+.pt-pinned-head .pt-desc {
+    border-bottom: none;
+    padding-bottom: 0;
 }
 
 .pt-title {
@@ -1680,6 +1693,13 @@ em { font-style: normal; }
 
 /* 모바일 */
 @media (max-width: 900px) {
+    /* 모바일: 기존 pt-head 사용, pt-pinned-head 숨김 */
+    .pt-head {
+        display: block;
+        padding: clamp(48px, 8vw, 80px) var(--pad-x) clamp(28px, 5vw, 48px);
+    }
+    .pt-pinned-head { display: none; }
+
     .pt-card {
         grid-template-columns: 1fr;
     }
