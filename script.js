@@ -1029,8 +1029,18 @@ setTimeout(() => {
 
     const bgmBtn = qs('#gp-bgm-btn');
 
+    const LOOP_START = 91;   /* 1:31 */
+    const LOOP_END   = 122;  /* 2:02 */
+
     /* 메타데이터 로드 후 시작 시간 고정 */
-    bgm.addEventListener('loadedmetadata', () => { bgm.currentTime = 91; });
+    bgm.addEventListener('loadedmetadata', () => { bgm.currentTime = LOOP_START; });
+
+    /* 구간 루프: 2:02 도달 시 1:31로 되감기 */
+    bgm.addEventListener('timeupdate', () => {
+        if (bgm.currentTime >= LOOP_END) {
+            bgm.currentTime = LOOP_START;
+        }
+    });
 
     function updateBtn() {
         if (!bgmBtn) return;
@@ -1085,7 +1095,7 @@ setTimeout(() => {
     );
 
     function enterZone() {
-        bgm.currentTime = 91;
+        bgm.currentTime = LOOP_START;
         pendingPlay = true;
         if (!userMuted) {
             if (unlocked) {
