@@ -1256,12 +1256,16 @@ em { font-style: normal; }
 }
 
 @media (max-width: 768px) {
-    /* identity 섹션: 모바일에서 min-height 제거해 갭 축소 */
+    /* identity 섹션: 모바일에서 min-height 제거, 패딩 축소 */
     #identity {
         min-height: auto;
     }
     .id-inner {
-        padding: clamp(80px, 16vh, 120px) var(--pad-x) clamp(60px, 10vh, 80px);
+        padding: clamp(72px, 12vh, 96px) var(--pad-x) 24px;
+    }
+    /* MVVS: 핀이 스크롤 공간 대신하므로 min-height 불필요 */
+    #mvvs {
+        min-height: auto;
     }
 
     /* 헤더: flex로 전환, 로고는 절대위치로 정중앙 고정 */
