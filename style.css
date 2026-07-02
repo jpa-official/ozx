@@ -1256,13 +1256,23 @@ em { font-style: normal; }
 }
 
 @media (max-width: 768px) {
-    /* 헤더: hdr-info 숨김 → 좌측 컬럼 비워서 로고 정중앙 정렬 */
+    /* 헤더: flex로 전환, 로고는 절대위치로 정중앙 고정 */
     #header {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
         padding: 20px var(--pad-x) 14px;
     }
     .hdr-info { display: none; }
-
-    /* 메뉴버튼: JS 애니메이션 대기 없이 항상 표시 */
+    .header-left { display: none; }
+    .header-center {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+    /* 로고·메뉴버튼: JS 애니메이션 대기 없이 항상 표시 */
+    .header-brand,
     .menu-toggle {
         opacity: 1 !important;
         transform: none !important;
