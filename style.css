@@ -1326,7 +1326,7 @@ em { font-style: normal; }
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 4px;
+        gap: 20px;
     }
     .mvvs-tab {
         font-size: clamp(28px, 8vw, 42px);
