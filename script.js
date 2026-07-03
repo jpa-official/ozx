@@ -384,7 +384,7 @@ qsa('.fade-up').forEach((el, i) => {
             .to(sr3, { x: 0,       ease: 'power2.inOut', duration: 0.4 }, 1.3)
             .to({}, { duration: 0.3 });
 
-            addSwipe(qs('#space'), tlSR, 3);
+            addSwipe(tlSR, 3);
         }, 0);
         return;
     }
@@ -795,20 +795,21 @@ qsa('#mobile-nav a').forEach(a => {
    ============================ */
 /* initGplanetMobilePin: 비활성화 — gp-features 슬라이더 핀과 중첩 충돌 */
 
-/* 가로 스와이프 → lenis 스냅 이동 헬퍼 (모바일 핀 슬라이더 공용) */
-function addSwipe(el, tl, total) {
+/* 가로 스와이프 → lenis 스냅 이동 헬퍼 (모바일 핀 슬라이더 공용)
+   window 레벨에서 감지 후 st.isActive 로 해당 섹션 활성 여부 확인 */
+function addSwipe(tl, total) {
     const step = 1 / (total - 1);
     let x0 = 0, y0 = 0;
-    el.addEventListener('touchstart', e => {
+    window.addEventListener('touchstart', e => {
         x0 = e.touches[0].clientX;
         y0 = e.touches[0].clientY;
     }, { passive: true });
-    el.addEventListener('touchend', e => {
+    window.addEventListener('touchend', e => {
+        const st = tl.scrollTrigger;
+        if (!st || !st.isActive) return;
         const dx = e.changedTouches[0].clientX - x0;
         const dy = e.changedTouches[0].clientY - y0;
         if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy)) return;
-        const st = tl.scrollTrigger;
-        if (!st) return;
         const cur = Math.round(st.progress / step);
         const next = Math.max(0, Math.min(total - 1, cur + (dx < 0 ? 1 : -1)));
         if (next === cur) return;
@@ -833,10 +834,9 @@ function addSwipe(el, tl, total) {
                 trigger: '.gp-features',
                 start: 'top top',
                 end: '+=' + (window.innerHeight * (features.length - 1)),
-                scrub: 1,
+                scrub: 0.6,
                 pin: true,
                 pinSpacing: true,
-                anticipatePin: 1,
                 snap: {
                     snapTo: [0, 0.5, 1],
                     duration: { min: 0.2, max: 0.5 },
@@ -854,7 +854,7 @@ function addSwipe(el, tl, total) {
         }
         tl.to({}, { duration: 0.01 });
 
-        addSwipe(qs('.gp-features'), tl, features.length);
+        addSwipe(tl, features.length);
     }, 0);
 })();
 
@@ -1196,7 +1196,7 @@ setTimeout(() => {
               .to(track, { x: -vw * 2,   ease: 'none', duration: 1 }, 1)
               .to({}, { duration: 0.01 });
 
-            addSwipe(qs('#pt-section'), tl, total);
+            addSwipe(tl, total);
         }, 0);
         return;
     }
