@@ -619,6 +619,7 @@ em { font-style: normal; }
 }
 
 .fade-up { opacity: 0; transform: translateY(20px); transition: opacity .8s ease, transform .8s ease; }
+.br-mobile { display: none; }
 .fade-up.in { opacity: 1; transform: translateY(0); }
 
 /* --- Service Stack --- */
@@ -1429,6 +1430,8 @@ em { font-style: normal; }
     .sr-02, .sr-03 {
         transform: translateX(100%);
     }
+
+    .br-mobile { display: block; }
 
     /* fade-up 요소: ScrollTrigger 미동작 시 숨김 방지 */
     .fade-up {
