@@ -2046,3 +2046,24 @@ em { font-style: normal; }
     }
 }
 
+/* ── 모바일 Partners 최종 오버라이드 (파일 최하단 — 모든 전역/900px 규칙 이후) ── */
+@media (max-width: 768px) {
+    .pt-head          { display: none !important; }
+    .pt-mobile-tabs   { display: flex !important; }
+    .pt-cards {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        width: 100% !important;
+        transition: none !important;
+    }
+    .pt-card {
+        flex: 0 0 100vw !important;
+        width: 100vw !important;
+        display: block !important;
+        min-height: auto !important;
+        grid-template-columns: unset !important;
+    }
+    .pt-card-right    { min-height: auto !important; }
+}
+
