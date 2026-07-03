@@ -1421,7 +1421,7 @@ em { font-style: normal; }
         display: flex;
         flex-direction: column;
         gap: 12px;
-        padding: 24px var(--pad-x);
+        padding: 52px var(--pad-x) 24px;
         will-change: transform;
         text-align: center;
         align-items: center;
