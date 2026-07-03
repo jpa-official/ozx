@@ -844,7 +844,7 @@ function addSwipe(tl, total, step) {
                 trigger: '.gp-features',
                 start: 'top top',
                 end: '+=' + (window.innerHeight * features.length), // tail 포함
-                scrub: 0.6,
+                scrub: true,
                 pin: true,
                 pinSpacing: true,
                 snap: {
