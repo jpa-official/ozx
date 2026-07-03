@@ -1002,47 +1002,6 @@ function loopTo(target) {
     });
 }
 
-/* ============================
-   OUR OPERATING STRENGTH — 모바일 가로 슬라이드
-   ============================ */
-(function initPillSlider() {
-    if (window.innerWidth >= 768) return;
-    const pillTrack = qs('.pill-grid');
-    const pills = qsa('.pill-card');
-    if (!pillTrack || pills.length < 2) return;
-
-    const total = pills.length;
-    gsap.set(pillTrack, { x: 0 });
-
-    setTimeout(() => {
-        const vw = window.innerWidth;
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: '#partners',
-                start: 'top top',
-                end: '+=' + (vw * (total - 1) * 2),
-                scrub: 1,
-                pin: true,
-                pinSpacing: true,
-                anticipatePin: 1,
-                snap: {
-                    snapTo: total === 3 ? [0, 0.5, 1] : 1 / (total - 1),
-                    duration: { min: 0.2, max: 0.5 },
-                    delay: 0.05,
-                    ease: 'power2.inOut',
-                },
-            }
-        });
-
-        for (let i = 1; i < total; i++) {
-            tl.to(pillTrack, { x: -vw * i, ease: 'none', duration: 1 }, i - 1);
-        }
-        tl.to({}, { duration: 0.01 });
-
-        addSwipe(qs('#partners'), tl, total);
-    }, 0);
-})();
-
 // Contact 핀은 initPtSlider setTimeout 안에서 마지막에 생성 (순서 보장)
 
 // 위 스크롤 → hero 상단에서 의도적으로 많이 올려야 contact로 이동
