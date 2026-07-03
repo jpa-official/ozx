@@ -1059,11 +1059,12 @@ setTimeout(() => {
 
     const FADE = 1.0;
     let fadeTimer = null;
-    let userMuted = false;
+    let userMuted = true;  /* 초기: 꺼진 상태 — 버튼 1번으로 켜짐 */
     let unlocked = false;
     let pendingPlay = false;
 
     const bgmBtn = qs('#gp-bgm-btn');
+    if (bgmBtn) bgmBtn.classList.add('is-muted'); /* 버튼 초기 상태 동기화 */
 
     const LOOP_START = 91;   /* 1:31 */
     const LOOP_END   = 122;  /* 2:02 */
