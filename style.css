@@ -1182,7 +1182,14 @@ em { font-style: normal; }
     color: rgba(0,0,0,0.35);
     font-family: var(--f-body);
     font-size: clamp(13px, 1.1vw, 15px);
-    font-weight: 300;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+}
+.cf-textarea::placeholder {
+    color: rgba(0,0,0,0.35);
+    font-family: var(--f-body);
+    font-size: clamp(13px, 1.1vw, 15px);
+    font-weight: 600;
     letter-spacing: 0.04em;
 }
 
