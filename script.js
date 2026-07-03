@@ -1273,6 +1273,12 @@ setTimeout(() => {
                 pin: true,
                 pinSpacing: true,
                 anticipatePin: 1,
+                snap: {
+                    snapTo: [0, 0.5, 1],
+                    duration: { min: 0.2, max: 0.5 },
+                    delay: 0.05,
+                    ease: 'power2.inOut',
+                },
             }
         });
         tl.to(track, { x: -vw,      ease: 'none', duration: 1 }, 0)
