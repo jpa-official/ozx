@@ -1206,40 +1206,39 @@ setTimeout(() => {
         }
         activateTab(0);
 
-        setTimeout(() => {
-            // 슬라이드 (total-1)개 + tail 1개: 각 단위 = vw*2 스크롤
-            // snap은 SPACE/ACCELERATION/CONTENT 위치에만 걸리고, tail은 직접 스크롤
-            const snapStep = 1 / total; // 1/3 for 3 cards
-            const tl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: '#pt-section',
-                    start: 'top top',
-                    end: '+=' + (vw * total * 2),
-                    scrub: true,
-                    pin: true,
-                    pinSpacing: true,
-                    anticipatePin: 1,
-                    snap: {
-                        snapTo: v => {
-                            // 항상 가장 가까운 카드 위치에 스냅 (속도 무시)
-                            const pts = Array.from({ length: total }, (_, i) => i * snapStep);
-                            return pts.reduce((a, b) => Math.abs(b - v) < Math.abs(a - v) ? b : a);
-                        },
-                        duration: { min: 0.2, max: 0.5 },
-                        delay: 0.05,
-                        ease: 'power2.inOut',
-                    },
-                    onUpdate(self) {
-                        const newIdx = Math.min(total - 1, Math.floor(self.progress * total));
-                        if (newIdx !== currentIdx) activateTab(newIdx);
-                    },
-                }
-            });
-            tl.to(track, { x: -vw,      ease: 'none', duration: 1 }, 0)
-              .to(track, { x: -vw * 2,   ease: 'none', duration: 1 }, 1)
-              .to({}, { duration: 1 }); // CONTENT 이후 멈춤 구간
+        /* 스와이프로만 카드 전환 — Lenis 모멘텀 충돌 없음 */
+        function goToCard(n) {
+            n = Math.max(0, Math.min(total - 1, n));
+            if (n === currentIdx) return;
+            activateTab(n);
+            gsap.to(track, { x: -n * vw, duration: 0.4, ease: 'power2.inOut' });
+        }
 
-            addSwipe(tl, total, snapStep);
+        setTimeout(() => {
+            gsap.set(track, { x: 0 });
+
+            ScrollTrigger.create({
+                trigger: '#pt-section',
+                start: 'top top',
+                end: '+=' + (vw * total * 2),
+                pin: true,
+                pinSpacing: true,
+                anticipatePin: 1,
+            });
+
+            let tx = 0, ty = 0;
+            window.addEventListener('touchstart', e => {
+                tx = e.touches[0].clientX;
+                ty = e.touches[0].clientY;
+            }, { passive: true });
+            window.addEventListener('touchend', e => {
+                const st = ScrollTrigger.getAll().find(s => s.vars.trigger === '#pt-section' || s.trigger === qs('#pt-section'));
+                if (!st || !st.isActive) return;
+                const dx = e.changedTouches[0].clientX - tx;
+                const dy = e.changedTouches[0].clientY - ty;
+                if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy)) return;
+                goToCard(currentIdx + (dx < 0 ? 1 : -1));
+            }, { passive: true });
         }, 0);
         return;
     }
