@@ -1261,32 +1261,31 @@ setTimeout(() => {
         return;
     }
 
-    /* ── 데스크탑: GSAP scrub 드리븐 ── */
+    /* ── 데스크탑: 스크롤 드리븐 (카드당 1000px) ── */
     const vw = window.innerWidth;
-    track.style.transition = 'none'; // GSAP가 transform 제어 — CSS transition 제거
+    track.style.transition = 'none'; // GSAP가 transform 제어
+    let currentIdx = 0;
+
+    function goTo(n) {
+        currentIdx = Math.max(0, Math.min(total - 1, n));
+        gsap.to(track, { x: -currentIdx * vw, duration: 0.5, ease: 'power2.inOut' });
+    }
 
     setTimeout(() => {
         gsap.set(track, { x: 0 });
 
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: '.pt-slider-wrap',
-                start: 'top top',
-                end: `+=${(total - 1) * 1200}`,
-                scrub: 0.8,
-                pin: true,
-                pinSpacing: true,
-                anticipatePin: 1,
-                snap: {
-                    snapTo: [0, 0.5, 1],
-                    duration: { min: 0.2, max: 0.5 },
-                    delay: 0.05,
-                    ease: 'power2.inOut',
-                },
-            }
+        ScrollTrigger.create({
+            trigger: '.pt-slider-wrap',
+            start: 'top top',
+            end: `+=${total * 1000}`,
+            pin: true,
+            pinSpacing: true,
+            anticipatePin: 1,
+            onUpdate(self) {
+                const newIdx = Math.min(total - 1, Math.floor(self.progress * total));
+                if (newIdx !== currentIdx) goTo(newIdx);
+            },
         });
-        tl.to(track, { x: -vw,      ease: 'none', duration: 1 }, 0)
-          .to(track, { x: -vw * 2,   ease: 'none', duration: 1 }, 1);
 
         /* Contact 핀 — 모든 핀 spacer가 DOM에 추가된 뒤 마지막에 생성해야
            #contact 위치가 정확히 계산됨 */
