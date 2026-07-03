@@ -361,10 +361,7 @@ qsa('.fade-up').forEach((el, i) => {
             gsap.set(sr2, { x: '100%' });
             gsap.set(sr3, { x: '100%' });
 
-            // snap [0, 0.5, 1] → timeline pos [0, 1, 2]
-            // sr2 slide-in: pos 0.3→0.7  → 완전히 표시 pos 0.7 < pos 1.0(snap 0.5) ✓
-            // sr3 slide-in: pos 1.3→1.7  → 완전히 표시 pos 1.7 < pos 2.0(snap 1.0) ✓
-            gsap.timeline({
+            const tlSR = gsap.timeline({
                 scrollTrigger: {
                     trigger: '#space',
                     start: 'top top',
@@ -385,7 +382,9 @@ qsa('.fade-up').forEach((el, i) => {
             .to(sr2, { x: 0,       ease: 'power2.inOut', duration: 0.4 }, 0.3)
             .to(sr2, { x: '-100%', ease: 'power2.inOut', duration: 0.4 }, 1.3)
             .to(sr3, { x: 0,       ease: 'power2.inOut', duration: 0.4 }, 1.3)
-            .to({}, { duration: 0.3 }); // total 2.0
+            .to({}, { duration: 0.3 });
+
+            addSwipe(qs('#space'), tlSR, 3);
         }, 0);
         return;
     }
@@ -796,6 +795,27 @@ qsa('#mobile-nav a').forEach(a => {
    ============================ */
 /* initGplanetMobilePin: 비활성화 — gp-features 슬라이더 핀과 중첩 충돌 */
 
+/* 가로 스와이프 → lenis 스냅 이동 헬퍼 (모바일 핀 슬라이더 공용) */
+function addSwipe(el, tl, total) {
+    const step = 1 / (total - 1);
+    let x0 = 0, y0 = 0;
+    el.addEventListener('touchstart', e => {
+        x0 = e.touches[0].clientX;
+        y0 = e.touches[0].clientY;
+    }, { passive: true });
+    el.addEventListener('touchend', e => {
+        const dx = e.changedTouches[0].clientX - x0;
+        const dy = e.changedTouches[0].clientY - y0;
+        if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy)) return;
+        const st = tl.scrollTrigger;
+        if (!st) return;
+        const cur = Math.round(st.progress / step);
+        const next = Math.max(0, Math.min(total - 1, cur + (dx < 0 ? 1 : -1)));
+        if (next === cur) return;
+        lenis.scrollTo(st.start + next * step * (st.end - st.start), { duration: 0.5, force: true });
+    }, { passive: true });
+}
+
 /* ============================
    GP FEATURES — 모바일 가로 슬라이드
    ============================ */
@@ -833,6 +853,8 @@ qsa('#mobile-nav a').forEach(a => {
               .to(features[2], { x: '0%',    ease: 'none', duration: 1 }, 1);
         }
         tl.to({}, { duration: 0.01 });
+
+        addSwipe(qs('.gp-features'), tl, features.length);
     }, 0);
 })();
 
@@ -979,6 +1001,47 @@ function loopTo(target) {
         }
     });
 }
+
+/* ============================
+   OUR OPERATING STRENGTH — 모바일 가로 슬라이드
+   ============================ */
+(function initPillSlider() {
+    if (window.innerWidth >= 768) return;
+    const pillTrack = qs('.pill-grid');
+    const pills = qsa('.pill-card');
+    if (!pillTrack || pills.length < 2) return;
+
+    const total = pills.length;
+    gsap.set(pillTrack, { x: 0 });
+
+    setTimeout(() => {
+        const vw = window.innerWidth;
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: '#partners',
+                start: 'top top',
+                end: '+=' + (vw * (total - 1) * 2),
+                scrub: 1,
+                pin: true,
+                pinSpacing: true,
+                anticipatePin: 1,
+                snap: {
+                    snapTo: total === 3 ? [0, 0.5, 1] : 1 / (total - 1),
+                    duration: { min: 0.2, max: 0.5 },
+                    delay: 0.05,
+                    ease: 'power2.inOut',
+                },
+            }
+        });
+
+        for (let i = 1; i < total; i++) {
+            tl.to(pillTrack, { x: -vw * i, ease: 'none', duration: 1 }, i - 1);
+        }
+        tl.to({}, { duration: 0.01 });
+
+        addSwipe(qs('#partners'), tl, total);
+    }, 0);
+})();
 
 // Contact 핀은 initPtSlider setTimeout 안에서 마지막에 생성 (순서 보장)
 
@@ -1173,6 +1236,8 @@ setTimeout(() => {
             tl.to(track, { x: -vw,      ease: 'none', duration: 1 }, 0)
               .to(track, { x: -vw * 2,   ease: 'none', duration: 1 }, 1)
               .to({}, { duration: 0.01 });
+
+            addSwipe(qs('#pt-section'), tl, total);
         }, 0);
         return;
     }

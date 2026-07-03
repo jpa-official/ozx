@@ -1593,6 +1593,26 @@ em { font-style: normal; }
         gap: 8px;
     }
 
+    /* ── Our Operating Strength — 모바일 가로 슬라이더 ── */
+    #partners { overflow-x: hidden; }
+    .pill-grid {
+        display: flex !important;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        width: 100%;
+        will-change: transform;
+    }
+    .pill-card {
+        flex: 0 0 100vw;
+        width: 100vw;
+        padding: 28px var(--pad-x) 32px !important;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
     /* ── 헤더: 기존 요소 숨기고 mobile-nav만 표시 ── */
     .menu-toggle   { display: none !important; }
     .header-center { display: none !important; }
