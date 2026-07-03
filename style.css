@@ -1537,7 +1537,7 @@ em { font-style: normal; }
         display: flex;
         overflow-x: auto;
         gap: 8px;
-        padding: 6px var(--pad-x);
+        padding: 4px var(--pad-x);
         scrollbar-width: none;
         background: #000;
     }
@@ -1545,7 +1545,7 @@ em { font-style: normal; }
 
     .pt-mtab {
         flex-shrink: 0;
-        padding: 6px 16px;
+        padding: 3px 14px;
         border-radius: 999px;
         border: 1px solid rgba(255,255,255,0.25);
         background: transparent;
