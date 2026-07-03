@@ -1536,7 +1536,7 @@ em { font-style: normal; }
 
     /* ── PARTNERS 모바일 탭 슬라이더 ── */
     .pt-mobile-tabs {
-        display: flex;
+        display: flex !important;
         overflow-x: auto;
         gap: 8px;
         padding: 4px var(--pad-x);
@@ -1570,18 +1570,18 @@ em { font-style: normal; }
     /* 카드: 트랙 가로 슬라이드 */
     #pt-section { overflow-x: hidden; }
     .pt-cards {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        width: 100%;
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        width: 100% !important;
         will-change: transform;
-        transition: none;
+        transition: none !important;
     }
     .pt-card {
-        flex: 0 0 100vw;
-        width: 100vw;
-        display: block;
-        min-height: auto;
+        flex: 0 0 100vw !important;
+        width: 100vw !important;
+        display: block !important;
+        min-height: auto !important;
         pointer-events: auto;
     }
     .pt-card-left { display: none !important; }
