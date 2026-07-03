@@ -139,6 +139,8 @@ const loadTick = setInterval(() => {
 window.addEventListener('load', () => {
     pageLoaded = true;
     if (loadDone) exitLoader();
+    /* 모바일에서 autoplay 차단 시 강제 재생 */
+    qsa('video[autoplay]').forEach(v => { v.play().catch(() => {}); });
 });
 
 /* ============================
@@ -689,11 +691,12 @@ qs('.header-brand').addEventListener('click', e => {
     lenis.scrollTo('#hero', { offset: 0, duration: 1.2 });
 });
 
-/* 모바일 nav — lenis scrollTo */
-qsa('#mobile-nav a').forEach(a => {
+/* 모바일 메뉴 nav — lenis scrollTo */
+qsa('.mobile-nav-a').forEach(a => {
     a.addEventListener('click', e => {
         e.preventDefault();
-        lenis.scrollTo(a.getAttribute('href'), { duration: 1.2 });
+        closeMobileMenu();
+        setTimeout(() => lenis.scrollTo(a.getAttribute('href'), { duration: 1.2 }), 300);
     });
 });
 
@@ -838,6 +841,17 @@ function addSwipe(tl, total, step) {
         gsap.set(features[1], { x: '100%' });
         if (features[2]) gsap.set(features[2], { x: '100%' });
 
+        /* 비활성 슬라이드 영상 일시정지 → 성능 개선 */
+        function syncVideos(activeIdx) {
+            features.forEach((f, i) => {
+                const v = f.querySelector('video');
+                if (!v) return;
+                if (i === activeIdx) { v.play().catch(() => {}); }
+                else { v.pause(); }
+            });
+        }
+        syncVideos(0);
+
         const snapStep = 1 / features.length; // 1/3 for 3 slides
         const tl = gsap.timeline({
             scrollTrigger: {
@@ -860,10 +874,12 @@ function addSwipe(tl, total, step) {
         });
 
         tl.to(features[0], { x: '-100%', ease: 'none', duration: 1 }, 0)
-          .to(features[1], { x: '0%',    ease: 'none', duration: 1 }, 0);
+          .to(features[1], { x: '0%',    ease: 'none', duration: 1,
+              onStart: () => syncVideos(1) }, 0);
         if (features[2]) {
             tl.to(features[1], { x: '-100%', ease: 'none', duration: 1 }, 1)
-              .to(features[2], { x: '0%',    ease: 'none', duration: 1 }, 1);
+              .to(features[2], { x: '0%',    ease: 'none', duration: 1,
+                  onStart: () => syncVideos(2) }, 1);
         }
         tl.to({}, { duration: 1 }); // VARIOUS CONTENTS 표시 후 멈춤 구간
 
