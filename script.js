@@ -1193,7 +1193,7 @@ setTimeout(() => {
                     trigger: '#pt-section',
                     start: 'top top',
                     end: '+=' + (vw * total * 2),
-                    scrub: 1,
+                    scrub: true,
                     pin: true,
                     pinSpacing: true,
                     anticipatePin: 1,
