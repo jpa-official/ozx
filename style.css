@@ -1582,7 +1582,7 @@ em { font-style: normal; }
         min-height: auto;
         pointer-events: auto;
     }
-    .pt-card-left { display: none; }
+    .pt-card-left { display: none !important; }
     .pt-card-right {
         padding: 10px var(--pad-x) 16px !important;
         border-left: none !important;
