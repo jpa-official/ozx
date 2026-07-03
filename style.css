@@ -1512,10 +1512,10 @@ em { font-style: normal; }
     .gp-feat-bg-video {
         display: block;
         position: absolute;
-        inset: 0;
+        top: 0; left: 0;
         width: 100%; height: 100%;
         object-fit: cover;
-        object-position: center;
+        object-position: center center;
         z-index: 0;
     }
     .gp-feat-bg-overlay {
@@ -2048,8 +2048,9 @@ em { font-style: normal; }
 
 /* ── 모바일 Partners 최종 오버라이드 (파일 최하단 — 모든 전역/900px 규칙 이후) ── */
 @media (max-width: 768px) {
-    .pt-head          { display: none !important; }
-    .pt-mobile-tabs   { display: flex !important; }
+    .pt-mobile-tabs {
+        display: flex !important;
+    }
     .pt-cards {
         display: flex !important;
         flex-direction: row !important;
@@ -2062,8 +2063,7 @@ em { font-style: normal; }
         width: 100vw !important;
         display: block !important;
         min-height: auto !important;
-        grid-template-columns: unset !important;
     }
-    .pt-card-right    { min-height: auto !important; }
+    .pt-card-right { min-height: auto !important; }
 }
 

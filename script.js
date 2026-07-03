@@ -793,7 +793,18 @@ qsa('#mobile-nav a').forEach(a => {
 /* ============================
    G-PLANET HERO — 모바일 핀
    ============================ */
-/* initGplanetMobilePin: 비활성화 — gp-features 슬라이더 핀과 중첩 충돌 */
+(function initGplanetMobilePin() {
+    if (window.innerWidth >= 768) return;
+    setTimeout(() => {
+        ScrollTrigger.create({
+            trigger: '#gplanet',
+            start: 'top top',
+            end: '+=400',
+            pin: true,
+            pinSpacing: true,
+        });
+    }, 0);
+})();
 
 /* 가로 스와이프 → lenis 스냅 이동 헬퍼 (모바일 핀 슬라이더 공용)
    window 레벨에서 감지 후 st.isActive 로 해당 섹션 활성 여부 확인 */
