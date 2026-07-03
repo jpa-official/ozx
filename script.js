@@ -1054,7 +1054,7 @@ window.addEventListener('load', () => setTimeout(() => ScrollTrigger.refresh(), 
 setTimeout(() => {
     const bgm = qs('#gp-bgm');
     if (!bgm) return;
-    if (window.innerWidth < 768) return; /* 모바일: BGM 비활성화 */
+    if (window.innerWidth < 900) return; /* 모바일/태블릿: BGM 비활성화 */
     const MAX_VOL = 0.4;
 
     const FADE = 1.0;
