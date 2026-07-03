@@ -404,8 +404,9 @@ qsa('.fade-up').forEach((el, i) => {
                 trigger: '#space',
                 start: 'top top',
                 end: '+=' + (window.innerHeight * 2.6),
-                scrub: 0.9,
+                scrub: 0.5,
                 pin: true,
+                pinSpacing: true,
                 anticipatePin: 1,
             }
         });
@@ -417,17 +418,6 @@ qsa('.fade-up').forEach((el, i) => {
             .to(sr3, { opacity: 1, y: 0,   duration: 0.7, ease: 'power2.inOut' }, 2.7)
             .to({}, { duration: 0.4 });
 
-        /* #space pin-spacer가 DOM에 들어간 뒤 #partners 핀을 생성해야
-           #gplanet 위치가 정확히 계산됨 */
-        ScrollTrigger.create({
-            trigger: '#partners',
-            start: 'top top',
-            end: '+=600',
-            pin: true,
-            pinSpacing: true,
-            anticipatePin: 1,
-        });
-
         ScrollTrigger.create({
             trigger: '#gplanet',
             start: 'top top',
@@ -436,7 +426,6 @@ qsa('.fade-up').forEach((el, i) => {
             pinSpacing: true,
             anticipatePin: 1,
         });
-
 
         ScrollTrigger.create({
             trigger: '#fp-slider',
@@ -1043,6 +1032,7 @@ window.addEventListener('touchend', e => {
 
 /* 모든 핀 생성 완료 후 위치 재계산 */
 setTimeout(() => ScrollTrigger.refresh(), 100);
+window.addEventListener('load', () => setTimeout(() => ScrollTrigger.refresh(), 200));
 
 /* ============================
    G-PLANET BGM
@@ -1258,35 +1248,26 @@ setTimeout(() => {
         return;
     }
 
-    /* ── 데스크탑: ScrollTrigger 스크롤 드리븐 ── */
-    let idx = 0;
+    /* ── 데스크탑: GSAP scrub 드리븐 ── */
+    const vw = window.innerWidth;
+    track.style.transition = 'none'; // GSAP가 transform 제어 — CSS transition 제거
 
-    function goTo(n) {
-        idx = Math.max(0, Math.min(total - 1, n));
-        track.style.transform = `translateX(-${idx * 100}%)`;
-    }
-
-    let sx = 0;
-    track.addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, { passive: true });
-    track.addEventListener('touchend', e => {
-        const dx = e.changedTouches[0].clientX - sx;
-        if (Math.abs(dx) > 50) goTo(idx + (dx < 0 ? 1 : -1));
-    }, { passive: true });
-
-    /* 스크롤 드리븐 핀 — 슬라이드당 1000px 스크롤 */
     setTimeout(() => {
-        ScrollTrigger.create({
-            trigger: '.pt-slider-wrap',
-            start: 'top top',
-            end: `+=${total * 1000}`,
-            pin: true,
-            pinSpacing: true,
-            anticipatePin: 1,
-            onUpdate(self) {
-                const newIdx = Math.min(total - 1, Math.floor(self.progress * total));
-                if (newIdx !== idx) goTo(newIdx);
-            },
+        gsap.set(track, { x: 0 });
+
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: '.pt-slider-wrap',
+                start: 'top top',
+                end: `+=${(total - 1) * 1200}`,
+                scrub: 0.8,
+                pin: true,
+                pinSpacing: true,
+                anticipatePin: 1,
+            }
         });
+        tl.to(track, { x: -vw,      ease: 'none', duration: 1 }, 0)
+          .to(track, { x: -vw * 2,   ease: 'none', duration: 1 }, 1);
 
         /* Contact 핀 — 모든 핀 spacer가 DOM에 추가된 뒤 마지막에 생성해야
            #contact 위치가 정확히 계산됨 */
