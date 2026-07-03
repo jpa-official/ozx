@@ -419,6 +419,15 @@ qsa('.fade-up').forEach((el, i) => {
             .to({}, { duration: 0.4 });
 
         ScrollTrigger.create({
+            trigger: '#partners',
+            start: 'top top',
+            end: '+=600',
+            pin: true,
+            pinSpacing: true,
+            anticipatePin: 1,
+        });
+
+        ScrollTrigger.create({
             trigger: '#gplanet',
             start: 'top top',
             end: '+=500',
