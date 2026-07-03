@@ -1183,19 +1183,23 @@ setTimeout(() => {
 
         setTimeout(() => {
             // 슬라이드 (total-1)개 + tail 1개: 각 단위 = vw*2 스크롤
-            const snapStep = 1 / total; // 0→1/3→2/3 (tail 구간은 snap 없음)
-            const snapPoints = Array.from({ length: total }, (_, i) => i * snapStep);
+            // snap은 SPACE/ACCELERATION/CONTENT 위치에만 걸리고, tail은 직접 스크롤
+            const snapStep = 1 / total; // 1/3 for 3 cards
             const tl = gsap.timeline({
                 scrollTrigger: {
                     trigger: '#pt-section',
                     start: 'top top',
-                    end: '+=' + (vw * total * 2), // 슬라이드 + tail 포함
+                    end: '+=' + (vw * total * 2),
                     scrub: 1,
                     pin: true,
                     pinSpacing: true,
                     anticipatePin: 1,
                     snap: {
-                        snapTo: snapPoints,
+                        snapTo: v => {
+                            // 항상 가장 가까운 카드 위치에 스냅 (속도 무시)
+                            const pts = Array.from({ length: total }, (_, i) => i * snapStep);
+                            return pts.reduce((a, b) => Math.abs(b - v) < Math.abs(a - v) ? b : a);
+                        },
                         duration: { min: 0.2, max: 0.5 },
                         delay: 0.05,
                         ease: 'power2.inOut',
@@ -1208,7 +1212,7 @@ setTimeout(() => {
             });
             tl.to(track, { x: -vw,      ease: 'none', duration: 1 }, 0)
               .to(track, { x: -vw * 2,   ease: 'none', duration: 1 }, 1)
-              .to({}, { duration: 1 }); // CONTENT 표시 후 멈춤 구간
+              .to({}, { duration: 1 }); // CONTENT 이후 멈춤 구간
 
             addSwipe(tl, total, snapStep);
         }, 0);
