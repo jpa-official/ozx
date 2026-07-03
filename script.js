@@ -1124,6 +1124,11 @@ setTimeout(() => {
             bgm.volume = 0;
             bgm.play().catch(() => {});
             fadeTo(MAX_VOL);
+        } else {
+            /* gplanet 진입 전: muted play→pause로 오디오 컨텍스트 잠금 해제
+               이후 enterZone()의 play() 호출이 브라우저에서 허용됨 */
+            bgm.muted = true;
+            bgm.play().then(() => bgm.pause()).catch(() => {});
         }
     }
     ['pointerdown', 'keydown'].forEach(ev =>
