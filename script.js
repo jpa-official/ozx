@@ -692,6 +692,14 @@ qs('.header-brand').addEventListener('click', e => {
     lenis.scrollTo('#hero', { offset: 0, duration: 1.2 });
 });
 
+/* 모바일 nav — lenis scrollTo */
+qsa('#mobile-nav a').forEach(a => {
+    a.addEventListener('click', e => {
+        e.preventDefault();
+        lenis.scrollTo(a.getAttribute('href'), { duration: 1.2 });
+    });
+});
+
 /* ============================
    HEADER — DATE / TIME / SEOUL TEMP
    ============================ */
