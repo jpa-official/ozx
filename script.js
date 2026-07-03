@@ -838,16 +838,20 @@ function addSwipe(tl, total, step) {
         gsap.set(features[1], { x: '100%' });
         if (features[2]) gsap.set(features[2], { x: '100%' });
 
+        const snapStep = 1 / features.length; // 1/3 for 3 slides
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: '.gp-features',
                 start: 'top top',
-                end: '+=' + (window.innerHeight * (features.length - 1)),
+                end: '+=' + (window.innerHeight * features.length), // tail 포함
                 scrub: 0.6,
                 pin: true,
                 pinSpacing: true,
                 snap: {
-                    snapTo: [0, 0.5, 1],
+                    snapTo: v => {
+                        const pts = Array.from({ length: features.length }, (_, i) => i * snapStep);
+                        return pts.reduce((a, b) => Math.abs(b - v) < Math.abs(a - v) ? b : a);
+                    },
                     duration: { min: 0.2, max: 0.5 },
                     delay: 0.05,
                     ease: 'power2.inOut',
@@ -861,9 +865,9 @@ function addSwipe(tl, total, step) {
             tl.to(features[1], { x: '-100%', ease: 'none', duration: 1 }, 1)
               .to(features[2], { x: '0%',    ease: 'none', duration: 1 }, 1);
         }
-        tl.to({}, { duration: 0.01 });
+        tl.to({}, { duration: 1 }); // VARIOUS CONTENTS 표시 후 멈춤 구간
 
-        addSwipe(tl, features.length);
+        addSwipe(tl, features.length, snapStep);
     }, 0);
 })();
 
