@@ -808,8 +808,8 @@ qsa('#mobile-nav a').forEach(a => {
 
 /* 가로 스와이프 → lenis 스냅 이동 헬퍼 (모바일 핀 슬라이더 공용)
    window 레벨에서 감지 후 st.isActive 로 해당 섹션 활성 여부 확인 */
-function addSwipe(tl, total) {
-    const step = 1 / (total - 1);
+function addSwipe(tl, total, step) {
+    if (!step) step = 1 / (total - 1);
     let x0 = 0, y0 = 0;
     window.addEventListener('touchstart', e => {
         x0 = e.touches[0].clientX;
@@ -821,7 +821,7 @@ function addSwipe(tl, total) {
         const dx = e.changedTouches[0].clientX - x0;
         const dy = e.changedTouches[0].clientY - y0;
         if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy)) return;
-        const cur = Math.round(st.progress / step);
+        const cur = Math.min(total - 1, Math.round(st.progress / step));
         const next = Math.max(0, Math.min(total - 1, cur + (dx < 0 ? 1 : -1)));
         if (next === cur) return;
         lenis.scrollTo(st.start + next * step * (st.end - st.start), { duration: 0.5, force: true });
@@ -1182,32 +1182,35 @@ setTimeout(() => {
         activateTab(0);
 
         setTimeout(() => {
+            // 슬라이드 (total-1)개 + tail 1개: 각 단위 = vw*2 스크롤
+            const snapStep = 1 / total; // 0→1/3→2/3 (tail 구간은 snap 없음)
+            const snapPoints = Array.from({ length: total }, (_, i) => i * snapStep);
             const tl = gsap.timeline({
                 scrollTrigger: {
                     trigger: '#pt-section',
                     start: 'top top',
-                    end: '+=' + (vw * (total - 1) * 2),
+                    end: '+=' + (vw * total * 2), // 슬라이드 + tail 포함
                     scrub: 1,
                     pin: true,
                     pinSpacing: true,
                     anticipatePin: 1,
                     snap: {
-                        snapTo: [0, 0.5, 1],
+                        snapTo: snapPoints,
                         duration: { min: 0.2, max: 0.5 },
                         delay: 0.05,
                         ease: 'power2.inOut',
                     },
                     onUpdate(self) {
-                        const newIdx = Math.min(total - 1, Math.round(self.progress * (total - 1)));
+                        const newIdx = Math.min(total - 1, Math.floor(self.progress * total));
                         if (newIdx !== currentIdx) activateTab(newIdx);
                     },
                 }
             });
             tl.to(track, { x: -vw,      ease: 'none', duration: 1 }, 0)
               .to(track, { x: -vw * 2,   ease: 'none', duration: 1 }, 1)
-              .to({}, { duration: 0.01 });
+              .to({}, { duration: 1 }); // CONTENT 표시 후 멈춤 구간
 
-            addSwipe(tl, total);
+            addSwipe(tl, total, snapStep);
         }, 0);
         return;
     }
