@@ -1164,7 +1164,7 @@ em { font-style: normal; }
     width: 100%;
     background: transparent;
     border: none;
-    border-bottom: 1.5px solid #000;
+    border-bottom: 1px solid #000;
     color: #000;
     font-family: var(--f-body);
     font-size: clamp(13px, 1.1vw, 15px);
@@ -1195,7 +1195,7 @@ em { font-style: normal; }
 .cf-submit {
     width: 100%;
     background: transparent;
-    border: 1.5px solid #000;
+    border: 1px solid #000;
     color: #000;
     font-family: var(--f-narrow);
     font-size: clamp(13px, 1.1vw, 16px);
