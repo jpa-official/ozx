@@ -1281,6 +1281,15 @@ setTimeout(() => {
             pin: true,
             pinSpacing: true,
             anticipatePin: 1,
+            snap: {
+                snapTo: v => {
+                    const pts = [0, 1/3, 2/3, 1];
+                    return pts.reduce((a, b) => Math.abs(b - v) < Math.abs(a - v) ? b : a);
+                },
+                duration: { min: 0.2, max: 0.5 },
+                delay: 0.08,
+                ease: 'power2.inOut',
+            },
             onUpdate(self) {
                 const newIdx = Math.min(total - 1, Math.floor(self.progress * total));
                 if (newIdx !== currentIdx) goTo(newIdx);
