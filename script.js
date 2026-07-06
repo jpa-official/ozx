@@ -472,16 +472,23 @@ if (window.innerWidth >= 768) {
     const pillTotal = qsa('.pill-card').length;
     const vw = window.innerWidth;
     let pillIdx = 0;
+    let pillBusy = false;
 
     if (pillGrid && pillTotal >= 2) {
         setTimeout(() => {
+            /* 전역 CSS의 opacity:0 / translateY(40px) 초기화 */
+            qsa('.pill-card').forEach(c => gsap.set(c, { opacity: 1, y: 0, clearProps: 'clipPath' }));
             gsap.set(pillGrid, { x: 0 });
 
             function goToPill(n) {
                 n = Math.max(0, Math.min(pillTotal - 1, n));
-                if (n === pillIdx) return;
+                if (n === pillIdx || pillBusy) return;
+                pillBusy = true;
                 pillIdx = n;
-                gsap.to(pillGrid, { x: -pillIdx * vw, duration: 0.5, ease: 'power2.inOut' });
+                gsap.to(pillGrid, {
+                    x: -pillIdx * vw, duration: 0.45, ease: 'power2.inOut',
+                    onComplete: () => { pillBusy = false; }
+                });
             }
 
             ScrollTrigger.create({

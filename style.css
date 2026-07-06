@@ -1411,6 +1411,8 @@ em { font-style: normal; }
         align-items: center;
         text-align: center;
         padding: 24px var(--pad-x);
+        opacity: 1 !important;
+        transform: none !important;
     }
 
     /* WHAT WE DO 가로 슬라이더 */
