@@ -374,8 +374,10 @@ qsa('.fade-up').forEach((el, i) => {
     const sr3 = qs('.sr-03');
     if (!sr1 || !sr2 || !sr3) return;
 
-    /* ── 모바일: 가로 슬라이드 ── */
+    /* ── 모바일: 가로 슬라이드 (GP Features 패턴 — n+1 스냅포인트) ── */
     if (window.innerWidth < 768) {
+        const n = 3;
+        const snapStep = 1 / n;
         setTimeout(() => {
             gsap.set(sr1, { x: 0 });
             gsap.set(sr2, { x: '100%' });
@@ -385,21 +387,22 @@ qsa('.fade-up').forEach((el, i) => {
                 scrollTrigger: {
                     trigger: '#space',
                     start: 'top top',
-                    end: '+=' + (window.innerHeight * 2),
+                    end: '+=' + (window.innerHeight * n),
                     scrub: 1,
                     pin: true,
                     pinSpacing: true,
                     anticipatePin: 1,
                 }
             })
-            .to(sr1, { x: '-100%', ease: 'power2.inOut', duration: 0.4 }, 0.3)
-            .to(sr2, { x: 0,       ease: 'power2.inOut', duration: 0.4 }, 0.3)
-            .to(sr2, { x: '-100%', ease: 'power2.inOut', duration: 0.4 }, 1.3)
-            .to(sr3, { x: 0,       ease: 'power2.inOut', duration: 0.4 }, 1.3)
-            .to({}, { duration: 0.3 });
+            .to(sr1, { x: '-100%', ease: 'none', duration: 1 }, 0)
+            .to(sr2, { x: 0,       ease: 'none', duration: 1 }, 0)
+            .to(sr2, { x: '-100%', ease: 'none', duration: 1 }, 1)
+            .to(sr3, { x: 0,       ease: 'none', duration: 1 }, 1)
+            .to({}, { duration: 1 }); /* card 3 hold — 즉시 섹션 탈출 방지 */
 
-            addSwipe(tlSR, 3);
-            addMobileSnap(tlSR, 3);
+            addSwipe(tlSR, n, snapStep);
+            /* n+1 스냅포인트: [0, 1/3, 2/3, 1] — 마지막 hold 포지션 포함 */
+            addMobileSnap(tlSR, n + 1, snapStep);
         }, 0);
         return;
     }
