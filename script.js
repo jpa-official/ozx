@@ -385,12 +385,6 @@ qsa('.fade-up').forEach((el, i) => {
                     pin: true,
                     pinSpacing: true,
                     anticipatePin: 1,
-                    snap: {
-                        snapTo: [0, 0.5, 1],
-                        duration: { min: 0.2, max: 0.5 },
-                        delay: 0.05,
-                        ease: 'power2.inOut',
-                    },
                 }
             })
             .to(sr1, { x: '-100%', ease: 'power2.inOut', duration: 0.4 }, 0.3)
@@ -400,6 +394,7 @@ qsa('.fade-up').forEach((el, i) => {
             .to({}, { duration: 0.3 });
 
             addSwipe(tlSR, 3);
+            addMobileSnap(tlSR, 3);
         }, 0);
         return;
     }
@@ -496,12 +491,6 @@ if (window.innerWidth >= 768) {
                     pin: true,
                     pinSpacing: true,
                     anticipatePin: 1,
-                    snap: {
-                        snapTo: [0, 0.5, 1],
-                        duration: { min: 0.2, max: 0.5 },
-                        delay: 0.05,
-                        ease: 'power2.inOut',
-                    },
                 }
             })
             .to(pillCards[0], { x: '-100%', ease: 'power2.inOut', duration: 0.4 }, 0.3)
@@ -514,6 +503,7 @@ if (window.innerWidth >= 768) {
             tlPill.to({}, { duration: 0.3 });
 
             addSwipe(tlPill, pillCards.length);
+            addMobileSnap(tlPill, pillCards.length);
         }, 0);
     }
 }
@@ -824,7 +814,7 @@ qsa('.mobile-nav-a').forEach(a => {
     }, 0);
 })();
 
-/* 가로 스와이프 → lenis 스냅 이동 헬퍼 (모바일 핀 슬라이더 공용)
+/* 스와이프 → lenis 스냅 이동 헬퍼 (수평·수직 모두 감지)
    window 레벨에서 감지 후 st.isActive 로 해당 섹션 활성 여부 확인 */
 function addSwipe(tl, total, step) {
     if (!step) step = 1 / (total - 1);
@@ -838,12 +828,41 @@ function addSwipe(tl, total, step) {
         if (!st || !st.isActive) return;
         const dx = e.changedTouches[0].clientX - x0;
         const dy = e.changedTouches[0].clientY - y0;
-        if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy)) return;
+        const isH = Math.abs(dx) > Math.abs(dy);
+        const dist = isH ? dx : -dy;   // 좌 또는 위 스와이프 = 다음 카드
+        if (Math.abs(dist) < 40) return;
         const cur = Math.min(total - 1, Math.round(st.progress / step));
-        const next = Math.max(0, Math.min(total - 1, cur + (dx < 0 ? 1 : -1)));
+        const next = Math.max(0, Math.min(total - 1, cur + (dist < 0 ? 1 : -1)));
         if (next === cur) return;
         lenis.scrollTo(st.start + next * step * (st.end - st.start), { duration: 0.5, force: true });
     }, { passive: true });
+}
+
+/* 수직 스크롤 스냅 헬퍼: Lenis 모멘텀이 카드를 건너뛰는 문제 수정
+   미드포인트를 지나는 순간 lenis.scrollTo(force) 로 1장씩 스냅 */
+function addMobileSnap(tl, total, step, onSnap) {
+    if (!step) step = 1 / (total - 1);
+    const pts = Array.from({ length: total }, (_, i) => i * step);
+    let snapIdx = 0;
+    let snapping = false;
+    lenis.on('scroll', () => {
+        const st = tl.scrollTrigger;
+        if (!st || !st.isActive || snapping) return;
+        const p = st.progress;
+        if (snapIdx < total - 1 && p > (pts[snapIdx] + pts[snapIdx + 1]) / 2) {
+            snapIdx++;
+            snapping = true;
+            if (onSnap) onSnap(snapIdx);
+            lenis.scrollTo(st.start + pts[snapIdx] * (st.end - st.start), { duration: 0.6, force: true });
+            setTimeout(() => { snapping = false; }, 800);
+        } else if (snapIdx > 0 && p < (pts[snapIdx - 1] + pts[snapIdx]) / 2) {
+            snapIdx--;
+            snapping = true;
+            if (onSnap) onSnap(snapIdx);
+            lenis.scrollTo(st.start + pts[snapIdx] * (st.end - st.start), { duration: 0.6, force: true });
+            setTimeout(() => { snapping = false; }, 800);
+        }
+    });
 }
 
 /* ============================
@@ -877,15 +896,6 @@ function addSwipe(tl, total, step) {
                 pin: true,
                 pinSpacing: true,
                 anticipatePin: 1,
-                snap: {
-                    snapTo: v => {
-                        const pts = Array.from({ length: n + 1 }, (_, i) => i * snapStep);
-                        return pts.reduce((a, b) => Math.abs(b - v) < Math.abs(a - v) ? b : a);
-                    },
-                    duration: { min: 0.2, max: 0.5 },
-                    delay: 0.05,
-                    ease: 'power2.inOut',
-                },
             }
         });
 
@@ -900,6 +910,8 @@ function addSwipe(tl, total, step) {
         tl.to({}, { duration: 1 });
 
         addSwipe(tl, n, snapStep);
+        /* n+1 스냅포인트: [0, 1/n, 2/n, 1] — 마지막 hold 포지션 포함 */
+        addMobileSnap(tl, n + 1, snapStep, idx => { if (idx < n) syncVideos(idx); });
     }, 0);
 })();
 
@@ -994,6 +1006,20 @@ function addSwipe(tl, total, step) {
         if (Math.abs(dx) > 50) move(dx < 0 ? 1 : -1);
     }, { passive: true });
 })();
+
+/* 도면 섹션 핀 — 모바일에서 한 번 고정 */
+if (window.innerWidth < 768) {
+    setTimeout(() => {
+        ScrollTrigger.create({
+            trigger: '#fp-slider',
+            start: 'top top',
+            end: '+=600',
+            pin: true,
+            pinSpacing: true,
+            anticipatePin: 1,
+        });
+    }, 0);
+}
 
 /* ============================
    CONTACT — PIN + BIDIRECTIONAL INFINITE LOOP
@@ -1218,6 +1244,7 @@ setTimeout(() => {
         }
         activateTab(0);
 
+        const marqueeWrap = qs('.pt-marquee-wrap');
         setTimeout(() => {
             gsap.set(track, { x: 0 });
 
@@ -1230,16 +1257,14 @@ setTimeout(() => {
                     pin: true,
                     pinSpacing: true,
                     anticipatePin: 1,
-                    snap: {
-                        snapTo: [0, 0.5, 1],
-                        duration: { min: 0.2, max: 0.5 },
-                        delay: 0.05,
-                        ease: 'power2.inOut',
-                    },
                     onUpdate(self) {
                         const idx = Math.min(total - 1, Math.floor(self.progress * total));
                         activateTab(idx);
                     },
+                    onEnter()      { if (marqueeWrap) marqueeWrap.classList.add('hidden'); },
+                    onLeave()      { if (marqueeWrap) marqueeWrap.classList.remove('hidden'); },
+                    onEnterBack()  { if (marqueeWrap) marqueeWrap.classList.add('hidden'); },
+                    onLeaveBack()  { if (marqueeWrap) marqueeWrap.classList.remove('hidden'); },
                 }
             })
             .to(track, { x: -vw,      ease: 'power2.inOut', duration: 0.4 }, 0.3)
@@ -1247,6 +1272,7 @@ setTimeout(() => {
             .to({}, { duration: 0.3 });
 
             addSwipe(tlPt, total);
+            addMobileSnap(tlPt, total, undefined, activateTab);
         }, 0);
         return;
     }

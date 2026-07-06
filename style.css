@@ -1278,12 +1278,25 @@ em { font-style: normal; }
 }
 
 @media (max-width: 768px) {
-    /* identity 섹션: 모바일 패딩 축소 */
+    /* identity 섹션: 수직 중앙 정렬 */
+    #identity {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100dvh;
+    }
     .id-inner {
-        padding: 68px var(--pad-x) 20px;
+        padding: 52px var(--pad-x);
+        min-height: 0;
+        justify-content: center;
     }
     .id-title-block {
         margin-bottom: 20px;
+    }
+
+    /* 히어로 로고: 모바일에서 크게 */
+    .hero-logo-img {
+        width: clamp(140px, 42vw, 200px);
     }
 
     /* 헤더: flex로 전환, 로고는 절대위치로 정중앙 고정 */
@@ -2075,5 +2088,15 @@ em { font-style: normal; }
         min-height: auto !important;
     }
     .pt-card-right { min-height: auto !important; }
+
+    /* 마퀴 여백 증가 + 핀 중 숨김 준비 */
+    .pt-marquee-wrap {
+        margin-top: 40px;
+        transition: opacity 0.3s;
+    }
+    .pt-marquee-wrap.hidden {
+        opacity: 0;
+        pointer-events: none;
+    }
 }
 
