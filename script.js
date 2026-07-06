@@ -467,32 +467,31 @@ if (window.innerWidth >= 768) {
         });
     });
 } else {
-    /* 모바일: OUR OPERATING STRENGTH — pure swipe (scrub 제거) */
-    const cards = qsa('.pill-card');
-    if (cards.length >= 2) {
-        let currentIdx = 0;
+    /* 모바일: OUR OPERATING STRENGTH — Partners 방식 pure swipe */
+    const pillGrid  = qs('.pill-grid');
+    const pillCards = qsa('.pill-card');
+    const pillTotal = pillCards.length;
+    const vw = window.innerWidth;
+    let pillIdx = 0;
 
+    if (pillGrid && pillTotal >= 2) {
         setTimeout(() => {
-            cards.forEach((c, i) => {
-                gsap.set(c, { x: i === 0 ? '0%' : '100%', opacity: 1, y: 0, clipPath: 'none' });
-            });
+            gsap.set(pillGrid, { x: 0 });
 
             ScrollTrigger.create({
                 trigger: '#partners',
                 start: 'top top',
-                end: '+=' + (window.innerHeight * cards.length * 2),
+                end: '+=' + (vw * pillTotal * 2),
                 pin: true,
                 pinSpacing: true,
                 anticipatePin: 1,
             });
 
             function goToPill(n) {
-                n = Math.max(0, Math.min(cards.length - 1, n));
-                if (n === currentIdx) return;
-                const dir = n > currentIdx ? -1 : 1;
-                gsap.to(cards[currentIdx], { x: (dir * -100) + '%', duration: 0.4, ease: 'power2.inOut' });
-                gsap.to(cards[n], { x: '0%', duration: 0.4, ease: 'power2.inOut' });
-                currentIdx = n;
+                n = Math.max(0, Math.min(pillTotal - 1, n));
+                if (n === pillIdx) return;
+                pillIdx = n;
+                gsap.to(pillGrid, { x: -pillIdx * vw, duration: 0.4, ease: 'power2.inOut' });
             }
 
             let tx = 0, ty = 0;
@@ -506,7 +505,7 @@ if (window.innerWidth >= 768) {
                 const dx = e.changedTouches[0].clientX - tx;
                 const dy = e.changedTouches[0].clientY - ty;
                 if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy)) return;
-                goToPill(currentIdx + (dx < 0 ? 1 : -1));
+                goToPill(pillIdx + (dx < 0 ? 1 : -1));
             }, { passive: true });
         }, 0);
     }
