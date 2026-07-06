@@ -1421,6 +1421,11 @@ em { font-style: normal; }
         will-change: transform;
         opacity: 1 !important;
     }
+    /* 2,3번째 카드 초기 위치 — GSAP 실행 전 겹침 방지 (.sr-02/.sr-03 패턴과 동일) */
+    .pill-card:nth-child(2),
+    .pill-card:nth-child(3) {
+        transform: translateX(100%);
+    }
 
     /* 히어로: dvh로 iOS Safari 주소창 높이 보정 → 로고 정중앙 */
     #hero { height: 100dvh; }

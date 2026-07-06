@@ -507,7 +507,6 @@ if (window.innerWidth >= 768) {
             }
             tlPill.to({}, { duration: 0.3 });
 
-            addSwipe(tlPill, pillCards.length);
             addMobileSnap(tlPill, pillCards.length);
         }, 0);
     }
