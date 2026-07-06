@@ -1294,10 +1294,6 @@ em { font-style: normal; }
         margin-bottom: 20px;
     }
 
-    /* 히어로 로고: 모바일에서 크게 */
-    .hero-logo-img {
-        width: clamp(140px, 42vw, 200px);
-    }
 
     /* 헤더: flex로 전환, 로고는 절대위치로 정중앙 고정 */
     #header {
