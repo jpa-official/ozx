@@ -1,5 +1,5 @@
 /* ============================
-   OZX — style.css (v163)
+   OZX — style.css (v164)
    ============================ */
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -1520,13 +1520,17 @@ em { font-style: normal; }
         aspect-ratio: unset;
         min-height: 100dvh;
         height: 100dvh;
-        background: url('gwanghwa169.jpg') center / cover no-repeat;
+        background: #000;
     }
     .gp-hero-inner {
         padding-bottom: max(60px, env(safe-area-inset-bottom, 0px) + 48px);
     }
-    /* 세로 영상 파일 — 모바일에서 숨기고 배경 이미지로 대체 */
-    .gp-video { display: none; }
+    /* 가로 영상(gwanghwa169.mp4)으로 교체 — object-fit: cover로 전체화면 채움 */
+    .gp-video {
+        display: block;
+        object-fit: cover;
+        object-position: center center;
+    }
     .gp-title { font-size: clamp(48px, 14vw, 80px); }
 
     /* 모바일: BGM 버튼 숨김 */
