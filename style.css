@@ -1421,6 +1421,9 @@ em { font-style: normal; }
         opacity: 1 !important;
     }
 
+    /* 히어로: dvh로 iOS Safari 주소창 높이 보정 → 로고 정중앙 */
+    #hero { height: 100dvh; }
+
     /* WHAT WE DO 가로 슬라이더 */
     #space { min-height: 100vh; }
     .service-stack {
