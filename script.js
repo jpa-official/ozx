@@ -140,8 +140,21 @@ window.addEventListener('load', () => {
     pageLoaded = true;
     if (loadDone) exitLoader();
     /* 모바일에서 autoplay 차단 시 강제 재생 */
-    qsa('video[autoplay]').forEach(v => { v.play().catch(() => {}); });
+    qsa('video[autoplay]').forEach(v => {
+        v.muted = true;
+        v.setAttribute('playsinline', '');
+        v.setAttribute('webkit-playsinline', '');
+        v.play().catch(() => {});
+    });
 });
+
+/* iOS: 첫 터치 시 모든 정지된 autoplay 영상 재개 */
+document.addEventListener('touchstart', function resumeVideos() {
+    qsa('video[autoplay]').forEach(v => {
+        if (v.paused) { v.muted = true; v.play().catch(() => {}); }
+    });
+    document.removeEventListener('touchstart', resumeVideos);
+}, { once: true, passive: true });
 
 /* ============================
    CHARACTER SPLIT HELPER
@@ -467,42 +480,40 @@ if (window.innerWidth >= 768) {
         });
     });
 } else {
-    /* 모바일: OUR OPERATING STRENGTH — 수직 스크롤로 카드 전환 */
-    const pillGrid  = qs('.pill-grid');
-    const pillTotal = qsa('.pill-card').length;
-    const vw = window.innerWidth;
-    let pillIdx = 0;
-    let pillBusy = false;
-
-    if (pillGrid && pillTotal >= 2) {
+    /* 모바일: OUR OPERATING STRENGTH — WHAT WE DO 와 동일한 scrub+snap 방식 */
+    const pillCards = qsa('.pill-card');
+    if (pillCards.length >= 2) {
         setTimeout(() => {
-            /* 전역 CSS의 opacity:0 / translateY(40px) 초기화 */
-            qsa('.pill-card').forEach(c => gsap.set(c, { opacity: 1, y: 0, clearProps: 'clipPath' }));
-            gsap.set(pillGrid, { x: 0 });
+            /* 전역 CSS opacity:0 / translateY(40px) 강제 초기화 */
+            pillCards.forEach((c, i) => gsap.set(c, { x: i === 0 ? '0%' : '100%', opacity: 1, y: 0, clearProps: 'clipPath' }));
 
-            function goToPill(n) {
-                n = Math.max(0, Math.min(pillTotal - 1, n));
-                if (n === pillIdx || pillBusy) return;
-                pillBusy = true;
-                pillIdx = n;
-                gsap.to(pillGrid, {
-                    x: -pillIdx * vw, duration: 0.45, ease: 'power2.inOut',
-                    onComplete: () => { pillBusy = false; }
-                });
+            const tlPill = gsap.timeline({
+                scrollTrigger: {
+                    trigger: '#partners',
+                    start: 'top top',
+                    end: '+=' + (window.innerHeight * 2),
+                    scrub: 1,
+                    pin: true,
+                    pinSpacing: true,
+                    anticipatePin: 1,
+                    snap: {
+                        snapTo: [0, 0.5, 1],
+                        duration: { min: 0.2, max: 0.5 },
+                        delay: 0.05,
+                        ease: 'power2.inOut',
+                    },
+                }
+            })
+            .to(pillCards[0], { x: '-100%', ease: 'power2.inOut', duration: 0.4 }, 0.3)
+            .to(pillCards[1], { x: '0%',    ease: 'power2.inOut', duration: 0.4 }, 0.3);
+            if (pillCards[2]) {
+                tlPill
+                .to(pillCards[1], { x: '-100%', ease: 'power2.inOut', duration: 0.4 }, 1.3)
+                .to(pillCards[2], { x: '0%',    ease: 'power2.inOut', duration: 0.4 }, 1.3);
             }
+            tlPill.to({}, { duration: 0.3 });
 
-            ScrollTrigger.create({
-                trigger: '#partners',
-                start: 'top top',
-                end: '+=' + (window.innerHeight * (pillTotal + 1)),
-                pin: true,
-                pinSpacing: true,
-                anticipatePin: 1,
-                onUpdate(self) {
-                    const newIdx = Math.min(pillTotal - 1, Math.floor(self.progress * pillTotal));
-                    goToPill(newIdx);
-                },
-            });
+            addSwipe(tlPill, pillCards.length);
         }, 0);
     }
 }
@@ -843,55 +854,52 @@ function addSwipe(tl, total, step) {
     const features = qsa('.gp-feature[data-feat-video]');
     if (features.length < 2) return;
     setTimeout(() => {
-        let currentIdx = 0;
-
-        features.forEach((f, i) => {
-            gsap.set(f, { x: i === 0 ? '0%' : '100%' });
-        });
+        features.forEach((f, i) => gsap.set(f, { x: i === 0 ? '0%' : '100%' }));
 
         function syncVideos(idx) {
             features.forEach((f, i) => {
                 const v = f.querySelector('video');
                 if (!v) return;
-                if (i === idx) { v.play().catch(() => {}); }
+                if (i === idx) { v.muted = true; v.play().catch(() => {}); }
                 else { v.pause(); }
             });
         }
         syncVideos(0);
 
-        /* 마지막 슬라이드 이후 hold를 위해 +1 추가 */
-        ScrollTrigger.create({
-            trigger: '.gp-features',
-            start: 'top top',
-            end: '+=' + (window.innerHeight * (features.length + 1)),
-            pin: true,
-            pinSpacing: true,
-            anticipatePin: 1,
+        const n = features.length;
+        const snapStep = 1 / n;
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: '.gp-features',
+                start: 'top top',
+                end: '+=' + (window.innerHeight * n),
+                scrub: 1,
+                pin: true,
+                pinSpacing: true,
+                anticipatePin: 1,
+                snap: {
+                    snapTo: v => {
+                        const pts = Array.from({ length: n + 1 }, (_, i) => i * snapStep);
+                        return pts.reduce((a, b) => Math.abs(b - v) < Math.abs(a - v) ? b : a);
+                    },
+                    duration: { min: 0.2, max: 0.5 },
+                    delay: 0.05,
+                    ease: 'power2.inOut',
+                },
+            }
         });
 
-        function goToFeat(n) {
-            n = Math.max(0, Math.min(features.length - 1, n));
-            if (n === currentIdx) return;
-            const dir = n > currentIdx ? -1 : 1;
-            gsap.to(features[currentIdx], { x: (dir * -100) + '%', duration: 0.4, ease: 'power2.inOut' });
-            gsap.to(features[n], { x: '0%', duration: 0.4, ease: 'power2.inOut' });
-            currentIdx = n;
-            syncVideos(n);
+        tl.to(features[0], { x: '-100%', ease: 'none', duration: 1 }, 0)
+          .to(features[1], { x: '0%',    ease: 'none', duration: 1,
+              onStart: () => syncVideos(1) }, 0);
+        if (features[2]) {
+            tl.to(features[1], { x: '-100%', ease: 'none', duration: 1 }, 1)
+              .to(features[2], { x: '0%',    ease: 'none', duration: 1,
+                  onStart: () => syncVideos(2) }, 1);
         }
+        tl.to({}, { duration: 1 });
 
-        let tx = 0, ty = 0;
-        window.addEventListener('touchstart', e => {
-            tx = e.touches[0].clientX;
-            ty = e.touches[0].clientY;
-        }, { passive: true });
-        window.addEventListener('touchend', e => {
-            const st = ScrollTrigger.getAll().find(s => s.trigger === qs('.gp-features'));
-            if (!st || !st.isActive) return;
-            const dx = e.changedTouches[0].clientX - tx;
-            const dy = e.changedTouches[0].clientY - ty;
-            if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy)) return;
-            goToFeat(currentIdx + (dx < 0 ? 1 : -1));
-        }, { passive: true });
+        addSwipe(tl, n, snapStep);
     }, 0);
 })();
 

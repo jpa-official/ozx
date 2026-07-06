@@ -1394,25 +1394,22 @@ em { font-style: normal; }
 
     /* OUR OPERATING STRENGTH 가로 슬라이더 */
     .pill-grid {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
+        display: grid;
+        grid-template-rows: auto;
+        grid-template-columns: 1fr;
         overflow: hidden;
-        width: 100%;
         gap: 0;
         margin-top: 32px;
-        will-change: transform;
     }
     .pill-card {
-        flex: 0 0 100vw;
-        width: 100vw;
+        grid-area: 1 / 1;
         display: flex;
         flex-direction: column;
         align-items: center;
         text-align: center;
         padding: 24px var(--pad-x);
+        will-change: transform;
         opacity: 1 !important;
-        transform: none !important;
     }
 
     /* WHAT WE DO 가로 슬라이더 */
