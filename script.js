@@ -374,10 +374,8 @@ qsa('.fade-up').forEach((el, i) => {
     const sr3 = qs('.sr-03');
     if (!sr1 || !sr2 || !sr3) return;
 
-    /* ── 모바일: 가로 슬라이드 (GP Features 패턴 — n+1 스냅포인트) ── */
+    /* ── 모바일: 아래 스크롤로 카드 전환 ── */
     if (window.innerWidth < 768) {
-        const n = 3;
-        const snapStep = 1 / n;
         setTimeout(() => {
             gsap.set(sr1, { x: 0 });
             gsap.set(sr2, { x: '100%' });
@@ -387,22 +385,21 @@ qsa('.fade-up').forEach((el, i) => {
                 scrollTrigger: {
                     trigger: '#space',
                     start: 'top top',
-                    end: '+=' + (window.innerHeight * n),
+                    end: '+=' + (window.innerHeight * 2),
                     scrub: 1,
                     pin: true,
                     pinSpacing: true,
                     anticipatePin: 1,
                 }
             })
-            .to(sr1, { x: '-100%', ease: 'none', duration: 1 }, 0)
-            .to(sr2, { x: 0,       ease: 'none', duration: 1 }, 0)
-            .to(sr2, { x: '-100%', ease: 'none', duration: 1 }, 1)
-            .to(sr3, { x: 0,       ease: 'none', duration: 1 }, 1)
-            .to({}, { duration: 1 }); /* card 3 hold — 즉시 섹션 탈출 방지 */
+            .to(sr1, { x: '-100%', ease: 'power2.inOut', duration: 0.4 }, 0.3)
+            .to(sr2, { x: 0,       ease: 'power2.inOut', duration: 0.4 }, 0.3)
+            .to(sr2, { x: '-100%', ease: 'power2.inOut', duration: 0.4 }, 1.3)
+            .to(sr3, { x: 0,       ease: 'power2.inOut', duration: 0.4 }, 1.3)
+            .to({}, { duration: 0.3 });
 
-            addSwipe(tlSR, n, snapStep);
-            /* n+1 스냅포인트: [0, 1/3, 2/3, 1] — 마지막 hold 포지션 포함 */
-            addMobileSnap(tlSR, n + 1, snapStep);
+            /* addSwipe 제외 — vertical 방향 충돌로 card1 복귀 버그 발생 */
+            addMobileSnap(tlSR, 3);
         }, 0);
         return;
     }
