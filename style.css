@@ -1445,6 +1445,11 @@ em { font-style: normal; }
         text-align: center;
         align-items: center;
     }
+    .sr-left, .sr-right {
+        align-items: center;
+        width: 100%;
+    }
+    .sr-ko { max-width: 100%; }
     .sr-02, .sr-03 {
         transform: translateX(100%);
     }
