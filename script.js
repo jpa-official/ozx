@@ -1207,54 +1207,46 @@ setTimeout(() => {
     const cards = Array.from(qsa('.pt-card', track));
     const total = cards.length; // 3
 
-    /* ── 모바일: 트랙 전체 슬라이드 (GSAP 핀) ── */
+    /* ── 모바일: 수직 스크롤로 카드 전환 (WHAT WE DO 와 동일 패턴) ── */
     if (window.innerWidth < 768) {
         const mtabs = qsa('.pt-mtab');
         const vw = window.innerWidth;
-        let currentIdx = 0;
-
-        gsap.set(track, { x: 0 });
 
         function activateTab(i) {
-            currentIdx = i;
             mtabs.forEach((t, j) => t.classList.toggle('is-active', j === i));
             cards.forEach((c, j) => c.classList.toggle('is-active', j === i));
         }
         activateTab(0);
 
-        /* 스와이프로만 카드 전환 — Lenis 모멘텀 충돌 없음 */
-        function goToCard(n) {
-            n = Math.max(0, Math.min(total - 1, n));
-            if (n === currentIdx) return;
-            activateTab(n);
-            gsap.to(track, { x: -n * vw, duration: 0.4, ease: 'power2.inOut' });
-        }
-
         setTimeout(() => {
             gsap.set(track, { x: 0 });
 
-            ScrollTrigger.create({
-                trigger: '#pt-section',
-                start: 'top top',
-                end: '+=' + (vw * total * 2),
-                pin: true,
-                pinSpacing: true,
-                anticipatePin: 1,
-            });
+            const tlPt = gsap.timeline({
+                scrollTrigger: {
+                    trigger: '#pt-section',
+                    start: 'top top',
+                    end: '+=' + (window.innerHeight * 2),
+                    scrub: 1,
+                    pin: true,
+                    pinSpacing: true,
+                    anticipatePin: 1,
+                    snap: {
+                        snapTo: [0, 0.5, 1],
+                        duration: { min: 0.2, max: 0.5 },
+                        delay: 0.05,
+                        ease: 'power2.inOut',
+                    },
+                    onUpdate(self) {
+                        const idx = Math.min(total - 1, Math.floor(self.progress * total));
+                        activateTab(idx);
+                    },
+                }
+            })
+            .to(track, { x: -vw,      ease: 'power2.inOut', duration: 0.4 }, 0.3)
+            .to(track, { x: -2 * vw, ease: 'power2.inOut', duration: 0.4 }, 1.3)
+            .to({}, { duration: 0.3 });
 
-            let tx = 0, ty = 0;
-            window.addEventListener('touchstart', e => {
-                tx = e.touches[0].clientX;
-                ty = e.touches[0].clientY;
-            }, { passive: true });
-            window.addEventListener('touchend', e => {
-                const st = ScrollTrigger.getAll().find(s => s.vars.trigger === '#pt-section' || s.trigger === qs('#pt-section'));
-                if (!st || !st.isActive) return;
-                const dx = e.changedTouches[0].clientX - tx;
-                const dy = e.changedTouches[0].clientY - ty;
-                if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy)) return;
-                goToCard(currentIdx + (dx < 0 ? 1 : -1));
-            }, { passive: true });
+            addSwipe(tlPt, total);
         }, 0);
         return;
     }
