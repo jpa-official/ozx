@@ -467,36 +467,47 @@ if (window.innerWidth >= 768) {
         });
     });
 } else {
-    /* 모바일: OUR OPERATING STRENGTH 가로 슬라이드 */
+    /* 모바일: OUR OPERATING STRENGTH — pure swipe (scrub 제거) */
     const cards = qsa('.pill-card');
-    if (cards.length >= 3) {
-        setTimeout(() => {
-            gsap.set(cards[0], { x: 0,      opacity: 1, y: 0, clipPath: 'none' });
-            gsap.set(cards[1], { x: '100%', opacity: 1, y: 0, clipPath: 'none' });
-            gsap.set(cards[2], { x: '100%', opacity: 1, y: 0, clipPath: 'none' });
+    if (cards.length >= 2) {
+        let currentIdx = 0;
 
-            gsap.timeline({
-                scrollTrigger: {
-                    trigger: '#partners',
-                    start: 'top top',
-                    end: '+=' + (window.innerHeight * 2),
-                    scrub: 1,
-                    pin: true,
-                    pinSpacing: true,
-                    anticipatePin: 1,
-                    snap: {
-                        snapTo: [0, 0.5, 1],
-                        duration: { min: 0.2, max: 0.5 },
-                        delay: 0.05,
-                        ease: 'power2.inOut',
-                    },
-                }
-            })
-            .to(cards[0], { x: '-100%', ease: 'power2.inOut', duration: 0.4 }, 0.3)
-            .to(cards[1], { x: 0,       ease: 'power2.inOut', duration: 0.4 }, 0.3)
-            .to(cards[1], { x: '-100%', ease: 'power2.inOut', duration: 0.4 }, 1.3)
-            .to(cards[2], { x: 0,       ease: 'power2.inOut', duration: 0.4 }, 1.3)
-            .to({}, { duration: 0.3 });
+        setTimeout(() => {
+            cards.forEach((c, i) => {
+                gsap.set(c, { x: i === 0 ? '0%' : '100%', opacity: 1, y: 0, clipPath: 'none' });
+            });
+
+            ScrollTrigger.create({
+                trigger: '#partners',
+                start: 'top top',
+                end: '+=' + (window.innerHeight * cards.length * 2),
+                pin: true,
+                pinSpacing: true,
+                anticipatePin: 1,
+            });
+
+            function goToPill(n) {
+                n = Math.max(0, Math.min(cards.length - 1, n));
+                if (n === currentIdx) return;
+                const dir = n > currentIdx ? -1 : 1;
+                gsap.to(cards[currentIdx], { x: (dir * -100) + '%', duration: 0.4, ease: 'power2.inOut' });
+                gsap.to(cards[n], { x: '0%', duration: 0.4, ease: 'power2.inOut' });
+                currentIdx = n;
+            }
+
+            let tx = 0, ty = 0;
+            window.addEventListener('touchstart', e => {
+                tx = e.touches[0].clientX;
+                ty = e.touches[0].clientY;
+            }, { passive: true });
+            window.addEventListener('touchend', e => {
+                const st = ScrollTrigger.getAll().find(s => s.trigger === qs('#partners'));
+                if (!st || !st.isActive) return;
+                const dx = e.changedTouches[0].clientX - tx;
+                const dy = e.changedTouches[0].clientY - ty;
+                if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy)) return;
+                goToPill(currentIdx + (dx < 0 ? 1 : -1));
+            }, { passive: true });
         }, 0);
     }
 }
