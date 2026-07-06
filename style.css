@@ -1505,7 +1505,11 @@ em { font-style: normal; }
     /* G-Planet 히어로 전체화면 + 타이틀 폰트 확대 */
     .gp-hero {
         aspect-ratio: unset;
-        min-height: 100vh;
+        min-height: 100dvh;
+        height: 100dvh;
+    }
+    .gp-hero-inner {
+        padding-bottom: max(60px, env(safe-area-inset-bottom, 0px) + 48px);
     }
     .gp-title { font-size: clamp(48px, 14vw, 80px); }
 
