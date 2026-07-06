@@ -913,8 +913,7 @@ function addMobileSnap(tl, total, step, onSnap) {
         }
         tl.to({}, { duration: 1 });
 
-        addSwipe(tl, n, snapStep);
-        /* n+1 스냅포인트: [0, 1/n, 2/n, 1] — 마지막 hold 포지션 포함 */
+        /* 수직 스크롤만 인식 — addSwipe 제외 */
         addMobileSnap(tl, n + 1, snapStep, idx => { if (idx < n) syncVideos(idx); });
     }, 0);
 })();

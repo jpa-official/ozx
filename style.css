@@ -1534,6 +1534,11 @@ em { font-style: normal; }
         gap: 8px;
         padding: 32px var(--pad-x);
         border-bottom: none;
+    }
+    /* 2,3번째 feature 초기 위치 — GSAP 실행 전 겹침 방지 */
+    .gp-feature:nth-child(2),
+    .gp-feature:nth-child(3) {
+        transform: translateX(100%);
         will-change: transform;
         overflow: hidden;
     }
