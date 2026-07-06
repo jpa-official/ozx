@@ -1117,12 +1117,11 @@ setTimeout(() => {
 
     const FADE = 1.0;
     let fadeTimer = null;
-    let userMuted = true;  /* 초기: 꺼진 상태 — 버튼 1번으로 켜짐 */
+    let userMuted = false;  /* 초기: 자동 재생 — 지플래닛 진입 시 켜짐 */
     let unlocked = false;
     let pendingPlay = false;
 
     const bgmBtn = qs('#gp-bgm-btn');
-    if (bgmBtn) bgmBtn.classList.add('is-muted'); /* 버튼 초기 상태 동기화 */
 
     const LOOP_START = 91;   /* 1:31 */
     const LOOP_END   = 122;  /* 2:02 */
@@ -1193,6 +1192,8 @@ setTimeout(() => {
     ['pointerdown', 'keydown'].forEach(ev =>
         document.addEventListener(ev, unlock, { once: true, capture: true })
     );
+    /* wheel(스크롤)도 오디오 컨텍스트 잠금 해제 트리거로 추가 */
+    document.addEventListener('wheel', unlock, { once: true, passive: true });
 
     function enterZone() {
         bgm.currentTime = LOOP_START;
