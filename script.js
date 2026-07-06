@@ -4,6 +4,10 @@
 
 gsap.registerPlugin(ScrollTrigger);
 
+/* 브라우저 스크롤 복원 비활성화 — 로더 항상 상단에서 시작 */
+history.scrollRestoration = 'manual';
+window.scrollTo(0, 0);
+
 /* 성능 최적화 */
 ScrollTrigger.config({ limitCallbacks: true, ignoreMobileResize: true });
 
@@ -108,6 +112,7 @@ function digitFlash(finalStr, pct) {
 }
 
 function exitLoader() {
+    lenis.scrollTo(0, { immediate: true, force: true });
     digitFlash('100', 100);
     setTimeout(() => {
         gsap.to(loader, {
