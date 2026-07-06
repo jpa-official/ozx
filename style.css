@@ -1,5 +1,5 @@
 /* ============================
-   OZX — style.css (v54)
+   OZX — style.css (v163)
    ============================ */
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -629,9 +629,6 @@ em { font-style: normal; }
     grid-template-rows: auto;
     border-top: 1px solid rgba(255,255,255,0.12);
     border-bottom: 1px solid rgba(255,255,255,0.07);
-    width: 100%;
-    max-width: 860px;
-    margin: 0 auto;
 }
 
 .service-row {
@@ -1430,6 +1427,22 @@ em { font-style: normal; }
     /* 히어로: dvh로 iOS Safari 주소창 높이 보정 → 로고 정중앙 */
     #hero { height: 100dvh; }
 
+    /* FLOOR PLAN — 도면과 설명 간격 */
+    .fp-slide {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        padding: 40px var(--pad-x);
+    }
+    .fp-plan {
+        width: clamp(160px, 60vw, 320px);
+        padding-right: 0;
+        justify-content: center;
+        margin: 0;
+    }
+
     /* WHAT WE DO 가로 슬라이더 */
     #space { min-height: 100vh; }
     .service-stack {
@@ -1507,14 +1520,13 @@ em { font-style: normal; }
         aspect-ratio: unset;
         min-height: 100dvh;
         height: 100dvh;
+        background: url('gwanghwa169.jpg') center / cover no-repeat;
     }
     .gp-hero-inner {
         padding-bottom: max(60px, env(safe-area-inset-bottom, 0px) + 48px);
     }
-    .gp-video {
-        object-fit: contain;
-        object-position: center center;
-    }
+    /* 세로 영상 파일 — 모바일에서 숨기고 배경 이미지로 대체 */
+    .gp-video { display: none; }
     .gp-title { font-size: clamp(48px, 14vw, 80px); }
 
     /* 모바일: BGM 버튼 숨김 */
@@ -1553,17 +1565,8 @@ em { font-style: normal; }
     .gp-feat-heading { font-size: clamp(32px, 9vw, 56px) !important; }
     .gp-feat-desc { text-align: left; font-size: 12px !important; }
 
-    /* ── 배경 영상 ── */
-    .gp-feat-bg-video {
-        display: block;
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        object-position: center center;
-        z-index: 0;
-    }
+    /* ── 배경 영상 — 모바일에서 숨김 ── */
+    .gp-feat-bg-video { display: none; }
     .gp-feat-bg-overlay {
         display: block;
         position: absolute;
@@ -2123,3 +2126,122 @@ em { font-style: normal; }
     }
 }
 
+/* ============================
+   PC 레이아웃 잠금 (min-width: 769px)
+   모바일 CSS 수정이 PC 레이아웃에 영향을 주지 않도록
+   PC 전용 값을 명시적으로 재선언.
+   앞으로 PC 수정은 이 블록 또는 베이스 CSS에,
+   모바일 수정은 max-width: 768px 블록에 한정.
+   ============================ */
+@media (min-width: 769px) {
+
+    /* ── WHAT WE DO ── */
+    .service-stack {
+        display: grid;
+        grid-template-rows: auto;
+        overflow: visible;
+        max-width: none;
+        margin: 0;
+        width: auto;
+        border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .service-row {
+        grid-area: 1 / 1;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        padding: 52px 0;
+        align-items: center;
+        will-change: opacity, transform;
+    }
+    .sr-02, .sr-03 { transform: none; }
+
+    /* ── OUR OPERATING STRENGTH ── */
+    .pill-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        margin-top: 64px;
+        overflow: visible;
+    }
+    .pill-card {
+        grid-area: unset;
+        padding: 0 0 44px;
+        opacity: 0;
+        transform: translateY(40px);
+        will-change: clip-path, opacity, transform;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .pill-card:nth-child(2),
+    .pill-card:nth-child(3) {
+        transform: translateY(40px);
+    }
+
+    /* ── G-PLANET FEATURES ── */
+    .gp-features {
+        display: block;
+        height: auto;
+        overflow: hidden;
+        border-top: 1px solid rgba(255,255,255,0.12);
+    }
+    .gp-feature {
+        position: relative;
+        top: auto; left: auto;
+        width: auto; height: auto;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: space-between;
+        padding: clamp(32px, 4vw, 56px) clamp(28px, 5vw, 72px);
+        border-bottom: 1px solid rgba(255,255,255,0.12);
+        gap: clamp(24px, 6vw, 80px);
+    }
+    .gp-feature:nth-child(2),
+    .gp-feature:nth-child(3) {
+        transform: none;
+        will-change: auto;
+        overflow: visible;
+    }
+    .gp-feat-desc {
+        text-align: right;
+        flex-shrink: 0;
+        padding-top: 4px;
+        font-size: clamp(13px, 1.1vw, 15px);
+    }
+
+    /* ── FLOOR PLAN ── */
+    .fp-slide {
+        grid-template-columns: 1fr 1fr;
+        padding: clamp(40px, 6vw, 80px) clamp(60px, 8vw, 140px);
+    }
+    .fp-floor, .fp-label, .fp-heading, .fp-desc, .fp-plan {
+        grid-column: auto;
+        grid-row: auto;
+    }
+    .fp-plan {
+        width: auto;
+        margin: 0;
+        padding-right: clamp(16px, 2vw, 32px);
+        justify-content: flex-end;
+    }
+
+    /* ── PARTNERS 카드 슬라이더 ── */
+    .pt-cards {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        width: auto !important;
+        transition: transform 0.9s cubic-bezier(0.77, 0, 0.18, 1) !important;
+    }
+    .pt-card {
+        flex: 0 0 100% !important;
+        width: 100% !important;
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        min-height: 100vh !important;
+    }
+    .pt-card-left { display: flex !important; }
+}
