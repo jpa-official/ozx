@@ -1266,7 +1266,7 @@ em { font-style: normal; }
     }
     .fp-plan {
         width: clamp(160px, 60vw, 320px);
-        margin: clamp(16px, 2.5vw, 32px) auto;
+        margin: 8px auto;
     }
 }
 

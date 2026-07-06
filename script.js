@@ -1276,6 +1276,16 @@ setTimeout(() => {
             .to({}, { duration: 0.3 });
 
             addMobileSnap(tlPt, total, undefined, activateTab);
+
+            /* 탭 버튼 클릭 → 해당 카드로 스크롤 이동 */
+            const step = 1 / (total - 1);
+            mtabs.forEach((tab, i) => {
+                tab.addEventListener('click', () => {
+                    const st = tlPt.scrollTrigger;
+                    if (!st) return;
+                    lenis.scrollTo(st.start + i * step * (st.end - st.start), { duration: 0.6, force: true });
+                });
+            });
         }, 0);
         return;
     }
