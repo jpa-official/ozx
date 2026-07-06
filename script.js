@@ -467,10 +467,9 @@ if (window.innerWidth >= 768) {
         });
     });
 } else {
-    /* 모바일: OUR OPERATING STRENGTH — Partners 방식 pure swipe */
+    /* 모바일: OUR OPERATING STRENGTH — 수직 스크롤로 카드 전환 */
     const pillGrid  = qs('.pill-grid');
-    const pillCards = qsa('.pill-card');
-    const pillTotal = pillCards.length;
+    const pillTotal = qsa('.pill-card').length;
     const vw = window.innerWidth;
     let pillIdx = 0;
 
@@ -478,35 +477,25 @@ if (window.innerWidth >= 768) {
         setTimeout(() => {
             gsap.set(pillGrid, { x: 0 });
 
-            ScrollTrigger.create({
-                trigger: '#partners',
-                start: 'top top',
-                end: '+=' + (vw * pillTotal * 2),
-                pin: true,
-                pinSpacing: true,
-                anticipatePin: 1,
-            });
-
             function goToPill(n) {
                 n = Math.max(0, Math.min(pillTotal - 1, n));
                 if (n === pillIdx) return;
                 pillIdx = n;
-                gsap.to(pillGrid, { x: -pillIdx * vw, duration: 0.4, ease: 'power2.inOut' });
+                gsap.to(pillGrid, { x: -pillIdx * vw, duration: 0.5, ease: 'power2.inOut' });
             }
 
-            let tx = 0, ty = 0;
-            window.addEventListener('touchstart', e => {
-                tx = e.touches[0].clientX;
-                ty = e.touches[0].clientY;
-            }, { passive: true });
-            window.addEventListener('touchend', e => {
-                const st = ScrollTrigger.getAll().find(s => s.trigger === qs('#partners'));
-                if (!st || !st.isActive) return;
-                const dx = e.changedTouches[0].clientX - tx;
-                const dy = e.changedTouches[0].clientY - ty;
-                if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy)) return;
-                goToPill(pillIdx + (dx < 0 ? 1 : -1));
-            }, { passive: true });
+            ScrollTrigger.create({
+                trigger: '#partners',
+                start: 'top top',
+                end: '+=' + (window.innerHeight * (pillTotal + 1)),
+                pin: true,
+                pinSpacing: true,
+                anticipatePin: 1,
+                onUpdate(self) {
+                    const newIdx = Math.min(pillTotal - 1, Math.floor(self.progress * pillTotal));
+                    goToPill(newIdx);
+                },
+            });
         }, 0);
     }
 }
