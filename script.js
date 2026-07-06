@@ -1275,7 +1275,6 @@ setTimeout(() => {
             .to(track, { x: -2 * vw, ease: 'power2.inOut', duration: 0.4 }, 1.3)
             .to({}, { duration: 0.3 });
 
-            addSwipe(tlPt, total);
             addMobileSnap(tlPt, total, undefined, activateTab);
         }, 0);
         return;
