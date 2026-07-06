@@ -324,23 +324,23 @@ class TextScramble {
 qsa('.sec-h2').forEach(h2 => {
     const scrambler = new TextScramble(h2);
     const original  = h2.getAttribute('data-text') || h2.textContent.trim();
+    const isMobile  = window.innerWidth < 768;
 
-    /* Clip-path wipe: text revealed left→right */
-    gsap.set(h2, { clipPath: 'inset(0 100% 0 0)' });
+    /* 모바일: clip-path 숨김 skip (CSS !important로 inline style 못 이김) */
+    if (!isMobile) gsap.set(h2, { clipPath: 'inset(0 100% 0 0)' });
 
     ScrollTrigger.create({
         trigger: h2, start: 'top 88%', once: true,
         onEnter: () => {
             h2.classList.add('in');
-            /* Clip-path wipe */
-            gsap.to(h2, {
-                clipPath: 'inset(0 0% 0 0)',
-                duration: 0.9,
-                ease: 'power3.inOut',
-            });
-            /* Scramble text after wipe reveals it */
+            if (!isMobile) {
+                gsap.to(h2, {
+                    clipPath: 'inset(0 0% 0 0)',
+                    duration: 0.9,
+                    ease: 'power3.inOut',
+                });
+            }
             setTimeout(() => scrambler.setText(original), 80);
-            /* Glitch flash */
             setTimeout(() => {
                 h2.classList.add('glitch-active');
                 setTimeout(() => h2.classList.remove('glitch-active'), 220);
