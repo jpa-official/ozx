@@ -848,53 +848,55 @@ function addSwipe(tl, total, step) {
     const features = qsa('.gp-feature[data-feat-video]');
     if (features.length < 2) return;
     setTimeout(() => {
-        gsap.set(features[0], { x: 0 });
-        gsap.set(features[1], { x: '100%' });
-        if (features[2]) gsap.set(features[2], { x: '100%' });
+        let currentIdx = 0;
 
-        /* 비활성 슬라이드 영상 일시정지 → 성능 개선 */
-        function syncVideos(activeIdx) {
+        features.forEach((f, i) => {
+            gsap.set(f, { x: i === 0 ? '0%' : '100%' });
+        });
+
+        function syncVideos(idx) {
             features.forEach((f, i) => {
                 const v = f.querySelector('video');
                 if (!v) return;
-                if (i === activeIdx) { v.play().catch(() => {}); }
+                if (i === idx) { v.play().catch(() => {}); }
                 else { v.pause(); }
             });
         }
         syncVideos(0);
 
-        const snapStep = 1 / features.length; // 1/3 for 3 slides
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: '.gp-features',
-                start: 'top top',
-                end: '+=' + (window.innerHeight * features.length), // tail 포함
-                scrub: true,
-                pin: true,
-                pinSpacing: true,
-                snap: {
-                    snapTo: v => {
-                        const pts = Array.from({ length: features.length }, (_, i) => i * snapStep);
-                        return pts.reduce((a, b) => Math.abs(b - v) < Math.abs(a - v) ? b : a);
-                    },
-                    duration: { min: 0.2, max: 0.5 },
-                    delay: 0.05,
-                    ease: 'power2.inOut',
-                },
-            }
+        /* 마지막 슬라이드 이후 hold를 위해 +1 추가 */
+        ScrollTrigger.create({
+            trigger: '.gp-features',
+            start: 'top top',
+            end: '+=' + (window.innerHeight * (features.length + 1)),
+            pin: true,
+            pinSpacing: true,
+            anticipatePin: 1,
         });
 
-        tl.to(features[0], { x: '-100%', ease: 'none', duration: 1 }, 0)
-          .to(features[1], { x: '0%',    ease: 'none', duration: 1,
-              onStart: () => syncVideos(1) }, 0);
-        if (features[2]) {
-            tl.to(features[1], { x: '-100%', ease: 'none', duration: 1 }, 1)
-              .to(features[2], { x: '0%',    ease: 'none', duration: 1,
-                  onStart: () => syncVideos(2) }, 1);
+        function goToFeat(n) {
+            n = Math.max(0, Math.min(features.length - 1, n));
+            if (n === currentIdx) return;
+            const dir = n > currentIdx ? -1 : 1;
+            gsap.to(features[currentIdx], { x: (dir * -100) + '%', duration: 0.4, ease: 'power2.inOut' });
+            gsap.to(features[n], { x: '0%', duration: 0.4, ease: 'power2.inOut' });
+            currentIdx = n;
+            syncVideos(n);
         }
-        tl.to({}, { duration: 1 }); // VARIOUS CONTENTS 표시 후 멈춤 구간
 
-        addSwipe(tl, features.length, snapStep);
+        let tx = 0, ty = 0;
+        window.addEventListener('touchstart', e => {
+            tx = e.touches[0].clientX;
+            ty = e.touches[0].clientY;
+        }, { passive: true });
+        window.addEventListener('touchend', e => {
+            const st = ScrollTrigger.getAll().find(s => s.trigger === qs('.gp-features'));
+            if (!st || !st.isActive) return;
+            const dx = e.changedTouches[0].clientX - tx;
+            const dy = e.changedTouches[0].clientY - ty;
+            if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy)) return;
+            goToFeat(currentIdx + (dx < 0 ? 1 : -1));
+        }, { passive: true });
     }, 0);
 })();
 
