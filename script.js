@@ -883,7 +883,7 @@ function addMobileSnap(tl, total, step, onSnap) {
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: '.gp-features',
-                start: 'top top',
+                start: 'center center',
                 end: '+=' + (window.innerHeight * n),
                 scrub: 1,
                 pin: true,

@@ -1,5 +1,5 @@
 /* ============================
-   OZX — style.css (v172)
+   OZX — style.css (v173)
    ============================ */
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -1396,8 +1396,11 @@ em { font-style: normal; }
     #partners {
         background: #111;
         border-top: 1px solid rgba(255,255,255,0.15);
-        min-height: unset;
-        padding-bottom: 20px;
+        min-height: 100dvh;
+        padding: 60px var(--pad-x) 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
     .news-placeholder { min-height: 0; padding: 12px 0; }
 
@@ -1558,20 +1561,17 @@ em { font-style: normal; }
     .gp-features {
         display: block;
         position: relative;
-        height: 100dvh;
-        aspect-ratio: unset;
+        aspect-ratio: 16 / 9;
+        height: auto;
         background: #000;
         overflow: hidden;
         border-top: none;
     }
-    /* 16:9 영상 박스를 화면 중앙에 배치: top = 50dvh - (100vw * 9/16 / 2) */
     .gp-feature {
         position: absolute;
-        top: calc(50dvh - 28.125vw);
-        left: 0;
-        width: 100%;
-        aspect-ratio: 16 / 9;
-        height: auto;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        aspect-ratio: unset;
         background: #000;
         display: flex;
         flex-direction: column;
