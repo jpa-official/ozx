@@ -1,5 +1,5 @@
 ﻿/* ============================
-   OZX — script.js (v12)
+   OZX — script.js (v13)
    ============================ */
 
 gsap.registerPlugin(ScrollTrigger);
@@ -819,6 +819,7 @@ qsa('.mobile-nav-a').forEach(a => {
     if (gpInfo && gplanet) gplanet.appendChild(gpInfo);
 
     setTimeout(() => {
+        let heroSnapCount = 0;
         ScrollTrigger.create({
             trigger: '#gplanet',
             start: 'top top',
@@ -826,10 +827,16 @@ qsa('.mobile-nav-a').forEach(a => {
             pin: true,
             pinSpacing: true,
             snap: {
-                snapTo: v => v > 0.65 ? 1 : 0,
+                snapTo: v => {
+                    if (v <= 0.05) return 0;
+                    if (heroSnapCount < 1) { heroSnapCount++; return 0; }
+                    return 1;
+                },
                 duration: { min: 0.3, max: 0.5 },
                 ease: 'power1.inOut'
-            }
+            },
+            onEnter: () => { heroSnapCount = 0; },
+            onLeaveBack: () => { heroSnapCount = 0; }
         });
     }, 0);
 })();
