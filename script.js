@@ -345,11 +345,13 @@ qsa('.sec-h2').forEach(h2 => {
                     ease: 'power3.inOut',
                 });
             }
-            setTimeout(() => scrambler.setText(original), 80);
-            setTimeout(() => {
-                h2.classList.add('glitch-active');
-                setTimeout(() => h2.classList.remove('glitch-active'), 220);
-            }, 500);
+            if (!isMobile) {
+                setTimeout(() => scrambler.setText(original), 80);
+                setTimeout(() => {
+                    h2.classList.add('glitch-active');
+                    setTimeout(() => h2.classList.remove('glitch-active'), 220);
+                }, 500);
+            }
         }
     });
 });
