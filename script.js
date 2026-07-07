@@ -1,5 +1,5 @@
 ﻿/* ============================
-   OZX — script.js (v13)
+   OZX — script.js (v14)
    ============================ */
 
 gsap.registerPlugin(ScrollTrigger);
@@ -951,8 +951,21 @@ function addMobileSnap(tl, total, step, onSnap) {
             pinSpacing: true,
             anticipatePin: 1,
             snap: {
-                /* 진입 잠금 중에는 반드시 0으로 되돌림 */
-                snapTo: v => entryLock ? 0 : snapPoints.reduce((a, b) => Math.abs(b - v) < Math.abs(a - v) ? b : a),
+                /* 한 번의 스크롤 = 한 칸만 이동 (onUpdate 제거, snap 단독 제어) */
+                snapTo: v => {
+                    if (entryLock) return 0;
+                    const step = 1 / (n - 1);
+                    const cur = currentIdx / (n - 1);
+                    if (currentIdx < n - 1 && v > cur + step * 0.3) {
+                        goTo(currentIdx + 1);
+                        return currentIdx / (n - 1);
+                    }
+                    if (currentIdx > 0 && v < cur - step * 0.3) {
+                        goTo(currentIdx - 1);
+                        return currentIdx / (n - 1);
+                    }
+                    return currentIdx === n - 1 ? 1 : cur;
+                },
                 duration: { min: 0.25, max: 0.4 },
                 ease: 'power1.inOut'
             },
@@ -960,18 +973,12 @@ function addMobileSnap(tl, total, step, onSnap) {
                 resetCards();
                 entryLock = true;
                 clearTimeout(entryTimer);
-                /* snap 최대 duration(400ms) 이후 잠금 해제 */
                 entryTimer = setTimeout(() => { entryLock = false; }, 500);
             },
             onLeaveBack: () => {
                 resetCards();
                 entryLock = false;
                 clearTimeout(entryTimer);
-            },
-            onUpdate: self => {
-                if (entryLock) return;
-                const newIdx = clamp(Math.round(self.progress * (n - 1)), 0, n - 1);
-                goTo(newIdx);
             }
         });
     }, 0);
@@ -1414,17 +1421,22 @@ setTimeout(() => {
             pinSpacing: true,
             anticipatePin: 1,
             snap: {
+                /* 한 번의 스크롤 = 한 칸만 이동 */
                 snapTo: v => {
-                    const pts = [0, 1/3, 2/3, 1];
-                    return pts.reduce((a, b) => Math.abs(b - v) < Math.abs(a - v) ? b : a);
+                    const step = 1 / (total - 1);
+                    const cur = currentIdx / (total - 1);
+                    if (currentIdx < total - 1 && v > cur + step * 0.25) {
+                        goTo(currentIdx + 1);
+                        return currentIdx / (total - 1);
+                    }
+                    if (currentIdx > 0 && v < cur - step * 0.25) {
+                        goTo(currentIdx - 1);
+                        return currentIdx / (total - 1);
+                    }
+                    return currentIdx === total - 1 ? 1 : cur;
                 },
                 duration: { min: 0.2, max: 0.5 },
-                delay: 0.08,
                 ease: 'power2.inOut',
-            },
-            onUpdate(self) {
-                const newIdx = Math.min(total - 1, Math.floor(self.progress * total));
-                if (newIdx !== currentIdx) goTo(newIdx);
             },
         });
 
