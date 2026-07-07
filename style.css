@@ -1403,7 +1403,7 @@ em { font-style: normal; }
     }
 
     /* 섹션 헤더 폰트 통일: WHAT WE DO / OUR OPERATING STRENGTH / PARTNERS */
-    .pt-title { font-size: clamp(28px, 8vw, 40px); }
+    .pt-title { font-size: clamp(36px, 10vw, 52px); }
 
     /* 섹션 구분: OUR OPERATING STRENGTH 배경 살짝 다르게 */
     #partners {
@@ -1776,8 +1776,9 @@ em { font-style: normal; }
     /* 카드: 트랙 가로 슬라이드 */
     #pt-section {
         overflow-x: hidden;
-        background: #1a1a1a;
-        border-top: 2px solid rgba(255,255,255,0.2);
+        background: #161616;
+        border-top: 2px solid rgba(255,255,255,0.18);
+        padding-top: 60px;
     }
     .pt-cards {
         display: flex !important;
