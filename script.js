@@ -1305,47 +1305,32 @@ setTimeout(() => {
         return;
     }
 
-    /* ── 데스크탑: 스크롤 드리븐 (카드당 1000px) ── */
+    /* ── 데스크탑: scrub 타임라인 (What We Do 동일 패턴) ── */
     const vw = window.innerWidth;
-    track.style.transition = 'none'; // GSAP가 transform 제어
-    let currentIdx = 0;
-
-    function goTo(n) {
-        currentIdx = Math.max(0, Math.min(total - 1, n));
-        gsap.to(track, { x: -currentIdx * vw, duration: 0.5, ease: 'power2.inOut' });
-    }
+    track.style.transition = 'none';
 
     setTimeout(() => {
         gsap.set(track, { x: 0 });
 
-        ScrollTrigger.create({
-            trigger: '.pt-slider-wrap',
-            start: 'top top',
-            end: `+=${total * 1200}`,
-            pin: true,
-            pinSpacing: true,
-            anticipatePin: 1,
-            snap: {
-                /* 한 번의 스크롤 = 한 칸만 이동. 마지막 카드는 0.95(1.0=핀해제 방지) */
-                snapTo: v => {
-                    const step = 1 / (total - 1);
-                    const cur = currentIdx / (total - 1);
-                    if (currentIdx < total - 1 && v > cur + step * 0.25) {
-                        goTo(currentIdx + 1);
-                        return currentIdx === total - 1 ? 0.95 : currentIdx / (total - 1);
-                    }
-                    if (currentIdx > 0 && v < cur - step * 0.25) {
-                        goTo(currentIdx - 1);
-                        return currentIdx / (total - 1);
-                    }
-                    return currentIdx === total - 1 ? 0.95 : cur;
+        gsap.timeline({
+            scrollTrigger: {
+                trigger: '.pt-slider-wrap',
+                start: 'top top',
+                end: `+=${window.innerHeight * 2}`,
+                scrub: 0.8,
+                pin: true,
+                pinSpacing: true,
+                anticipatePin: 1,
+                snap: {
+                    snapTo: [0, 0.5, 1],
+                    duration: { min: 0.3, max: 0.5 },
+                    ease: 'power2.inOut',
                 },
-                duration: { min: 0.2, max: 0.5 },
-                ease: 'power2.inOut',
-            },
-            onEnter:     () => { currentIdx = 0; goTo(0); },
-            onLeaveBack: () => { currentIdx = 0; goTo(0); },
-        });
+            }
+        })
+        .to(track, { x: -vw,      ease: 'power2.inOut', duration: 0.4 }, 0.3)
+        .to(track, { x: -2 * vw, ease: 'power2.inOut', duration: 0.4 }, 1.3)
+        .to({}, { duration: 0.3 });
 
         /* Contact 핀 — 모든 핀 spacer가 DOM에 추가된 뒤 마지막에 생성해야
            #contact 위치가 정확히 계산됨 */
