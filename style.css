@@ -1,5 +1,5 @@
 /* ============================
-   OZX — style.css (v166)
+   OZX — style.css (v167)
    ============================ */
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -1534,6 +1534,7 @@ em { font-style: normal; }
 
     /* 모바일: BGM 버튼 숨김 */
     .gp-bgm-btn { display: none !important; }
+    .gp-info { padding: 12px var(--pad-x); gap: 8px; }
 
     /* GP Features — 모바일 세로 슬라이드 (GSAP 핀) */
     .gp-feat-video-wrap { display: none !important; }
