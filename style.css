@@ -1278,6 +1278,15 @@ em { font-style: normal; }
 }
 
 @media (max-width: 768px) {
+    /* 히어로 로고 10% 확대 */
+    .hero-logo-img { width: clamp(110px, 16.5vw, 242px) !important; }
+
+    /* 도면 dots 숨김 */
+    .fp-dots { display: none !important; }
+
+    /* PC 전용 파트너스 화살표 숨김 */
+    .pt-pc-prev, .pt-pc-next { display: none !important; }
+
     /* identity 섹션: 수직 중앙 정렬 */
     #identity {
         display: flex;
@@ -1933,6 +1942,26 @@ em { font-style: normal; }
     overflow: hidden;
 }
 
+/* PC 전용 화살표 */
+.pt-pc-prev, .pt-pc-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: #fff;
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 22px;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s;
+}
+.pt-pc-prev:hover, .pt-pc-next:hover { background: rgba(255,255,255,0.18); }
+.pt-pc-prev { left: 32px; }
+.pt-pc-next { right: 32px; }
+
 .pt-cards {
     display: flex;
     transition: transform 0.9s cubic-bezier(0.77, 0, 0.18, 1);
@@ -2232,6 +2261,10 @@ em { font-style: normal; }
    모바일 수정은 max-width: 768px 블록에 한정.
    ============================ */
 @media (min-width: 769px) {
+
+    /* ── identity → MVVS 사이 간격 축소 ── */
+    .id-inner { padding-bottom: 20px; }
+    .mvvs-bg  { padding-top: 40px; }
 
     /* ── WHAT WE DO ── */
     .service-stack {

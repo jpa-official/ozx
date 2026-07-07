@@ -1305,27 +1305,33 @@ setTimeout(() => {
         return;
     }
 
-    /* ── 데스크탑: scrub 타임라인 (What We Do 동일 패턴) ── */
+    /* ── 데스크탑: 화살표 클릭 카드 전환 ── */
     const vw = window.innerWidth;
     track.style.transition = 'none';
+    let currentIdx = 0;
+    let animating  = false;
+
+    gsap.set(track, { x: 0 });
+
+    function goTo(n) {
+        const newIdx = (n + total) % total;
+        if (newIdx === currentIdx || animating) return;
+        animating = true;
+        currentIdx = newIdx;
+        gsap.to(track, {
+            x: -currentIdx * vw,
+            duration: 0.5,
+            ease: 'power2.inOut',
+            onComplete: () => { animating = false; }
+        });
+    }
+
+    const pcPrev = qs('.pt-pc-prev');
+    const pcNext = qs('.pt-pc-next');
+    if (pcPrev) pcPrev.addEventListener('click', () => goTo(currentIdx - 1));
+    if (pcNext) pcNext.addEventListener('click', () => goTo(currentIdx + 1));
 
     setTimeout(() => {
-        gsap.set(track, { x: 0 });
-
-        gsap.timeline({
-            scrollTrigger: {
-                trigger: '.pt-slider-wrap',
-                start: 'top top',
-                end: `+=${window.innerHeight * 2}`,
-                scrub: 0.8,
-                pin: true,
-                pinSpacing: true,
-                anticipatePin: 1,
-            }
-        })
-        .to(track, { x: -vw,      ease: 'none', duration: 0.4 }, 0.3)
-        .to(track, { x: -2 * vw, ease: 'none', duration: 0.4 }, 1.3)
-        .to({}, { duration: 0.3 });
 
         /* Contact 핀 — 모든 핀 spacer가 DOM에 추가된 뒤 마지막에 생성해야
            #contact 위치가 정확히 계산됨 */
