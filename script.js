@@ -592,54 +592,23 @@ gsap.fromTo('.news-text',
     tabs[0].classList.add('is-active');
     panels[0].classList.add('is-active');
 
-    /* ── 모바일: 4패널 snap, 탭·패널 동시 전환 ── */
+    /* ── 모바일: 탭 클릭으로 패널 전환 ── */
     if (window.innerWidth < 768) {
         gsap.set('.mvvs-bg', { clipPath: 'inset(0% 0 0% 0)' });
-        gsap.set(tabs,       { opacity: 1 });
-        // 모든 패널 y=0 초기화 (y 움직임 제거)
-        gsap.set(panels,          { opacity: 0, y: 0 });
+        gsap.set(tabs,   { opacity: 1 });
+        gsap.set(panels, { opacity: 0 });
         gsap.set('#panel-mission', { opacity: 1 });
 
-        // total timeline duration = 4.0
-        // 패널 fade-in 시작 위치 → 탭 전환 progress 기준값:
-        //   VISION   fade-in pos 0.8 → p = 0.8/4 = 0.20
-        //   STRATEGY fade-in pos 1.8 → p = 1.8/4 = 0.45
-        //   VALUE    fade-in pos 2.8 → p = 2.8/4 = 0.70
-        // 탭은 패널이 나타나기 시작하는 순간 동시에 전환
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: '#mvvs',
-                start: 'top top',
-                end: '+=' + (window.innerHeight * 3.5),
-                scrub: 1,
-                pin: true,
-                pinSpacing: true,
-                anticipatePin: 1,
-                snap: {
-                    snapTo: [0, 0.25, 0.5, 0.75, 1],
-                    duration: { min: 0.2, max: 0.5 },
-                    delay: 0.05,
-                    ease: 'power2.inOut',
-                },
-                onUpdate: (self) => {
-                    const p = self.progress;
-                    let idx = 0;
-                    if      (p >= 0.70) idx = 3;
-                    else if (p >= 0.45) idx = 2;
-                    else if (p >= 0.20) idx = 1;
-                    tabs.forEach((t, i)    => t.classList.toggle('is-active', i === idx));
-                    panels.forEach((pn, i) => pn.classList.toggle('is-active', i === idx));
-                },
-            }
-        });
-        tl
-            .to('#panel-mission',  { opacity: 0, duration: 0.2 }, 0.6)
-            .to('#panel-vision',   { opacity: 1, duration: 0.2 }, 0.8)   // p=0.2에서 시작 = 탭 전환과 동시
-            .to('#panel-vision',   { opacity: 0, duration: 0.2 }, 1.6)
-            .to('#panel-strategy', { opacity: 1, duration: 0.2 }, 1.8)   // p=0.45
-            .to('#panel-strategy', { opacity: 0, duration: 0.2 }, 2.6)
-            .to('#panel-value',    { opacity: 1, duration: 0.2 }, 2.8)   // p=0.70
-            .to({}, { duration: 1.0 }); // total 4.0
+        function switchTab(idx) {
+            tabs.forEach((t, i) => t.classList.toggle('is-active', i === idx));
+            panels.forEach((p, i) => {
+                gsap.to(p, i === idx
+                    ? { opacity: 1, duration: 0.25, ease: 'power2.out' }
+                    : { opacity: 0, duration: 0.15 });
+            });
+        }
+
+        tabs.forEach((tab, i) => tab.addEventListener('click', () => switchTab(i)));
         return;
     }
 
