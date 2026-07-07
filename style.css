@@ -1517,13 +1517,15 @@ em { font-style: normal; }
     .gp-desc { font-size: 12px; line-height: 1.7; color: #fff; margin: 0; }
     .gp-address { font-size: 11px; line-height: 1.5; }
 
-    /* G-Planet — #gplanet 섹션이 100dvh flex 컨테이너, gp-info 포함 */
+    /* G-Planet — 내용 높이에 맞춤, 고정 nav 아래에서 시작 */
     #gplanet {
-        height: 100dvh;
+        height: auto;
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: flex-start;
         overflow: hidden;
+        padding-top: 60px;
+        padding-bottom: 24px;
     }
     .gp-hero {
         aspect-ratio: unset;
