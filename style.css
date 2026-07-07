@@ -1403,7 +1403,7 @@ em { font-style: normal; }
     }
 
     /* 섹션 헤더 폰트 통일: WHAT WE DO / OUR OPERATING STRENGTH / PARTNERS */
-    .pt-title { font-size: clamp(22px, 6vw, 32px); }
+    .pt-title { font-size: clamp(28px, 8vw, 40px); }
 
     /* 섹션 구분: OUR OPERATING STRENGTH 배경 살짝 다르게 */
     #partners {
