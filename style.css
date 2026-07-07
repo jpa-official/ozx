@@ -2263,7 +2263,8 @@ em { font-style: normal; }
 @media (min-width: 769px) {
 
     /* ── identity → MVVS 사이 간격 축소 ── */
-    .id-inner { padding-bottom: 20px; }
+    #identity { min-height: auto; }
+    .id-inner { padding: clamp(60px, 8vh, 100px) var(--pad-x) clamp(40px, 5vh, 60px); }
     .mvvs-bg  { padding-top: 40px; }
 
     /* ── WHAT WE DO ── */
