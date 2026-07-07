@@ -1,5 +1,5 @@
 /* ============================
-   OZX — style.css (v174)
+   OZX — style.css (v175)
    ============================ */
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -1394,7 +1394,7 @@ em { font-style: normal; }
 
     /* 섹션 구분: OUR OPERATING STRENGTH 배경 살짝 다르게 */
     #partners {
-        background: #111;
+        background: #000;
         border-top: 1px solid rgba(255,255,255,0.15);
         min-height: 100dvh;
         padding-bottom: 40px;
@@ -1553,67 +1553,70 @@ em { font-style: normal; }
     /* 지플래닛 설명글 상하 패딩 — 동일하게 */
     .gp-info { padding: 20px var(--pad-x); gap: 12px; }
 
-    /* GP Features — 모바일 세로 슬라이드 (GSAP 핀) */
+    /* GP Features — 모바일: 영상 위 / 텍스트 아래 슬라이드 */
     .gp-feat-video-wrap { display: none !important; }
     .gp-features {
-        display: block;
+        display: grid;          /* grid-area:1/1 스택용 */
         position: relative;
-        aspect-ratio: 16 / 9;
         height: auto;
+        aspect-ratio: unset;
         background: #000;
         overflow: hidden;
         border-top: none;
     }
     .gp-feature {
-        position: absolute;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        aspect-ratio: unset;
-        background: #000;
+        grid-area: 1 / 1;       /* 모든 카드 같은 셀에 쌓음 */
+        position: relative;
+        top: auto; left: auto;
+        width: 100%; height: auto;
         display: flex;
         flex-direction: column;
-        align-items: flex-start;
-        justify-content: flex-end;
-        gap: 8px;
-        padding: 16px var(--pad-x);
+        align-items: stretch;
+        justify-content: flex-start;
+        gap: 0;
+        padding: 0;
         border-bottom: none;
     }
-    /* 2,3번째 feature 초기 위치 — GSAP 실행 전 겹침 방지 */
+    /* 2,3번째 카드 초기 위치 */
     .gp-feature:nth-child(2),
     .gp-feature:nth-child(3) {
         transform: translateX(100%);
         will-change: transform;
         overflow: hidden;
     }
-    .gp-feat-heading { font-size: clamp(32px, 9vw, 56px) !important; }
-    .gp-feat-desc { text-align: left; font-size: 12px !important; }
-
-    /* ── 배경 영상 — 모바일 feature 카드 전체화면 채움 ── */
+    /* 영상: 정적 흐름으로 16:9 */
     .gp-feat-bg-video {
         display: block;
-        position: absolute;
-        inset: 0;
+        position: static;
+        inset: auto;
         width: 100%;
-        height: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;
         object-fit: cover;
         object-position: center center;
-        z-index: 0;
+        z-index: auto;
+        flex-shrink: 0;
     }
-    .gp-feat-bg-overlay {
-        display: block;
-        position: absolute;
-        inset: 0;
-        background: rgba(0,0,0,0.45);
-        z-index: 1;
-    }
+    /* 오버레이 불필요 — 텍스트가 영상 아래로 분리됨 */
+    .gp-feat-bg-overlay { display: none; }
+    /* 텍스트 영역 — 영상 아래 검은 배경 */
     .gp-feature .gp-feat-left {
-        position: relative; z-index: 2;
+        position: static;
         flex: unset; min-width: unset;
+        padding: 14px var(--pad-x) 4px;
+        background: #000;
+        z-index: auto;
     }
     .gp-feature .gp-feat-desc {
-        position: relative; z-index: 2;
-        text-align: left; flex-shrink: unset; padding-top: 0;
+        position: static;
+        flex-shrink: unset; padding-top: 0;
+        text-align: left;
+        padding: 0 var(--pad-x) 20px;
+        background: #000;
+        z-index: auto;
     }
+    .gp-feat-heading { font-size: clamp(24px, 7vw, 40px) !important; }
+    .gp-feat-desc { font-size: 12px !important; }
 
     /* ── PARTNERS 모바일 탭 슬라이더 ── */
     .pt-mobile-tabs {
