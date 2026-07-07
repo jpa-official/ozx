@@ -1,5 +1,5 @@
 /* ============================
-   OZX — style.css (v177)
+   OZX — style.css (v178)
    ============================ */
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -2190,6 +2190,7 @@ em { font-style: normal; }
         will-change: opacity, transform;
     }
     .sr-02, .sr-03 { transform: none; }
+    .nowrap-pc { white-space: nowrap; }
 
     /* ── OUR OPERATING STRENGTH ── */
     .pill-grid {
