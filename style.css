@@ -1493,7 +1493,7 @@ em { font-style: normal; }
     }
 
     /* WHAT WE DO 가로 슬라이더 */
-    #space { min-height: 0; padding: 140px var(--pad-x) 120px; }
+    #space { min-height: 0; padding: 80px var(--pad-x) 100px; }
     .service-stack {
         display: grid;
         grid-template-rows: auto;
@@ -1561,6 +1561,10 @@ em { font-style: normal; }
     .strength-lead p { margin-bottom: 4px; }
 
     .sr-body, .pill-body { font-size: 12px; }
+    /* Partners 폰트 — What We Do와 동일 사이즈 */
+    .pt-card-cat { font-size: clamp(22px, 6vw, 32px); }
+    .pt-card-tagline { font-size: 13px; }
+    .pt-card-body { font-size: 12px; }
     .gp-desc { font-size: 12px; line-height: 1.7; color: #fff; margin: 0; }
     .gp-address { font-size: 11px; line-height: 1.5; }
 
