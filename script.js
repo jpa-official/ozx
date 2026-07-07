@@ -264,10 +264,8 @@ const idObs = new IntersectionObserver(entries => {
     const block = qs('#id-title-block');
     if (block) block.classList.add('in');
 
-    setTimeout(() => {
-        const desc = qs('#id-desc');
-        if (desc) desc.classList.add('in');
-    }, 500);
+    const desc = qs('#id-desc');
+    if (desc) desc.classList.add('in');
 
     idObs.disconnect();
 }, { threshold: 0.2 });
