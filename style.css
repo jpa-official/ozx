@@ -1290,14 +1290,14 @@ em { font-style: normal; }
     /* identity 섹션: 수직 중앙 정렬 */
     #identity {
         display: flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 100dvh;
+        align-items: flex-start;
+        justify-content: flex-start;
+        min-height: 0;
     }
     .id-inner {
-        padding: 52px var(--pad-x);
+        padding: 80px var(--pad-x) 80px;
         min-height: 0;
-        justify-content: center;
+        justify-content: flex-start;
     }
     .id-title-block {
         margin-bottom: 20px;
