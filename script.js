@@ -1,5 +1,5 @@
 ﻿/* ============================
-   OZX — script.js (v9)
+   OZX — script.js (v10)
    ============================ */
 
 gsap.registerPlugin(ScrollTrigger);
@@ -877,7 +877,7 @@ function addMobileSnap(tl, total, step, onSnap) {
 
 /* ============================
    GP FEATURES — 모바일 가로 슬라이드
-   scrub 없이 snap → 카드 즉시 전환 (두 카드 동시 노출 없음)
+   진입 관성이 카드를 건너뛰지 않도록 entryLock 추가
    ============================ */
 (function initFeatSlider() {
     if (window.innerWidth >= 768) return;
@@ -887,6 +887,10 @@ function addMobileSnap(tl, total, step, onSnap) {
         const n = features.length;
         let currentIdx = 0;
         let animating = false;
+        let entryLock = false;
+        let entryTimer = null;
+
+        const snapPoints = Array.from({ length: n }, (_, i) => i / (n - 1));
 
         features.forEach((f, i) => gsap.set(f, { x: i === 0 ? '0%' : '100%' }));
 
@@ -899,6 +903,13 @@ function addMobileSnap(tl, total, step, onSnap) {
             });
         }
         syncVideos(0);
+
+        function resetCards() {
+            features.forEach((f, i) => gsap.set(f, { x: i === 0 ? '0%' : '100%' }));
+            currentIdx = 0;
+            animating = false;
+            syncVideos(0);
+        }
 
         function goTo(newIdx) {
             if (newIdx === currentIdx || animating) return;
@@ -923,11 +934,25 @@ function addMobileSnap(tl, total, step, onSnap) {
             pinSpacing: true,
             anticipatePin: 1,
             snap: {
-                snapTo: Array.from({ length: n }, (_, i) => i / (n - 1)),
+                /* 진입 잠금 중에는 반드시 0으로 되돌림 */
+                snapTo: v => entryLock ? 0 : snapPoints.reduce((a, b) => Math.abs(b - v) < Math.abs(a - v) ? b : a),
                 duration: { min: 0.25, max: 0.4 },
                 ease: 'power1.inOut'
             },
+            onEnter: () => {
+                resetCards();
+                entryLock = true;
+                clearTimeout(entryTimer);
+                /* snap 최대 duration(400ms) 이후 잠금 해제 */
+                entryTimer = setTimeout(() => { entryLock = false; }, 500);
+            },
+            onLeaveBack: () => {
+                resetCards();
+                entryLock = false;
+                clearTimeout(entryTimer);
+            },
             onUpdate: self => {
+                if (entryLock) return;
                 const newIdx = clamp(Math.round(self.progress * (n - 1)), 0, n - 1);
                 goTo(newIdx);
             }
