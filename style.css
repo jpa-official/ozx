@@ -1373,7 +1373,7 @@ em { font-style: normal; }
     #mvvs { min-height: 0; }
     .mvvs-bg {
         position: relative;
-        padding: 80px var(--pad-x);
+        padding: 60px var(--pad-x) 40px;
         align-items: center;
         justify-content: center;
     }
@@ -1443,6 +1443,7 @@ em { font-style: normal; }
     #hero { height: 100dvh; }
 
     /* FLOOR PLAN — 도면과 설명 간격 */
+    #fp-slider { height: auto; }
     .fp-slide {
         display: flex;
         flex-direction: column;
