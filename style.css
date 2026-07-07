@@ -1405,8 +1405,8 @@ em { font-style: normal; }
 
     /* 섹션 구분: OUR OPERATING STRENGTH 배경 살짝 다르게 */
     #partners {
-        background: #000;
-        border-top: 1px solid rgba(255,255,255,0.15);
+        background: #161616;
+        border-top: 2px solid rgba(255,255,255,0.18);
         min-height: 0;
         padding: 110px var(--pad-x) 90px;
     }
