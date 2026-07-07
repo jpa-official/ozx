@@ -1,5 +1,5 @@
 /* ============================
-   OZX — style.css (v165)
+   OZX — style.css (v166)
    ============================ */
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -1540,7 +1540,8 @@ em { font-style: normal; }
     .gp-features {
         display: block;
         position: relative;
-        height: 100dvh;
+        aspect-ratio: 16 / 9;
+        height: auto;
         background: #000;
         overflow: hidden;
         border-top: none;
