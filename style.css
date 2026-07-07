@@ -1,5 +1,5 @@
 /* ============================
-   OZX — style.css (v176)
+   OZX — style.css (v177)
    ============================ */
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -2175,9 +2175,9 @@ em { font-style: normal; }
         display: grid;
         grid-template-rows: auto;
         overflow: visible;
-        max-width: none;
-        margin: 0;
-        width: auto;
+        max-width: 860px;
+        margin: 0 auto;
+        width: 100%;
         border-bottom: 1px solid rgba(255,255,255,0.07);
     }
     .service-row {
