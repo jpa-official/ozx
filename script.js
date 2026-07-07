@@ -900,88 +900,46 @@ function addMobileSnap(tl, total, step, onSnap) {
     if (window.innerWidth >= 768) return;
     const features = qsa('.gp-feature[data-feat-video]');
     if (features.length < 2) return;
-    setTimeout(() => {
-        const n = features.length;
-        let currentIdx = 0;
-        let animating = false;
-        let entryLock = false;
-        let entryTimer = null;
 
-        const snapPoints = Array.from({ length: n }, (_, i) => i / (n - 1));
+    const n = features.length;
+    let currentIdx = 0;
+    let animating = false;
 
-        features.forEach((f, i) => gsap.set(f, { x: i === 0 ? '0%' : '100%' }));
+    features.forEach((f, i) => gsap.set(f, { x: i === 0 ? '0%' : '100%' }));
 
-        function syncVideos(idx) {
-            features.forEach((f, i) => {
-                const v = f.querySelector('video');
-                if (!v) return;
-                if (i === idx) { v.muted = true; v.play().catch(() => {}); }
-                else { v.pause(); }
-            });
-        }
-        syncVideos(0);
-
-        function resetCards() {
-            features.forEach((f, i) => gsap.set(f, { x: i === 0 ? '0%' : '100%' }));
-            currentIdx = 0;
-            animating = false;
-            syncVideos(0);
-        }
-
-        function goTo(newIdx) {
-            if (newIdx === currentIdx || animating) return;
-            animating = true;
-            const prev = currentIdx;
-            currentIdx = newIdx;
-            syncVideos(newIdx);
-            const dir = newIdx > prev ? 1 : -1;
-            gsap.to(features[prev], { x: (dir * -100) + '%', duration: 0.3, ease: 'power2.inOut' });
-            gsap.fromTo(features[newIdx],
-                { x: (dir * 100) + '%' },
-                { x: '0%', duration: 0.3, ease: 'power2.inOut',
-                  onComplete: () => { animating = false; } }
-            );
-        }
-
-        ScrollTrigger.create({
-            trigger: '.gp-features',
-            start: 'center center',
-            end: '+=' + (window.innerHeight * n),
-            pin: true,
-            pinSpacing: true,
-            anticipatePin: 1,
-            snap: {
-                /* 한 번의 스크롤 = 한 칸만 이동. 마지막 카드는 0.95로 고정(1.0=핀해제 방지) */
-                snapTo: v => {
-                    if (entryLock) return 0.02;
-                    const step = 1 / (n - 1);
-                    const cur = currentIdx / (n - 1);
-                    if (currentIdx < n - 1 && v > cur + step * 0.3) {
-                        goTo(currentIdx + 1);
-                        return currentIdx === n - 1 ? 0.95 : currentIdx / (n - 1);
-                    }
-                    if (currentIdx > 0 && v < cur - step * 0.3) {
-                        goTo(currentIdx - 1);
-                        return currentIdx / (n - 1);
-                    }
-                    return currentIdx === n - 1 ? 0.95 : cur;
-                },
-                duration: { min: 0.25, max: 0.4 },
-                ease: 'power1.inOut'
-            },
-            onEnter: () => {
-                resetCards();
-                entryLock = true;
-                clearTimeout(entryTimer);
-                entryTimer = setTimeout(() => { entryLock = false; }, 500);
-            },
-            onLeaveBack: () => {
-                resetCards();
-                entryLock = false;
-                clearTimeout(entryTimer);
-            }
+    function syncVideos(idx) {
+        features.forEach((f, i) => {
+            const v = f.querySelector('video');
+            if (!v) return;
+            if (i === idx) { v.muted = true; v.play().catch(() => {}); }
+            else { v.pause(); }
         });
-    }, 0);
+    }
+    syncVideos(0);
+
+    const dots = qsa('.gp-feat-dot');
+    function updateDots() {
+        dots.forEach((d, i) => d.classList.toggle('is-active', i === currentIdx));
+    }
+
+    function goTo(newIdx, dir) {
+        if (newIdx === currentIdx || animating) return;
+        animating = true;
+        const prev = currentIdx;
+        currentIdx = newIdx;
+        syncVideos(newIdx);
+        gsap.to(features[prev], { x: (dir * -100) + '%', duration: 0.35, ease: 'power2.inOut' });
+        gsap.fromTo(features[newIdx],
+            { x: (dir * 100) + '%' },
+            { x: '0%', duration: 0.35, ease: 'power2.inOut',
+              onComplete: () => { animating = false; updateDots(); } }
+        );
+    }
+
+    const prevBtn = qs('.gp-feat-prev');
+    const nextBtn = qs('.gp-feat-next');
+    if (prevBtn) prevBtn.addEventListener('click', () => goTo((currentIdx - 1 + n) % n, -1));
+    if (nextBtn) nextBtn.addEventListener('click', () => goTo((currentIdx + 1) % n, 1));
 })();
 
 /* ============================

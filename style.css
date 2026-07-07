@@ -981,6 +981,8 @@ em { font-style: normal; }
 
 .gp-feature[data-feat-video] { cursor: pointer; }
 
+.gp-feat-nav { display: none; } /* 모바일에서만 표시 */
+
 /* PC 전용: bg-video 숨김 */
 @media (min-width: 769px) {
     .gp-feat-bg-video  { display: none; }
@@ -1627,6 +1629,35 @@ em { font-style: normal; }
     }
     .gp-feat-heading { font-size: clamp(24px, 7vw, 40px) !important; }
     .gp-feat-desc { font-size: 12px !important; }
+
+    /* 화살표 네비게이션 */
+    .gp-feat-nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px var(--pad-x);
+        background: #000;
+    }
+    .gp-feat-prev, .gp-feat-next {
+        background: none;
+        border: 1px solid rgba(255,255,255,0.35);
+        border-radius: 50%;
+        color: #fff;
+        width: 38px; height: 38px;
+        display: flex; align-items: center; justify-content: center;
+        cursor: pointer;
+        font-size: 17px;
+        flex-shrink: 0;
+        -webkit-tap-highlight-color: transparent;
+    }
+    .gp-feat-dots { display: flex; gap: 8px; align-items: center; }
+    .gp-feat-dot {
+        width: 6px; height: 6px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.3);
+        transition: background 0.2s;
+    }
+    .gp-feat-dot.is-active { background: #fff; }
 
     /* ── PARTNERS 모바일 탭 슬라이더 ── */
     .pt-mobile-tabs {
