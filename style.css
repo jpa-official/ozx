@@ -1407,8 +1407,8 @@ em { font-style: normal; }
     #partners {
         background: #000;
         border-top: 1px solid rgba(255,255,255,0.15);
-        min-height: 100dvh;
-        padding-bottom: 40px;
+        min-height: 0;
+        padding: 52px var(--pad-x) 40px;
     }
     .news-placeholder { min-height: 0; padding: 12px 0; }
 
@@ -1490,7 +1490,7 @@ em { font-style: normal; }
     }
 
     /* WHAT WE DO 가로 슬라이더 */
-    #space { min-height: 100vh; }
+    #space { min-height: 0; padding: 52px var(--pad-x) 40px; }
     .service-stack {
         display: grid;
         grid-template-rows: auto;
