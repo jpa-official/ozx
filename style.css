@@ -2262,6 +2262,10 @@ em { font-style: normal; }
    ============================ */
 @media (min-width: 769px) {
 
+    /* ── identity 섹션 높이 콘텐츠에 맞춤 ── */
+    #identity { min-height: 0; }
+    .id-inner { padding: clamp(80px, 10vh, 120px) var(--pad-x); }
+
     /* ── MVVS 상단 패딩 축소 ── */
     .mvvs-bg { padding-top: 40px; }
 
