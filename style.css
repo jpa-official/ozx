@@ -1607,7 +1607,7 @@ em { font-style: normal; }
         gap: 6px;
         justify-content: flex-start;
     }
-    .gp-title { font-size: clamp(32px, 9vw, 56px); }
+    .gp-title { font-size: clamp(52px, 14vw, 80px); }
 
     /* 모바일: BGM 버튼 숨김 */
     .gp-bgm-btn { display: none !important; }
