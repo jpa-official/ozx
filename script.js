@@ -1,5 +1,5 @@
 ﻿/* ============================
-   OZX — script.js (v5)
+   OZX — script.js (v6)
    ============================ */
 
 gsap.registerPlugin(ScrollTrigger);
@@ -871,6 +871,7 @@ function addMobileSnap(tl, total, step, onSnap) {
 
 /* ============================
    GP FEATURES — 모바일 가로 슬라이드
+   각 카드에서 멈춘 후 스크롤 시 다음 카드로 이동 (GSAP 내장 snap 사용)
    ============================ */
 (function initFeatSlider() {
     if (window.innerWidth >= 768) return;
@@ -878,6 +879,8 @@ function addMobileSnap(tl, total, step, onSnap) {
     if (features.length < 2) return;
     setTimeout(() => {
         features.forEach((f, i) => gsap.set(f, { x: i === 0 ? '0%' : '100%' }));
+
+        const n = features.length;
 
         function syncVideos(idx) {
             features.forEach((f, i) => {
@@ -889,32 +892,32 @@ function addMobileSnap(tl, total, step, onSnap) {
         }
         syncVideos(0);
 
-        const n = features.length;
-        const snapStep = 1 / n;
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: '.gp-features',
                 start: 'center center',
-                end: '+=' + (window.innerHeight * n),
-                scrub: 1,
+                end: '+=' + (window.innerHeight * (n - 1)),
+                scrub: 0.5,
                 pin: true,
                 pinSpacing: true,
                 anticipatePin: 1,
+                snap: {
+                    snapTo: Array.from({ length: n }, (_, i) => i / (n - 1)),
+                    duration: { min: 0.2, max: 0.4 },
+                    ease: 'power1.inOut'
+                },
+                onUpdate: self => {
+                    syncVideos(clamp(Math.round(self.progress * (n - 1)), 0, n - 1));
+                }
             }
         });
 
         tl.to(features[0], { x: '-100%', ease: 'none', duration: 1 }, 0)
-          .to(features[1], { x: '0%',    ease: 'none', duration: 1,
-              onStart: () => syncVideos(1) }, 0);
+          .to(features[1], { x: '0%',    ease: 'none', duration: 1 }, 0);
         if (features[2]) {
             tl.to(features[1], { x: '-100%', ease: 'none', duration: 1 }, 1)
-              .to(features[2], { x: '0%',    ease: 'none', duration: 1,
-                  onStart: () => syncVideos(2) }, 1);
+              .to(features[2], { x: '0%',    ease: 'none', duration: 1 }, 1);
         }
-        tl.to({}, { duration: 1 });
-
-        /* 수직 스크롤만 인식 — addSwipe 제외 */
-        addMobileSnap(tl, n + 1, snapStep, idx => { if (idx < n) syncVideos(idx); });
     }, 0);
 })();
 
