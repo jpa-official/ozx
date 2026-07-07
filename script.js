@@ -1138,6 +1138,11 @@ setTimeout(() => {
             bgm.currentTime = LOOP_START;
         }
     });
+    /* 오디오가 자연 종료될 경우 루프 보장 */
+    bgm.addEventListener('ended', () => {
+        bgm.currentTime = LOOP_START;
+        if (!userMuted) bgm.play().catch(() => {});
+    });
 
     function updateBtn() {
         if (!bgmBtn) return;
