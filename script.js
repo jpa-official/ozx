@@ -1,5 +1,5 @@
 ﻿/* ============================
-   OZX — script.js (v10)
+   OZX — script.js (v11)
    ============================ */
 
 gsap.registerPlugin(ScrollTrigger);
@@ -806,7 +806,12 @@ qsa('.mobile-nav-a').forEach(a => {
    G-PLANET HERO — 모바일 핀
    ============================ */
 (function initGplanetMobilePin() {
-    if (window.innerWidth >= 768) return;
+    /* PC: 원본 영상(0 G-PLANET.mp4) 복원 — 모바일 전환 시 gwanghwa169.mp4로 이미 설정됨 */
+    if (window.innerWidth >= 768) {
+        const src = qs('source', qs('.gp-video'));
+        if (src) { src.src = '0 G-PLANET.mp4'; qs('.gp-video').load(); }
+        return;
+    }
 
     /* 모바일: gp-info를 #gplanet 안으로 이동 → 히어로 핀 구간에서 함께 표시 */
     const gpInfo = qs('.gp-info');
