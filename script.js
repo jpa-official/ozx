@@ -805,18 +805,7 @@ qsa('.mobile-nav-a').forEach(a => {
 /* ============================
    G-PLANET HERO — 모바일 핀
    ============================ */
-(function initGplanetMobilePin() {
-    if (window.innerWidth >= 768) return;
-    setTimeout(() => {
-        ScrollTrigger.create({
-            trigger: '#gplanet',
-            start: 'top top',
-            end: '+=400',
-            pin: true,
-            pinSpacing: true,
-        });
-    }, 0);
-})();
+/* gp-hero 16:9 레이아웃으로 변경 후 모바일 핀 불필요 — 제거 */
 
 /* 스와이프 → lenis 스냅 이동 헬퍼 (수평·수직 모두 감지)
    window 레벨에서 감지 후 st.isActive 로 해당 섹션 활성 여부 확인 */
