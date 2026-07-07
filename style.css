@@ -1774,7 +1774,11 @@ em { font-style: normal; }
     .pt-pinned-head { display: none !important; }
 
     /* 카드: 트랙 가로 슬라이드 */
-    #pt-section { overflow-x: hidden; }
+    #pt-section {
+        overflow-x: hidden;
+        background: #1a1a1a;
+        border-top: 2px solid rgba(255,255,255,0.2);
+    }
     .pt-cards {
         display: flex !important;
         flex-direction: row !important;
