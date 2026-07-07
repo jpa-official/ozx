@@ -1,5 +1,5 @@
 /* ============================
-   OZX — style.css (v168)
+   OZX — style.css (v169)
    ============================ */
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -1397,7 +1397,9 @@ em { font-style: normal; }
         background: #111;
         border-top: 1px solid rgba(255,255,255,0.15);
         min-height: 100vh;
+        padding-bottom: 20px;
     }
+    .news-placeholder { min-height: 0; padding: 12px 0; }
 
     /* OUR OPERATING STRENGTH 가로 슬라이더 */
     .pill-grid {
