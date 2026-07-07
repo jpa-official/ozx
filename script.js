@@ -1,5 +1,5 @@
 ﻿/* ============================
-   OZX — script.js (v8)
+   OZX — script.js (v9)
    ============================ */
 
 gsap.registerPlugin(ScrollTrigger);
@@ -807,6 +807,12 @@ qsa('.mobile-nav-a').forEach(a => {
    ============================ */
 (function initGplanetMobilePin() {
     if (window.innerWidth >= 768) return;
+
+    /* 모바일: gp-info를 #gplanet 안으로 이동 → 히어로 핀 구간에서 함께 표시 */
+    const gpInfo = qs('.gp-info');
+    const gplanet = qs('#gplanet');
+    if (gpInfo && gplanet) gplanet.appendChild(gpInfo);
+
     setTimeout(() => {
         ScrollTrigger.create({
             trigger: '#gplanet',

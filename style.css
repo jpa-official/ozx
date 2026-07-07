@@ -1,5 +1,5 @@
 /* ============================
-   OZX — style.css (v178)
+   OZX — style.css (v179)
    ============================ */
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -1517,16 +1517,24 @@ em { font-style: normal; }
     .gp-desc { font-size: 12px; line-height: 1.7; color: #fff; margin: 0; }
     .gp-address { font-size: 11px; line-height: 1.5; }
 
-    /* G-Planet 히어로 — 100dvh 핀 컨테이너, 영상 위·타이틀 아래 */
-    .gp-hero {
-        aspect-ratio: unset;
-        min-height: unset;
+    /* G-Planet — #gplanet 섹션이 100dvh flex 컨테이너, gp-info 포함 */
+    #gplanet {
         height: 100dvh;
-        overflow: hidden;
-        background: #000;
         display: flex;
         flex-direction: column;
         justify-content: center;
+        overflow: hidden;
+    }
+    .gp-hero {
+        aspect-ratio: unset;
+        min-height: unset;
+        height: auto;
+        overflow: visible;
+        background: transparent;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        flex-shrink: 0;
     }
     .gp-video {
         position: static;
@@ -2217,6 +2225,7 @@ em { font-style: normal; }
     }
 
     /* ── G-PLANET HERO (PC 레이아웃 유지) ── */
+    #gplanet { height: auto; display: block; overflow: visible; }
     .gp-hero { display: block; overflow: hidden; flex-direction: row; }
     .gp-video { position: absolute; inset: 0; width: 100%; height: 100%; aspect-ratio: unset; }
     .gp-overlay { display: block; }
