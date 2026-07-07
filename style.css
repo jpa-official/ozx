@@ -1690,6 +1690,27 @@ em { font-style: normal; }
         border-color: #fff;
     }
 
+    /* 화살표 네비게이션 */
+    .pt-arrow-nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px var(--pad-x);
+        background: #000;
+    }
+    .pt-prev, .pt-next {
+        background: none;
+        border: 1px solid rgba(255,255,255,0.35);
+        border-radius: 50%;
+        color: #fff;
+        width: 38px; height: 38px;
+        display: flex; align-items: center; justify-content: center;
+        cursor: pointer;
+        font-size: 17px;
+        flex-shrink: 0;
+        -webkit-tap-highlight-color: transparent;
+    }
+
     .pt-pinned-head { display: none !important; }
 
     /* 카드: 트랙 가로 슬라이드 */
@@ -1789,9 +1810,10 @@ em { font-style: normal; }
     color: #fff;
 }
 
-/* 데스크탑: pt-head, pt-mobile-tabs 숨기고 pt-pinned-head 사용 */
+/* 데스크탑: pt-head, pt-mobile-tabs, pt-arrow-nav 숨기고 pt-pinned-head 사용 */
 .pt-head { display: none; }
 .pt-mobile-tabs { display: none; }
+.pt-arrow-nav { display: none; }
 
 /* 슬라이더 내부 고정 헤더 — 카드 위에 절대 배치, 카드 전환 동안 유지 */
 .pt-pinned-head {

@@ -1235,56 +1235,34 @@ setTimeout(() => {
     const cards = Array.from(qsa('.pt-card', track));
     const total = cards.length; // 3
 
-    /* ── 모바일: 수직 스크롤로 카드 전환 (WHAT WE DO 와 동일 패턴) ── */
+    /* ── 모바일: 화살표/탭 클릭으로 카드 전환 ── */
     if (window.innerWidth < 768) {
         const mtabs = qsa('.pt-mtab');
         const vw = window.innerWidth;
+        let currentIdx = 0;
+        let animating = false;
 
-        function activateTab(i) {
-            mtabs.forEach((t, j) => t.classList.toggle('is-active', j === i));
-            cards.forEach((c, j) => c.classList.toggle('is-active', j === i));
-        }
-        activateTab(0);
+        gsap.set(track, { x: 0 });
 
-        const marqueeWrap = qs('.pt-marquee-wrap');
-        setTimeout(() => {
-            gsap.set(track, { x: 0 });
-
-            const tlPt = gsap.timeline({
-                scrollTrigger: {
-                    trigger: '#pt-section',
-                    start: 'top top',
-                    end: '+=' + (window.innerHeight * 2),
-                    scrub: 1,
-                    pin: true,
-                    pinSpacing: true,
-                    anticipatePin: 1,
-                    onUpdate(self) {
-                        const idx = Math.min(total - 1, Math.floor(self.progress * total));
-                        activateTab(idx);
-                    },
-                    onEnter()      { if (marqueeWrap) marqueeWrap.classList.add('hidden'); },
-                    onLeave()      { if (marqueeWrap) marqueeWrap.classList.remove('hidden'); },
-                    onEnterBack()  { if (marqueeWrap) marqueeWrap.classList.add('hidden'); },
-                    onLeaveBack()  { if (marqueeWrap) marqueeWrap.classList.remove('hidden'); },
-                }
-            })
-            .to(track, { x: -vw,      ease: 'power2.inOut', duration: 0.4 }, 0.3)
-            .to(track, { x: -2 * vw, ease: 'power2.inOut', duration: 0.4 }, 1.3)
-            .to({}, { duration: 0.3 });
-
-            addMobileSnap(tlPt, total, undefined, activateTab);
-
-            /* 탭 버튼 클릭 → 해당 카드로 스크롤 이동 */
-            const step = 1 / (total - 1);
-            mtabs.forEach((tab, i) => {
-                tab.addEventListener('click', () => {
-                    const st = tlPt.scrollTrigger;
-                    if (!st) return;
-                    lenis.scrollTo(st.start + i * step * (st.end - st.start), { duration: 0.6, force: true });
-                });
+        function goTo(idx) {
+            const newIdx = (idx + total) % total;
+            if (newIdx === currentIdx || animating) return;
+            animating = true;
+            currentIdx = newIdx;
+            mtabs.forEach((t, j) => t.classList.toggle('is-active', j === currentIdx));
+            gsap.to(track, {
+                x: -currentIdx * vw,
+                duration: 0.35,
+                ease: 'power2.inOut',
+                onComplete: () => { animating = false; }
             });
-        }, 0);
+        }
+
+        const prevBtn = qs('.pt-prev');
+        const nextBtn = qs('.pt-next');
+        if (prevBtn) prevBtn.addEventListener('click', () => goTo(currentIdx - 1));
+        if (nextBtn) nextBtn.addEventListener('click', () => goTo(currentIdx + 1));
+        mtabs.forEach((tab, i) => tab.addEventListener('click', () => goTo(i)));
         return;
     }
 
