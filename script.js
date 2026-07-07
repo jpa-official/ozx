@@ -1,5 +1,5 @@
 ﻿/* ============================
-   OZX — script.js (v7)
+   OZX — script.js (v8)
    ============================ */
 
 gsap.registerPlugin(ScrollTrigger);
@@ -1361,7 +1361,7 @@ setTimeout(() => {
         ScrollTrigger.create({
             trigger: '.pt-slider-wrap',
             start: 'top top',
-            end: `+=${total * 1000}`,
+            end: `+=${total * 400}`,
             pin: true,
             pinSpacing: true,
             anticipatePin: 1,
