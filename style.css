@@ -1704,9 +1704,10 @@ em { font-style: normal; }
     /* ── PARTNERS 모바일 탭 슬라이더 ── */
     .pt-mobile-tabs {
         display: flex !important;
+        justify-content: center;
         overflow-x: auto;
-        gap: 8px;
-        padding: 4px var(--pad-x);
+        gap: 10px;
+        padding: 8px var(--pad-x);
         scrollbar-width: none;
         background: #000;
     }
@@ -1714,13 +1715,13 @@ em { font-style: normal; }
 
     .pt-mtab {
         flex-shrink: 0;
-        padding: 3px 14px;
+        padding: 7px 22px;
         border-radius: 999px;
         border: 1px solid rgba(255,255,255,0.25);
         background: transparent;
         color: rgba(255,255,255,0.45);
         font-family: var(--f-narrow);
-        font-size: 13px;
+        font-size: 15px;
         font-weight: 500;
         letter-spacing: 0.07em;
         cursor: pointer;
