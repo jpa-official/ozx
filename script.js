@@ -946,25 +946,25 @@ function addMobileSnap(tl, total, step, onSnap) {
         ScrollTrigger.create({
             trigger: '.gp-features',
             start: 'center center',
-            end: '+=' + (window.innerHeight * (n - 1)),
+            end: '+=' + (window.innerHeight * n),
             pin: true,
             pinSpacing: true,
             anticipatePin: 1,
             snap: {
-                /* 한 번의 스크롤 = 한 칸만 이동 (onUpdate 제거, snap 단독 제어) */
+                /* 한 번의 스크롤 = 한 칸만 이동. 마지막 카드는 0.95로 고정(1.0=핀해제 방지) */
                 snapTo: v => {
-                    if (entryLock) return 0;
+                    if (entryLock) return 0.02;
                     const step = 1 / (n - 1);
                     const cur = currentIdx / (n - 1);
                     if (currentIdx < n - 1 && v > cur + step * 0.3) {
                         goTo(currentIdx + 1);
-                        return currentIdx / (n - 1);
+                        return currentIdx === n - 1 ? 0.95 : currentIdx / (n - 1);
                     }
                     if (currentIdx > 0 && v < cur - step * 0.3) {
                         goTo(currentIdx - 1);
                         return currentIdx / (n - 1);
                     }
-                    return currentIdx === n - 1 ? 1 : cur;
+                    return currentIdx === n - 1 ? 0.95 : cur;
                 },
                 duration: { min: 0.25, max: 0.4 },
                 ease: 'power1.inOut'
@@ -1416,28 +1416,30 @@ setTimeout(() => {
         ScrollTrigger.create({
             trigger: '.pt-slider-wrap',
             start: 'top top',
-            end: `+=${total * 400}`,
+            end: `+=${total * 1200}`,
             pin: true,
             pinSpacing: true,
             anticipatePin: 1,
             snap: {
-                /* 한 번의 스크롤 = 한 칸만 이동 */
+                /* 한 번의 스크롤 = 한 칸만 이동. 마지막 카드는 0.95(1.0=핀해제 방지) */
                 snapTo: v => {
                     const step = 1 / (total - 1);
                     const cur = currentIdx / (total - 1);
                     if (currentIdx < total - 1 && v > cur + step * 0.25) {
                         goTo(currentIdx + 1);
-                        return currentIdx / (total - 1);
+                        return currentIdx === total - 1 ? 0.95 : currentIdx / (total - 1);
                     }
                     if (currentIdx > 0 && v < cur - step * 0.25) {
                         goTo(currentIdx - 1);
                         return currentIdx / (total - 1);
                     }
-                    return currentIdx === total - 1 ? 1 : cur;
+                    return currentIdx === total - 1 ? 0.95 : cur;
                 },
                 duration: { min: 0.2, max: 0.5 },
                 ease: 'power2.inOut',
             },
+            onEnter:     () => { currentIdx = 0; goTo(0); },
+            onLeaveBack: () => { currentIdx = 0; goTo(0); },
         });
 
         /* Contact 핀 — 모든 핀 spacer가 DOM에 추가된 뒤 마지막에 생성해야
