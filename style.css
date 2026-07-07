@@ -1606,7 +1606,7 @@ em { font-style: normal; }
     /* 모바일: BGM 버튼 숨김 */
     .gp-bgm-btn { display: none !important; }
     /* 지플래닛 설명글 상하 패딩 — 동일하게 */
-    .gp-info { padding: 20px var(--pad-x); gap: 12px; }
+    .gp-info { padding: 20px var(--pad-x) 64px; gap: 12px; }
 
     /* GP Features — 모바일: 영상 위 / 텍스트 아래 슬라이드 */
     .gp-feat-video-wrap { display: none !important; }
