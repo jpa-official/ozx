@@ -1,5 +1,5 @@
 /* ============================
-   OZX — style.css (v169)
+   OZX — style.css (v170)
    ============================ */
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -1517,49 +1517,68 @@ em { font-style: normal; }
     .gp-desc { font-size: 12px; line-height: 1.7; color: #fff; }
     .gp-address { font-size: 11px; line-height: 1.5; }
 
-    /* G-Planet 히어로 — 가로(16:9) 컨테이너로 고정, 영상 비율 유지 */
+    /* G-Planet 히어로 — 영상 위, 타이틀/주소 아래 배치 */
     .gp-hero {
-        aspect-ratio: 16 / 9;
+        aspect-ratio: unset;
         min-height: unset;
         height: auto;
+        overflow: visible;
         background: #000;
-    }
-    .gp-hero-inner {
-        padding-bottom: 24px;
+        display: flex;
+        flex-direction: column;
     }
     .gp-video {
-        display: block;
+        position: static;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;
         object-fit: cover;
         object-position: center center;
+        flex-shrink: 0;
     }
-    .gp-title { font-size: clamp(48px, 14vw, 80px); }
+    .gp-overlay { display: none; }
+    .gp-hero-inner {
+        position: static;
+        background: #000;
+        padding: 14px var(--pad-x) 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        justify-content: flex-start;
+    }
+    .gp-title { font-size: clamp(32px, 9vw, 56px); }
 
     /* 모바일: BGM 버튼 숨김 */
     .gp-bgm-btn { display: none !important; }
-    .gp-info { padding: 12px var(--pad-x); gap: 8px; }
+    /* 지플래닛 설명글 상하 패딩 */
+    .gp-info { padding: 28px var(--pad-x); gap: 12px; }
 
     /* GP Features — 모바일 세로 슬라이드 (GSAP 핀) */
     .gp-feat-video-wrap { display: none !important; }
     .gp-features {
         display: block;
         position: relative;
-        aspect-ratio: 16 / 9;
-        height: auto;
+        height: 100dvh;
+        aspect-ratio: unset;
         background: #000;
         overflow: hidden;
         border-top: none;
     }
+    /* 16:9 영상 박스를 화면 중앙에 배치: top = 50dvh - (100vw * 9/16 / 2) */
     .gp-feature {
         position: absolute;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
+        top: calc(50dvh - 28.125vw);
+        left: 0;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        height: auto;
         background: #000;
         display: flex;
         flex-direction: column;
         align-items: flex-start;
         justify-content: flex-end;
         gap: 8px;
-        padding: 32px var(--pad-x);
+        padding: 16px var(--pad-x);
         border-bottom: none;
     }
     /* 2,3번째 feature 초기 위치 — GSAP 실행 전 겹침 방지 */
@@ -2195,6 +2214,12 @@ em { font-style: normal; }
     .pill-card:nth-child(3) {
         transform: translateY(40px);
     }
+
+    /* ── G-PLANET HERO (PC 레이아웃 유지) ── */
+    .gp-hero { display: block; overflow: hidden; aspect-ratio: 16/9; min-height: 480px; max-height: 100vh; height: auto; }
+    .gp-video { position: absolute; inset: 0; width: 100%; height: 100%; aspect-ratio: unset; object-fit: cover; }
+    .gp-overlay { display: block; }
+    .gp-hero-inner { position: absolute; inset: 0; background: transparent; padding: 0; gap: 0; justify-content: flex-end; }
 
     /* ── G-PLANET FEATURES ── */
     .gp-features {
