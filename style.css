@@ -1402,8 +1402,7 @@ em { font-style: normal; }
         clip-path: inset(0 0% 0 0) !important;
     }
 
-    /* 섹션 헤더 폰트 통일: WHAT WE DO / OUR OPERATING STRENGTH / PARTNERS */
-    .pt-title { font-size: clamp(44px, 12vw, 60px); }
+    /* 섹션 헤더 폰트 통일: WHAT WE DO / OUR OPERATING STRENGTH */
 
     /* 섹션 구분: OUR OPERATING STRENGTH 배경 살짝 다르게 */
     #partners {
@@ -2335,6 +2334,8 @@ em { font-style: normal; }
         opacity: 0;
         pointer-events: none;
     }
+    /* PARTNERS 헤딩 — 베이스 CSS보다 뒤에 와야 적용됨 */
+    .pt-title { font-size: clamp(44px, 12vw, 60px); }
 }
 
 /* ============================
