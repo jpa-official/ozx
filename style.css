@@ -1370,8 +1370,10 @@ em { font-style: normal; }
     .mvvs-cols {
         text-align: center;
     }
+    #mvvs { min-height: 0; }
     .mvvs-bg {
-        padding: 0 var(--pad-x);
+        position: relative;
+        padding: 80px var(--pad-x);
         align-items: center;
         justify-content: center;
     }

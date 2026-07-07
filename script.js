@@ -327,9 +327,10 @@ class TextScramble {
    SECTION HEADINGS — SCRAMBLE + CLIP REVEAL
    ============================ */
 qsa('.sec-h2').forEach(h2 => {
-    const scrambler = new TextScramble(h2);
-    const original  = h2.getAttribute('data-text') || h2.textContent.trim();
-    const isMobile  = window.innerWidth < 768;
+    const scrambler    = new TextScramble(h2);
+    const original     = h2.getAttribute('data-text') || h2.textContent.trim();
+    const originalHTML = h2.innerHTML;
+    const isMobile     = window.innerWidth < 768;
 
     /* 모바일: clip-path 숨김 skip (CSS !important로 inline style 못 이김) */
     if (!isMobile) gsap.set(h2, { clipPath: 'inset(0 100% 0 0)' });
@@ -344,9 +345,9 @@ qsa('.sec-h2').forEach(h2 => {
                     duration: 0.9,
                     ease: 'power3.inOut',
                 });
-            }
-            if (!isMobile) {
-                setTimeout(() => scrambler.setText(original), 80);
+                setTimeout(() => scrambler.setText(original).then(() => {
+                    h2.innerHTML = originalHTML;
+                }), 80);
                 setTimeout(() => {
                     h2.classList.add('glitch-active');
                     setTimeout(() => h2.classList.remove('glitch-active'), 220);
