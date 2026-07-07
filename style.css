@@ -1279,7 +1279,7 @@ em { font-style: normal; }
 
 @media (max-width: 768px) {
     /* 히어로 로고 10% 확대 */
-    .hero-logo-img { width: clamp(180px, 50vw, 280px) !important; }
+    .hero-logo-img { width: clamp(120px, 30vw, 200px) !important; }
 
     /* 도면 dots 숨김 */
     .fp-dots { display: none !important; }
@@ -1701,7 +1701,7 @@ em { font-style: normal; }
 
     /* 화살표 네비게이션 */
     .pt-arrow-nav {
-        display: flex;
+        display: flex !important;
         justify-content: space-between;
         align-items: center;
         padding: 10px var(--pad-x);
