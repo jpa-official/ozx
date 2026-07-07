@@ -374,33 +374,33 @@ qsa('.fade-up').forEach((el, i) => {
     const sr3 = qs('.sr-03');
     if (!sr1 || !sr2 || !sr3) return;
 
-    /* ── 모바일: 아래 스크롤로 카드 전환 ── */
+    /* ── 모바일: 화살표 클릭으로 카드 전환 ── */
     if (window.innerWidth < 768) {
-        setTimeout(() => {
-            gsap.set(sr1, { x: 0 });
-            gsap.set(sr2, { x: '100%' });
-            gsap.set(sr3, { x: '100%' });
-
-            const tlSR = gsap.timeline({
-                scrollTrigger: {
-                    trigger: '#space',
-                    start: 'top top',
-                    end: '+=' + (window.innerHeight * 2),
-                    scrub: 1,
-                    pin: true,
-                    pinSpacing: true,
-                    anticipatePin: 1,
-                }
-            })
-            .to(sr1, { x: '-100%', ease: 'power2.inOut', duration: 0.4 }, 0.3)
-            .to(sr2, { x: 0,       ease: 'power2.inOut', duration: 0.4 }, 0.3)
-            .to(sr2, { x: '-100%', ease: 'power2.inOut', duration: 0.4 }, 1.3)
-            .to(sr3, { x: 0,       ease: 'power2.inOut', duration: 0.4 }, 1.3)
-            .to({}, { duration: 0.3 });
-
-            /* addSwipe 제외 — vertical 방향 충돌로 card1 복귀 버그 발생 */
-            addMobileSnap(tlSR, 3);
-        }, 0);
+        const rows = [sr1, sr2, sr3];
+        const nSR = rows.length;
+        let currentSR = 0;
+        let animatingSR = false;
+        gsap.set(sr1, { x: '0%' });
+        gsap.set(sr2, { x: '100%' });
+        gsap.set(sr3, { x: '100%' });
+        function goToSR(newIdx) {
+            newIdx = ((newIdx % nSR) + nSR) % nSR;
+            if (newIdx === currentSR || animatingSR) return;
+            animatingSR = true;
+            const dir = newIdx > currentSR ? 1 : -1;
+            const prev = currentSR;
+            currentSR = newIdx;
+            gsap.to(rows[prev], { x: (dir * -100) + '%', duration: 0.35, ease: 'power2.inOut' });
+            gsap.fromTo(rows[newIdx],
+                { x: (dir * 100) + '%' },
+                { x: '0%', duration: 0.35, ease: 'power2.inOut',
+                  onComplete: () => { animatingSR = false; } }
+            );
+        }
+        const srPrev = qs('.sr-prev');
+        const srNext = qs('.sr-next');
+        if (srPrev) srPrev.addEventListener('click', () => goToSR(currentSR - 1));
+        if (srNext) srNext.addEventListener('click', () => goToSR(currentSR + 1));
         return;
     }
 
@@ -480,35 +480,31 @@ if (window.innerWidth >= 768) {
         });
     });
 } else {
-    /* 모바일: OUR OPERATING STRENGTH — WHAT WE DO 와 동일한 scrub+snap 방식 */
+    /* 모바일: 화살표 클릭으로 카드 전환 */
     const pillCards = qsa('.pill-card');
     if (pillCards.length >= 2) {
-        setTimeout(() => {
-            /* 전역 CSS opacity:0 / translateY(40px) 강제 초기화 */
-            pillCards.forEach((c, i) => gsap.set(c, { x: i === 0 ? '0%' : '100%', opacity: 1, y: 0, clearProps: 'clipPath' }));
-
-            const tlPill = gsap.timeline({
-                scrollTrigger: {
-                    trigger: '#partners',
-                    start: 'top top',
-                    end: '+=' + (window.innerHeight * 2),
-                    scrub: 1,
-                    pin: true,
-                    pinSpacing: true,
-                    anticipatePin: 1,
-                }
-            })
-            .to(pillCards[0], { x: '-100%', ease: 'power2.inOut', duration: 0.4 }, 0.3)
-            .to(pillCards[1], { x: '0%',    ease: 'power2.inOut', duration: 0.4 }, 0.3);
-            if (pillCards[2]) {
-                tlPill
-                .to(pillCards[1], { x: '-100%', ease: 'power2.inOut', duration: 0.4 }, 1.3)
-                .to(pillCards[2], { x: '0%',    ease: 'power2.inOut', duration: 0.4 }, 1.3);
-            }
-            tlPill.to({}, { duration: 0.3 });
-
-            addMobileSnap(tlPill, pillCards.length);
-        }, 0);
+        const nPill = pillCards.length;
+        let currentPill = 0;
+        let animatingPill = false;
+        pillCards.forEach((c, i) => gsap.set(c, { x: i === 0 ? '0%' : '100%', opacity: 1, y: 0, clearProps: 'clipPath' }));
+        function goToPill(newIdx) {
+            newIdx = ((newIdx % nPill) + nPill) % nPill;
+            if (newIdx === currentPill || animatingPill) return;
+            animatingPill = true;
+            const dir = newIdx > currentPill ? 1 : -1;
+            const prev = currentPill;
+            currentPill = newIdx;
+            gsap.to(pillCards[prev], { x: (dir * -100) + '%', duration: 0.35, ease: 'power2.inOut' });
+            gsap.fromTo(pillCards[newIdx],
+                { x: (dir * 100) + '%' },
+                { x: '0%', duration: 0.35, ease: 'power2.inOut',
+                  onComplete: () => { animatingPill = false; } }
+            );
+        }
+        const pillPrev = qs('.pill-prev');
+        const pillNext = qs('.pill-next');
+        if (pillPrev) pillPrev.addEventListener('click', () => goToPill(currentPill - 1));
+        if (pillNext) pillNext.addEventListener('click', () => goToPill(currentPill + 1));
     }
 }
 
