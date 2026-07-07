@@ -1003,19 +1003,6 @@ function addMobileSnap(tl, total, step, onSnap) {
     }, { passive: true });
 })();
 
-/* 도면 섹션 핀 — 모바일에서 한 번 고정 */
-if (window.innerWidth < 768) {
-    setTimeout(() => {
-        ScrollTrigger.create({
-            trigger: '#fp-slider',
-            start: 'top top',
-            end: '+=600',
-            pin: true,
-            pinSpacing: true,
-            anticipatePin: 1,
-        });
-    }, 0);
-}
 
 /* ============================
    CONTACT — PIN + BIDIRECTIONAL INFINITE LOOP
