@@ -1,5 +1,5 @@
 /* ============================
-   OZX — style.css (v171)
+   OZX — style.css (v172)
    ============================ */
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -1396,7 +1396,7 @@ em { font-style: normal; }
     #partners {
         background: #111;
         border-top: 1px solid rgba(255,255,255,0.15);
-        min-height: 100vh;
+        min-height: unset;
         padding-bottom: 20px;
     }
     .news-placeholder { min-height: 0; padding: 12px 0; }
@@ -1514,7 +1514,7 @@ em { font-style: normal; }
     .strength-lead p { margin-bottom: 4px; }
 
     .sr-body, .pill-body { font-size: 12px; }
-    .gp-desc { font-size: 12px; line-height: 1.7; color: #fff; }
+    .gp-desc { font-size: 12px; line-height: 1.7; color: #fff; margin: 0; }
     .gp-address { font-size: 11px; line-height: 1.5; }
 
     /* G-Planet 히어로 — 영상 위, 타이틀/주소 아래 배치 */
@@ -1550,8 +1550,8 @@ em { font-style: normal; }
 
     /* 모바일: BGM 버튼 숨김 */
     .gp-bgm-btn { display: none !important; }
-    /* 지플래닛 설명글 상하 패딩 */
-    .gp-info { padding: 28px var(--pad-x); gap: 12px; }
+    /* 지플래닛 설명글 상하 패딩 — 동일하게 */
+    .gp-info { padding: 20px var(--pad-x); gap: 12px; }
 
     /* GP Features — 모바일 세로 슬라이드 (GSAP 핀) */
     .gp-feat-video-wrap { display: none !important; }
