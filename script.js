@@ -1321,15 +1321,10 @@ setTimeout(() => {
                 pin: true,
                 pinSpacing: true,
                 anticipatePin: 1,
-                snap: {
-                    snapTo: [0, 0.5, 1],
-                    duration: { min: 0.3, max: 0.5 },
-                    ease: 'power2.inOut',
-                },
             }
         })
-        .to(track, { x: -vw,      ease: 'power2.inOut', duration: 0.4 }, 0.3)
-        .to(track, { x: -2 * vw, ease: 'power2.inOut', duration: 0.4 }, 1.3)
+        .to(track, { x: -vw,      ease: 'none', duration: 0.4 }, 0.3)
+        .to(track, { x: -2 * vw, ease: 'none', duration: 0.4 }, 1.3)
         .to({}, { duration: 0.3 });
 
         /* Contact 핀 — 모든 핀 spacer가 DOM에 추가된 뒤 마지막에 생성해야
