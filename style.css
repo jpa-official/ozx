@@ -1279,7 +1279,7 @@ em { font-style: normal; }
 
 @media (max-width: 768px) {
     /* 히어로 로고 10% 확대 */
-    .hero-logo-img { width: clamp(110px, 16.5vw, 242px) !important; }
+    .hero-logo-img { width: clamp(180px, 50vw, 280px) !important; }
 
     /* 도면 dots 숨김 */
     .fp-dots { display: none !important; }
