@@ -585,8 +585,8 @@ gsap.fromTo('.news-text',
     const panels = qsa('.mvvs-panel');
     if (!tabs.length) return;
 
-    // 초기 상태: 배경 clip으로 숨김, 콘텐츠 투명
-    gsap.set('.mvvs-bg', { clipPath: 'inset(100% 0 0% 0)' });
+    // 초기 상태: 배경 즉시 표시, 콘텐츠 투명
+    gsap.set('.mvvs-bg', { clipPath: 'inset(0% 0 0% 0)' });
     gsap.set(tabs,       { opacity: 0 });
     gsap.set(panels,     { opacity: 0, y: 16 });
     tabs[0].classList.add('is-active');
@@ -612,10 +612,10 @@ gsap.fromTo('.news-text',
         return;
     }
 
-    // 타임라인 총 ~5.25 기준 탭 전환 임계값 (VISION 체류 연장: 2.8→3.5):
-    // MISSION→VISION  at 2.175/5.25 = 0.414
-    // VISION→STRATEGY at 3.600/5.25 = 0.686
-    // STRATEGY→VALUE  at 4.600/5.25 = 0.876
+    // 타임라인 총 ~4.5 기준 탭 전환 임계값:
+    // MISSION→VISION  at 1.05/4.5 = 0.233
+    // VISION→STRATEGY at 2.75/4.5 = 0.611
+    // STRATEGY→VALUE  at 3.75/4.5 = 0.833
     const tl = gsap.timeline({
         scrollTrigger: {
             trigger: '#mvvs',
@@ -628,9 +628,9 @@ gsap.fromTo('.news-text',
             onUpdate: (self) => {
                 const p = self.progress;
                 let idx = 0;
-                if      (p >= 0.876) idx = 3;
-                else if (p >= 0.686) idx = 2;
-                else if (p >= 0.414) idx = 1;
+                if      (p >= 0.833) idx = 3;
+                else if (p >= 0.611) idx = 2;
+                else if (p >= 0.233) idx = 1;
                 tabs.forEach((t, i)   => t.classList.toggle('is-active', i === idx));
                 panels.forEach((pn, i) => pn.classList.toggle('is-active', i === idx));
             },
@@ -638,22 +638,20 @@ gsap.fromTo('.news-text',
     });
 
     tl
-        // Phase 1: 배경 패널 아래서 위로 wipe 공개
-        .to('.mvvs-bg', { clipPath: 'inset(0% 0 0% 0)', duration: 1.0, ease: 'power3.out' }, 0)
-        // Phase 2: 탭 + 첫 패널 등장
-        .to(tabs,              { opacity: 1, stagger: 0.08, duration: 0.35 }, 0.75)
-        .to('#panel-mission',  { opacity: 1, y: 0, duration: 0.35 }, 1.0)
-        // Phase 3: 패널 전환 MISSION → VISION(체류 연장) → STRATEGY → VALUE
-        .to('#panel-mission',  { opacity: 0, y: -14, duration: 0.35 }, 1.8)
-        .to('#panel-vision',   { opacity: 1, y: 0,   duration: 0.35 }, 2.0)
-        .to('#panel-vision',   { opacity: 0, y: -14, duration: 0.35 }, 3.5)
-        .to('#panel-strategy', { opacity: 1, y: 0,   duration: 0.35 }, 3.7)
-        .to('#panel-strategy', { opacity: 0, y: -14, duration: 0.35 }, 4.5)
-        .to('#panel-value',    { opacity: 1, y: 0,   duration: 0.35 }, 4.7)
+        // Phase 1: 탭 + 첫 패널 등장 (pin 즉시)
+        .to(tabs,              { opacity: 1, stagger: 0.08, duration: 0.35 }, 0)
+        .to('#panel-mission',  { opacity: 1, y: 0, duration: 0.35 }, 0.25)
+        // Phase 2: 패널 전환 MISSION → VISION → STRATEGY → VALUE
+        .to('#panel-mission',  { opacity: 0, y: -14, duration: 0.35 }, 1.05)
+        .to('#panel-vision',   { opacity: 1, y: 0,   duration: 0.35 }, 1.25)
+        .to('#panel-vision',   { opacity: 0, y: -14, duration: 0.35 }, 2.75)
+        .to('#panel-strategy', { opacity: 1, y: 0,   duration: 0.35 }, 2.95)
+        .to('#panel-strategy', { opacity: 0, y: -14, duration: 0.35 }, 3.75)
+        .to('#panel-value',    { opacity: 1, y: 0,   duration: 0.35 }, 3.95)
         .to({}, { duration: 0.2 }); // VALUE에서 잠시 유지
 
     // 탭 클릭 시 해당 스크롤 위치로 이동 (scrub과 충돌 방지)
-    const tabProgress = [0.22, 0.56, 0.81, 0.97];
+    const tabProgress = [0.12, 0.44, 0.74, 0.94];
     tabs.forEach((tab, i) => {
         tab.addEventListener('click', () => {
             const st = tl.scrollTrigger;
