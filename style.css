@@ -13,7 +13,7 @@
     --pad-x: 28px;
 }
 
-html { scroll-behavior: smooth; overflow-x: hidden; }
+html { scroll-behavior: auto; overflow-x: hidden; }
 
 /* GPU 가속: GSAP이 transform 애니메이션하는 핵심 요소들 */
 #hero-logo-wrap,
