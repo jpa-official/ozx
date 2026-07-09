@@ -478,7 +478,7 @@ qsa('.fade-up').forEach((el, i) => {
         return;
     }
 
-    if (window.innerWidth < 768) {
+    if (window.innerWidth < 900) {
         return;
     }
 
@@ -613,7 +613,7 @@ qsa('.nav-a, .f-nav a').forEach(link => {
    ============================ */
 
 /* Service row 01 — 데스크탑 첫 진입 */
-if (window.innerWidth >= 768) {
+if (window.innerWidth >= 900) {
     ScrollTrigger.create({
         trigger: '.sr-01', start: 'top 85%', once: true,
         onEnter: () => {
@@ -1173,7 +1173,7 @@ window.addEventListener('load', () => setTimeout(() => ScrollTrigger.refresh(), 
 setTimeout(() => {
     const bgm = qs('#gp-bgm');
     if (!bgm) return;
-    if (window.innerWidth < 768) return; /* 모바일: BGM 비활성화 (버튼도 CSS에서 숨김) */
+    if (window.innerWidth < 900) return; /* 모바일/태블릿: BGM 비활성화 */
     const MAX_VOL = 0.4;
 
     const FADE = 1.0;
