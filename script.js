@@ -1053,12 +1053,8 @@ let loopLocked = false;
 let currentScroll = 0;
 
 // Lenis scroll 이벤트로 정확한 현재 위치 추적
-lenis.on('scroll', ({ scroll, limit }) => {
+lenis.on('scroll', ({ scroll }) => {
     currentScroll = scroll;
-    // 페이지 맨 아래 도달 시 히어로로 루프 (모바일+데스크탑)
-    if (scroll >= limit - 5 && !loopLocked) {
-        loopTo(0);
-    }
 });
 
 function loopTo(target) {
@@ -1375,10 +1371,7 @@ setTimeout(() => {
             onEnter: ()     => { contactEntered = true; },
             onEnterBack: () => { contactEntered = true; },
             onLeaveBack: () => { contactEntered = false; },
-            onLeave: () => {
-                contactEntered = false;
-                if (!loopLocked) loopTo(0);
-            },
+            onLeave: () => { contactEntered = false; },
         });
     }, 0);
 })();
