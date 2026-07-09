@@ -857,9 +857,23 @@ qsa('.mobile-nav-a').forEach(a => {
                 duration: { min: 0.3, max: 0.5 },
                 ease: 'power1.inOut'
             },
-            onEnter: () => { heroSnapCount = 0; },
+            onEnter: () => {
+                heroSnapCount = 0;
+                if (gpVideo) { gpVideo.muted = true; gpVideo.play().catch(() => {}); }
+            },
+            onEnterBack: () => {
+                if (gpVideo) { gpVideo.muted = true; gpVideo.play().catch(() => {}); }
+            },
             onLeaveBack: () => { heroSnapCount = 0; }
         });
+
+        /* iOS Safari: 모바일 히어로 핀 스냅(터치 스크롤) 중 영상이 poster
+           이미지에 멈춰버리는 경우가 있어 — 터치 종료 시마다 재생 상태 확인 */
+        if (gpVideo) {
+            document.addEventListener('touchend', () => {
+                if (gpVideo.paused) { gpVideo.muted = true; gpVideo.play().catch(() => {}); }
+            }, { passive: true });
+        }
     }, 0);
 })();
 
