@@ -1,5 +1,5 @@
 ﻿/* ============================
-   OZX — script.js (v14)
+   OZX — script.js (v15)
    ============================ */
 
 gsap.registerPlugin(ScrollTrigger);
