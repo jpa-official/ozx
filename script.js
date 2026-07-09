@@ -332,17 +332,21 @@ class TextScramble {
         this.update = this.update.bind(this);
     }
     setText(text) {
-        const old = this.el.innerText;
-        const len = Math.max(old.length, text.length);
-        this.queue = [];
-        for (let i = 0; i < len; i++) {
-            const from = old[i] || '', to = text[i] || '';
-            const start = Math.floor(Math.random() * 14);
-            const end   = start + Math.floor(Math.random() * 14) + 6;
-            this.queue.push({ from, to, start, end, char: '' });
-        }
-        cancelAnimationFrame(this.raf);
-        this.frame = 0; this.update();
+        return new Promise(resolve => {
+            const old = this.el.innerText;
+            const len = Math.max(old.length, text.length);
+            this.queue = [];
+            for (let i = 0; i < len; i++) {
+                const from = old[i] || '', to = text[i] || '';
+                const start = Math.floor(Math.random() * 14);
+                const end   = start + Math.floor(Math.random() * 14) + 6;
+                this.queue.push({ from, to, start, end, char: '' });
+            }
+            cancelAnimationFrame(this.raf);
+            this.frame = 0;
+            this.resolve = resolve;
+            this.update();
+        });
     }
     update() {
         let out = '', done = 0;
@@ -355,7 +359,13 @@ class TextScramble {
             } else { out += from; }
         }
         this.el.innerHTML = out;
-        if (done < this.queue.length) { this.raf = requestAnimationFrame(this.update); this.frame++; }
+        if (done < this.queue.length) {
+            this.raf = requestAnimationFrame(this.update);
+            this.frame++;
+        } else if (this.resolve) {
+            this.resolve();
+            this.resolve = null;
+        }
     }
 }
 
