@@ -324,27 +324,15 @@ const idObs = new IntersectionObserver(entries => {
 const idSection = qs('#identity');
 if (idSection) idObs.observe(idSection);
 
-/* Identity 섹션 — 스크롤 핀 (모바일은 짧게)
-   진입/이탈 구간에 scrub 페이드+스케일을 걸어 "딱 고정"되는 느낌을 완화 */
-(function () {
-    const idInner = qs('#identity .id-inner');
-    const tl = gsap.timeline({
-        scrollTrigger: {
-            trigger: '#identity',
-            start: 'top top',
-            end: window.innerWidth < 768 ? '+=220' : '+=350',
-            scrub: 0.6,
-            pin: true,
-            pinSpacing: true,
-            anticipatePin: 1,
-        }
-    });
-    if (idInner) {
-        tl.fromTo(idInner, { opacity: 0.35, y: 28 }, { opacity: 1, y: 0, duration: 0.18, ease: 'power1.out' }, 0)
-          .to(idInner, { opacity: 1, y: 0, duration: 0.64 }, 0.18)
-          .to(idInner, { opacity: 0.35, y: -28, duration: 0.18, ease: 'power1.in' }, 0.82);
-    }
-})();
+/* Identity 섹션 — 스크롤 핀 (모바일은 짧게) */
+ScrollTrigger.create({
+    trigger: '#identity',
+    start: 'top top',
+    end: window.innerWidth < 768 ? '+=220' : '+=350',
+    pin: true,
+    pinSpacing: true,
+    anticipatePin: 1,
+});
 
 /* ============================
    TEXT SCRAMBLE CLASS
@@ -507,47 +495,32 @@ qsa('.fade-up').forEach((el, i) => {
             .to(sr3, { opacity: 1, y: 0,   duration: 0.7, ease: 'power2.inOut' }, 2.7)
             .to({}, { duration: 0.4 });
 
-        /* 아래 세 핀 모두: 진입 18% / 이탈 18% 구간에 scrub 페이드를 걸어
-           "빠르게 넘어갔다가 딱 고정"되는 느낌을 없애고, 가운데 구간은
-           기존처럼 정지(클릭 탐색 등 기존 기능 유지) */
-        const partnersWrap = qs('#partners .sec-wrap');
-        const partnersTl = gsap.timeline({
-            scrollTrigger: {
-                trigger: '#partners', start: 'top top', end: '+=600',
-                scrub: 0.6, pin: true, pinSpacing: true, anticipatePin: 1,
-            }
+        ScrollTrigger.create({
+            trigger: '#partners',
+            start: 'top top',
+            end: '+=600',
+            pin: true,
+            pinSpacing: true,
+            anticipatePin: 1,
         });
-        if (partnersWrap) {
-            partnersTl
-                .fromTo(partnersWrap, { opacity: 0.35, y: 28 }, { opacity: 1, y: 0, duration: 0.18, ease: 'power1.out' }, 0)
-                .to(partnersWrap, { opacity: 1, y: 0, duration: 0.64 }, 0.18)
-                .to(partnersWrap, { opacity: 0.35, y: -28, duration: 0.18, ease: 'power1.in' }, 0.82);
-        }
 
-        const gpHero = qs('#gplanet .gp-hero');
-        const gplanetTl = gsap.timeline({
-            scrollTrigger: {
-                trigger: '#gplanet', start: 'top top', end: '+=500',
-                scrub: 0.6, pin: true, pinSpacing: true, anticipatePin: 1,
-            }
+        ScrollTrigger.create({
+            trigger: '#gplanet',
+            start: 'top top',
+            end: '+=500',
+            pin: true,
+            pinSpacing: true,
+            anticipatePin: 1,
         });
-        if (gpHero) {
-            gplanetTl
-                .fromTo(gpHero, { opacity: 0.35 }, { opacity: 1, duration: 0.18, ease: 'power1.out' }, 0)
-                .to(gpHero, { opacity: 1, duration: 0.64 }, 0.18)
-                .to(gpHero, { opacity: 0.35, duration: 0.18, ease: 'power1.in' }, 0.82);
-        }
 
-        const fpSlider = qs('#fp-slider');
-        gsap.timeline({
-            scrollTrigger: {
-                trigger: '#fp-slider', start: 'top top', end: '+=800',
-                scrub: 0.6, pin: true, pinSpacing: true, anticipatePin: 1,
-            }
-        })
-            .fromTo(fpSlider, { opacity: 0.35, y: 28 }, { opacity: 1, y: 0, duration: 0.18, ease: 'power1.out' }, 0)
-            .to(fpSlider, { opacity: 1, y: 0, duration: 0.64 }, 0.18)
-            .to(fpSlider, { opacity: 0.35, y: -28, duration: 0.18, ease: 'power1.in' }, 0.82);
+        ScrollTrigger.create({
+            trigger: '#fp-slider',
+            start: 'top top',
+            end: '+=800',
+            pin: true,
+            pinSpacing: true,
+            anticipatePin: 1,
+        });
     }, 0);
 })();
 
@@ -1399,29 +1372,19 @@ setTimeout(() => {
     setTimeout(() => {
 
         /* Contact 핀 — 모든 핀 spacer가 DOM에 추가된 뒤 마지막에 생성해야
-           #contact 위치가 정확히 계산됨
-           (마지막 섹션이라 이탈 페이드는 없음 — 진입만 scrub로 부드럽게) */
+           #contact 위치가 정확히 계산됨 */
         let contactEntered = false;
-        const contactInner = qs('#contact .contact-inner');
-        const contactTl = gsap.timeline({
-            scrollTrigger: {
-                trigger: '#contact',
-                start: 'top top',
-                end: '+=350',
-                scrub: 0.6,
-                pin: true,
-                pinSpacing: true,
-                anticipatePin: 1,
-                onEnter: ()     => { contactEntered = true; },
-                onEnterBack: () => { contactEntered = true; },
-                onLeaveBack: () => { contactEntered = false; },
-                onLeave: () => { contactEntered = false; },
-            }
+        ScrollTrigger.create({
+            trigger: '#contact',
+            start: 'top top',
+            end: '+=350',
+            pin: true,
+            pinSpacing: true,
+            anticipatePin: 1,
+            onEnter: ()     => { contactEntered = true; },
+            onEnterBack: () => { contactEntered = true; },
+            onLeaveBack: () => { contactEntered = false; },
+            onLeave: () => { contactEntered = false; },
         });
-        if (contactInner) {
-            contactTl
-                .fromTo(contactInner, { opacity: 0.35, y: 28 }, { opacity: 1, y: 0, duration: 0.3, ease: 'power1.out' }, 0)
-                .to(contactInner, { opacity: 1, y: 0, duration: 0.7 }, 0.3);
-        }
     }, 0);
 })();
