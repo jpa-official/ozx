@@ -79,7 +79,8 @@ progressBar.id = 'progress-bar';
 document.body.prepend(progressBar);
 
 lenis.on('scroll', ({ scroll, limit }) => {
-    progressBar.style.width = (scroll / limit * 100) + '%';
+    const pct = scroll / limit * 100;
+    progressBar.style.clipPath = `inset(0 ${100 - pct}% 0 0)`;
 });
 
 /* ============================
@@ -144,8 +145,12 @@ const loadTick = setInterval(() => {
 window.addEventListener('load', () => {
     pageLoaded = true;
     if (loadDone) exitLoader();
-    /* 모바일에서 autoplay 차단 시 강제 재생 */
-    qsa('video[autoplay]').forEach(v => {
+    /* 모바일에서 autoplay 차단 시 강제 재생
+       (gp-feat-bg-video는 아래 IntersectionObserver가 화면 노출 여부에 따라
+        재생/정지를 전담하므로 여기서 제외 — 안 그러면 화면 밖 일시정지가 곧바로 덮어써짐.
+        gp-video는 iOS Safari에서 스크롤 콜백으로 재생을 재개할 때 poster 이미지에서
+        멈추는 경우가 있어 기존 방식(항상 재생) 그대로 유지) */
+    qsa('video[autoplay]:not(.gp-feat-bg-video)').forEach(v => {
         v.muted = true;
         v.setAttribute('playsinline', '');
         v.setAttribute('webkit-playsinline', '');
@@ -153,13 +158,44 @@ window.addEventListener('load', () => {
     });
 });
 
-/* iOS: 첫 터치 시 모든 정지된 autoplay 영상 재개 */
+/* ============================
+   배경 비디오 — 화면 밖일 때 일시정지
+   (gp-feat-bg-video는 PC에서 display:none으로 숨겨진 채로도 항상 재생 중이라
+    불필요한 디코딩 부하가 발생 → 화면에 보일 때만 재생) */
+const bgVideoObs = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        const v = entry.target;
+        if (entry.isIntersecting) v.play().catch(() => {});
+        else v.pause();
+    });
+}, { rootMargin: '200px 0px' });
+
+qsa('.gp-feat-bg-video').forEach(v => bgVideoObs.observe(v));
+
+/* iOS: 첫 터치 시 모든 정지된 autoplay 영상 재개
+   (gp-feat-bg-video는 화면 노출 여부로 IntersectionObserver가 전담하므로 제외) */
 document.addEventListener('touchstart', function resumeVideos() {
-    qsa('video[autoplay]').forEach(v => {
+    qsa('video[autoplay]:not(.gp-feat-bg-video)').forEach(v => {
         if (v.paused) { v.muted = true; v.play().catch(() => {}); }
     });
     document.removeEventListener('touchstart', resumeVideos);
 }, { once: true, passive: true });
+
+/* G-PLANET 히어로 영상 — iOS Safari에서 스크롤/핀 콜백 중 예기치 않게
+   일시정지되어 poster 이미지에 멈춰버리는 문제 방지: 정지되는 즉시 재재생 */
+const gpVideo = qs('.gp-video');
+if (gpVideo) {
+    gpVideo.addEventListener('pause', () => {
+        gpVideo.muted = true;
+        gpVideo.play().catch(() => {});
+    });
+    document.addEventListener('visibilitychange', () => {
+        if (!document.hidden && gpVideo.paused) {
+            gpVideo.muted = true;
+            gpVideo.play().catch(() => {});
+        }
+    });
+}
 
 /* ============================
    CHARACTER SPLIT HELPER
@@ -916,10 +952,12 @@ function addMobileSnap(tl, total, step, onSnap) {
     const dotsEl = qs('#fp-dots');
     if (!track) return;
 
-    const slides  = qsa('.fp-slide', track);
-    const total   = slides.length;
-    let current   = 0;   // 실제 슬라이드 인덱스 (0~total-1)
-    let pos       = 1;   // 트랙 내 위치 (클론 포함)
+    const slides   = qsa('.fp-slide', track);
+    const total    = slides.length;
+    // 기본 진입 슬라이드 = 1F
+    const startIdx = slides.findIndex(s => s.querySelector('.fp-floor')?.textContent.trim() === '1F');
+    let current   = startIdx >= 0 ? startIdx : 0;   // 실제 슬라이드 인덱스 (0~total-1)
+    let pos       = current + 1;   // 트랙 내 위치 (클론 포함)
     let animating = false;
 
     // 앞에 마지막 슬라이드 클론, 뒤에 첫 슬라이드 클론 추가
@@ -927,14 +965,14 @@ function addMobileSnap(tl, total, step, onSnap) {
     track.insertBefore(slides[total - 1].cloneNode(true), slides[0]);
     track.appendChild(slides[0].cloneNode(true));
 
-    // 클론 추가 후 초기 위치 (pos=1 = 첫 번째 실제 슬라이드)
+    // 클론 추가 후 초기 위치 (1F가 보이도록 이동)
     track.style.transition = 'none';
     track.style.transform  = `translateX(-${pos * 100}%)`;
 
     // dots 생성
     slides.forEach((_, i) => {
         const d = document.createElement('button');
-        d.className = 'fp-dot' + (i === 0 ? ' is-active' : '');
+        d.className = 'fp-dot' + (i === current ? ' is-active' : '');
         d.setAttribute('aria-label', `Slide ${i + 1}`);
         d.addEventListener('click', () => jumpTo(i));
         dotsEl.appendChild(d);

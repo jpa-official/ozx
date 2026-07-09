@@ -128,14 +128,15 @@ em { font-style: normal; }
 
 #progress-bar {
     position: fixed; top: 6px; left: 0;
-    height: 1.5px; width: 0%;
+    height: 1.5px; width: 100%;
     background: repeating-linear-gradient(
         to right,
         #fff 0px, #fff 6px,
         transparent 6px, transparent 12px
     );
     z-index: 9999; pointer-events: none;
-    transition: width 0.1s linear;
+    clip-path: inset(0 100% 0 0);
+    transition: clip-path 0.1s linear;
 }
 
 /* ============================
@@ -229,12 +230,23 @@ em { font-style: normal; }
 
 .hwm-white {
     height: 20px; width: auto; display: block;
+    filter: brightness(0) invert(1);
+}
+
+/* wmFade는 filter를 매 프레임 리페인트하는 대신, 정적 filter의 두 레이어를
+   opacity로 크로스페이드해 같은 밝기 변화를 컴포지터 연산만으로 구현함 */
+.hwm-white-dim {
+    position: absolute; top: 0; left: 0;
+    height: 20px; width: auto; display: block;
+    filter: brightness(0) invert(0.25);
+    opacity: 0;
+    pointer-events: none;
     animation: wmFade 6s ease-in-out infinite;
 }
 
 @keyframes wmFade {
-    0%, 100% { filter: brightness(0) invert(1); }
-    50%      { filter: brightness(0) invert(0.25); }
+    0%, 100% { opacity: 0; }
+    50%      { opacity: 1; }
 }
 
 .main-nav { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
