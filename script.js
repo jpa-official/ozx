@@ -183,16 +183,29 @@ document.addEventListener('touchstart', function resumeVideos() {
     document.removeEventListener('touchstart', resumeVideos);
 }, { once: true, passive: true });
 
-/* G-PLANET 히어로 영상 — iOS Safari에서 스크롤/핀 콜백 중 예기치 않게
-   일시정지되어 poster 이미지에 멈춰버리는 문제 방지: 정지되는 즉시 재재생 */
+/* G-PLANET 히어로 영상 — 화면 밖으로 스크롤되면 디코딩 부하를 줄이기 위해
+   일시정지 (다른 핀 섹션 스크롤 중 끊김의 원인이었음). 단, iOS Safari에서
+   스크롤/핀 콜백 중 화면에 보이는 상태로 예기치 않게 일시정지되어 poster
+   이미지에 멈춰버리는 버그가 있어 — 보이는 동안 정지되면 즉시 재재생 */
 const gpVideo = qs('.gp-video');
 if (gpVideo) {
+    let gpVideoVisible = false;
+
+    new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            gpVideoVisible = entry.isIntersecting;
+            if (entry.isIntersecting) gpVideo.play().catch(() => {});
+            else gpVideo.pause();
+        });
+    }, { rootMargin: '200px 0px' }).observe(gpVideo);
+
     gpVideo.addEventListener('pause', () => {
+        if (!gpVideoVisible) return;
         gpVideo.muted = true;
         gpVideo.play().catch(() => {});
     });
     document.addEventListener('visibilitychange', () => {
-        if (!document.hidden && gpVideo.paused) {
+        if (!document.hidden && gpVideoVisible && gpVideo.paused) {
             gpVideo.muted = true;
             gpVideo.play().catch(() => {});
         }
