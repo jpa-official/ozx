@@ -159,9 +159,11 @@ window.addEventListener('load', () => {
 });
 
 /* ============================
-   배경 비디오 — 화면 밖일 때 일시정지
-   (gp-feat-bg-video는 PC에서 display:none으로 숨겨진 채로도 항상 재생 중이라
-    불필요한 디코딩 부하가 발생 → 화면에 보일 때만 재생) */
+   배경 비디오 — 화면에 보일 때만 재생
+   (gp-feat-bg-video는 autoplay 속성을 제거해 PC에서 로드/디코딩 자체가
+    일어나지 않도록 함 — PC에서는 display:none으로 항상 숨겨진 채 쓰이지
+    않는 요소라 로드할 필요가 없음. 모바일 슬라이더에서만 이 observer로
+    화면에 보일 때 play, 벗어나면 pause) */
 const bgVideoObs = new IntersectionObserver(entries => {
     entries.forEach(entry => {
         const v = entry.target;
