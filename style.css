@@ -797,7 +797,7 @@ em { font-style: normal; }
     max-height: 100vh;
     overflow: hidden;
     min-height: 480px;
-    background: url('gwanghwa169.jpg') center / cover no-repeat;
+    background: url('gwanghwa169.webp') center / cover no-repeat;
 }
 
 .gp-video {

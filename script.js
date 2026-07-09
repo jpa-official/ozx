@@ -818,12 +818,9 @@ qsa('.mobile-nav-a').forEach(a => {
    G-PLANET HERO — 모바일 핀
    ============================ */
 (function initGplanetMobilePin() {
-    /* PC: 원본 영상(0 G-PLANET.mp4) 복원 — 모바일 전환 시 gwanghwa169.mp4로 이미 설정됨 */
-    if (window.innerWidth >= 768) {
-        const src = qs('source', qs('.gp-video'));
-        if (src) { src.src = '0 G-PLANET.mp4'; qs('.gp-video').load(); }
-        return;
-    }
+    /* PC/모바일 영상 소스는 <source media> 속성으로 브라우저가 자동 선택하므로
+       JS로 다시 로드할 필요 없음 (불필요한 이중 다운로드 방지) */
+    if (window.innerWidth >= 768) return;
 
     /* 모바일: gp-info를 #gplanet 안으로 이동 → 히어로 핀 구간에서 함께 표시 */
     const gpInfo = qs('.gp-info');
