@@ -845,38 +845,6 @@ em { font-style: normal; }
     line-height: 0.95;
 }
 
-/* BGM 토글 버튼 */
-.gp-bgm-btn {
-    position: absolute;
-    bottom: clamp(36px, 5vw, 60px);
-    right: clamp(28px, 5vw, 72px);
-    z-index: 10;
-    width: 44px;
-    height: 44px;
-    border: 1px solid rgba(255,255,255,0.35);
-    border-radius: 50%;
-    background: rgba(0,0,0,0.35);
-    backdrop-filter: blur(8px);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    transition: background 0.2s, border-color 0.2s;
-}
-.gp-bgm-btn:hover {
-    background: rgba(0,0,0,0.55);
-    border-color: rgba(255,255,255,0.6);
-}
-.gp-bgm-btn svg {
-    width: 20px;
-    height: 20px;
-    pointer-events: none;
-}
-.gp-bgm-btn .icon-sound-off { display: none; }
-.gp-bgm-btn.is-muted .icon-sound-on  { display: none; }
-.gp-bgm-btn.is-muted .icon-sound-off { display: block; }
-
 .gp-hero-bottom {
     display: flex;
     justify-content: space-between;
@@ -1621,8 +1589,6 @@ em { font-style: normal; }
     }
     .gp-title { font-size: clamp(52px, 14vw, 80px); }
 
-    /* 모바일: BGM 버튼 숨김 */
-    .gp-bgm-btn { display: none !important; }
     /* 지플래닛 설명글 상하 패딩 — 동일하게 */
     .gp-info { padding: 20px var(--pad-x) 64px; gap: 12px; }
 
