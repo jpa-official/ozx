@@ -2378,6 +2378,14 @@ em { font-style: normal; }
     #gplanet { height: auto; display: block; overflow: visible; }
     .gp-hero { display: block; overflow: hidden; flex-direction: row; }
     .gp-video { position: absolute; inset: 0; width: 100%; height: 100%; aspect-ratio: unset; }
+    /* 브라우저가 자동재생 음소거 영상 위에 표시하는 네이티브 음소거 아이콘 숨김 */
+    .gp-video::-webkit-media-controls,
+    .gp-video::-webkit-media-controls-enclosure,
+    .gp-video::-webkit-media-controls-panel,
+    .gp-video::-webkit-media-controls-start-playback-button {
+        display: none !important;
+        -webkit-appearance: none;
+    }
     .gp-overlay { display: block; }
     .gp-hero-inner { position: absolute; inset: 0; background: transparent; }
 
