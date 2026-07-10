@@ -833,9 +833,17 @@ qsa('.mobile-nav-a').forEach(a => {
    G-PLANET HERO — 모바일 핀
    ============================ */
 (function initGplanetMobilePin() {
-    /* PC/모바일 영상 소스는 <source media> 속성으로 브라우저가 자동 선택하므로
-       JS로 다시 로드할 필요 없음 (불필요한 이중 다운로드 방지) */
+    /* PC 영상 소스는 <source media> 속성으로 브라우저가 자동 선택 (건드리지 않음) */
     if (window.innerWidth >= 768) return;
+
+    /* 모바일: <source media> 기반 소스 선택이 iOS Safari에서 제대로 안 먹혀
+       poster 이미지에 멈춰있는 것으로 의심 — .src를 직접 지정해 우회 */
+    if (gpVideo) {
+        gpVideo.src = 'gwanghwa169.mp4';
+        gpVideo.load();
+        gpVideo.muted = true;
+        gpVideo.play().catch(() => {});
+    }
 
     /* 모바일: gp-info를 #gplanet 안으로 이동 → 히어로 핀 구간에서 함께 표시 */
     const gpInfo = qs('.gp-info');
@@ -944,6 +952,14 @@ function addMobileSnap(tl, total, step, onSnap) {
     let animating = false;
 
     features.forEach((f, i) => gsap.set(f, { x: i === 0 ? '0%' : '100%' }));
+
+    /* preload="none"은 PC(display:none이라 안 쓰임)를 위한 최적화인데,
+       iOS Safari에서는 이 상태로 JS play()를 호출해도 로드가 제대로
+       시작 안 되는 경우가 있어 — 모바일에서만 metadata로 올려줌 */
+    features.forEach(f => {
+        const v = f.querySelector('video');
+        if (v) v.preload = 'metadata';
+    });
 
     function syncVideos(idx) {
         features.forEach((f, i) => {
