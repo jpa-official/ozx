@@ -71,7 +71,7 @@ em { font-style: normal; }
 /* 실버 필 레이어 */
 .loader-fill {
     position: absolute; inset: 0;
-    background: #C0C0C0;
+    background: #fff;
     clip-path: inset(0 100% 0 0);
     display: flex; align-items: center; justify-content: center;
     transition: clip-path 0.12s linear;
