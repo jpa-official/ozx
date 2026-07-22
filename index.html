@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://use.typekit.net/bvo1jej.css">
     <!-- dynamic-subset: 사용하는 글자만 로드 (전체 대비 80% 절감) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/dynamic-subset/pretendard-dynamic-subset.css">
-    <link rel="stylesheet" href="style.css?v=224">
+    <link rel="stylesheet" href="style.css?v=225">
     <!-- 히어로 이미지 preload -->
     <link rel="preload" as="image" href="logo-main.webp">
 </head>
@@ -562,17 +562,18 @@
     <section id="contact">
         <div class="contact-inner">
             <img src="contact.webp" alt="BE THE FIRST TO JOIN G-PLANET" class="contact-img" loading="lazy" decoding="async">
-            <form class="contact-form" onsubmit="return false;">
+            <form class="contact-form" id="contact-form" action="https://formspree.io/f/mjgnodkl" method="POST">
                 <div class="cf-field">
-                    <input type="text" placeholder="NAME / 이름" class="cf-input">
+                    <input type="text" name="name" placeholder="NAME / 이름" class="cf-input" required>
                 </div>
                 <div class="cf-field">
-                    <input type="email" placeholder="EMAIL / 이메일" class="cf-input">
+                    <input type="email" name="email" placeholder="EMAIL / 이메일" class="cf-input" required>
                 </div>
                 <div class="cf-field">
-                    <textarea placeholder="INQUIRY / 문의사항" class="cf-input cf-textarea"></textarea>
+                    <textarea name="message" placeholder="INQUIRY / 문의사항" class="cf-input cf-textarea" required></textarea>
                 </div>
                 <button type="submit" class="cf-submit">SEND</button>
+                <p class="cf-status" id="cf-status"></p>
             </form>
         </div>
         <p class="contact-copy">© 2026 OZX. All Rights Reserved.</p>
@@ -581,6 +582,6 @@
     <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
-    <script src="script.js?v=125" defer></script>
+    <script src="script.js?v=126" defer></script>
 </body>
 </html>

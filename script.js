@@ -1296,3 +1296,35 @@ window.addEventListener('load', () => setTimeout(() => ScrollTrigger.refresh(), 
         });
     }, 0);
 })();
+
+/* Contact 폼 — Formspree AJAX 전송 */
+(function initContactForm() {
+    const form   = qs('#contact-form');
+    const status = qs('#cf-status');
+    if (!form || !status) return;
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const submitBtn = qs('.cf-submit', form);
+        submitBtn.disabled = true;
+        status.textContent = 'SENDING...';
+
+        try {
+            const res = await fetch(form.action, {
+                method: 'POST',
+                body: new FormData(form),
+                headers: { 'Accept': 'application/json' },
+            });
+            if (res.ok) {
+                status.textContent = 'THANK YOU. YOUR MESSAGE HAS BEEN SENT.';
+                form.reset();
+            } else {
+                status.textContent = 'SOMETHING WENT WRONG. PLEASE TRY AGAIN.';
+            }
+        } catch (err) {
+            status.textContent = 'SOMETHING WENT WRONG. PLEASE TRY AGAIN.';
+        } finally {
+            submitBtn.disabled = false;
+        }
+    });
+})();
