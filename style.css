@@ -1201,6 +1201,15 @@ em { font-style: normal; }
     color: #000;
 }
 
+.cf-honeypot {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    left: -9999px;
+    opacity: 0;
+    pointer-events: none;
+}
+
 .cf-submit:disabled {
     opacity: 0.5;
     pointer-events: none;

@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://use.typekit.net/bvo1jej.css">
     <!-- dynamic-subset: 사용하는 글자만 로드 (전체 대비 80% 절감) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/dynamic-subset/pretendard-dynamic-subset.css">
-    <link rel="stylesheet" href="style.css?v=225">
+    <link rel="stylesheet" href="style.css?v=226">
     <!-- 히어로 이미지 preload -->
     <link rel="preload" as="image" href="logo-main.webp">
 </head>
@@ -572,6 +572,7 @@
                 <div class="cf-field">
                     <textarea name="message" placeholder="INQUIRY / 문의사항" class="cf-input cf-textarea" required></textarea>
                 </div>
+                <input type="text" name="_gotcha" class="cf-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
                 <button type="submit" class="cf-submit">SEND</button>
                 <p class="cf-status" id="cf-status"></p>
             </form>
